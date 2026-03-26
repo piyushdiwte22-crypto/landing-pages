@@ -1158,10 +1158,9 @@ window.updateHeroScroll = function(progress) {
     } else {
       thumbsEl.style.opacity = 0;
     }
-    // Per-thumbnail float + dissolve — 50 thumbnails, ~6 visible at once
-    // Pre-computed constants (runs once, cached in closure via thumbData)
+    // Per-thumbnail float + dissolve — 50 thumbnails, ~8-9 visible at once
     if (!window._thumbData) {
-      const _ts = S*2.5, _tr = S*25.5, _life = 0.12;
+      const _ts = S*2.5, _tr = S*25.5, _life = 0.18;
       window._thumbData = Array.from(thumbEls).map((th, i) => {
         const speed = parseFloat(th.dataset.speed) || 0.4;
         const offset = i / thumbEls.length;
@@ -1181,27 +1180,27 @@ window.updateHeroScroll = function(progress) {
         if (d.lastState !== 0) { th.style.cssText += ';opacity:0;transform:scale(.85)'; d.lastState = 0; }
         continue;
       }
-      const fadeIn = d.thStart + S * 0.5;
-      const fadeOut = d.thEnd - S * 0.5;
+      const fadeIn = d.thStart + S;
+      const fadeOut = d.thEnd - S;
       if (progress < fadeIn) {
-        const t = (progress - d.thStart) / (S * 0.5);
-        th.style.opacity = 0.35 * t;
+        const t = (progress - d.thStart) / S;
+        th.style.opacity = 0.5 * t;
         th.style.transform = `scale(${0.85 + 0.15 * t})`;
         d.lastState = 1;
       } else if (progress < fadeOut) {
-        const drift = (progress - d.thStart) * d.speed * 300;
+        const drift = (progress - d.thStart) * d.speed * 600;
         const dx = d.cosA * drift;
-        const dy = d.sinA * drift - drift * 0.2;
-        th.style.opacity = 0.35;
-        th.style.transform = `translate3d(${dx}px,${dy}px,0) scale(1) rotate(${dx * 0.01}deg)`;
+        const dy = d.sinA * drift - drift * 0.3;
+        th.style.opacity = 0.5;
+        th.style.transform = `translate3d(${dx}px,${dy}px,0) scale(1) rotate(${dx * 0.02}deg)`;
         d.lastState = 2;
       } else {
-        const t = (progress - fadeOut) / (S * 0.5);
-        const drift = (progress - d.thStart) * d.speed * 300;
-        const dx = d.cosA * drift * (1 + t * 0.3);
-        const dy = d.sinA * drift * (1 + t * 0.3) - drift * 0.2;
-        th.style.opacity = 0.35 * (1 - t);
-        th.style.transform = `translate3d(${dx}px,${dy}px,0) scale(${1 - t * 0.2}) rotate(${dx * 0.015}deg)`;
+        const t = (progress - fadeOut) / S;
+        const drift = (progress - d.thStart) * d.speed * 600;
+        const dx = d.cosA * drift * (1 + t * 0.5);
+        const dy = d.sinA * drift * (1 + t * 0.5) - drift * 0.3;
+        th.style.opacity = 0.5 * (1 - t);
+        th.style.transform = `translate3d(${dx}px,${dy}px,0) scale(${1 - t * 0.3}) rotate(${dx * 0.03}deg)`;
         d.lastState = 3;
       }
     }
