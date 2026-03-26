@@ -297,14 +297,14 @@ footer{padding:28px 48px;border-top:1px solid transparent;border-image:linear-gr
 footer a{color:rgba(255,255,255,.2);text-decoration:none;transition:color .3s}
 footer a:hover{color:#2dd4bf}
 
-/* ══ CAMERA INTRO TEXT ══ */
-.cam-intro{position:absolute;bottom:8vh;left:50%;transform:translateX(-50%);z-index:4;text-align:center;pointer-events:none;width:90%;max-width:800px}
-.cam-line{opacity:0;transform:translateY(28px);will-change:transform,opacity}
-.cam-l1{font-family:'Fraunces',serif;font-size:clamp(22px,3.2vw,42px);font-weight:300;font-style:italic;color:rgba(245,239,232,.85);line-height:1.35;letter-spacing:-0.5px}
-.cam-l2{font-family:'Fraunces',serif;font-size:clamp(22px,3.2vw,42px);font-weight:400;font-style:italic;line-height:1.35;letter-spacing:-0.5px}
-.cam-l2 em{font-style:normal;font-weight:500;background:linear-gradient(135deg,#c4752b,#e8943a,#f0a848);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.cam-l3{font-family:'Outfit',sans-serif;font-size:clamp(11px,1.4vw,16px);font-weight:500;letter-spacing:6px;text-transform:uppercase;color:var(--a);margin-top:20px}
-.cam-l4{font-family:'Crimson Pro',serif;font-size:clamp(14px,1.8vw,20px);font-weight:300;font-style:italic;color:rgba(245,239,232,.35);margin-top:14px;letter-spacing:0.5px}
+/* ══ HERO INTRO TEXT (first screen) ══ */
+.hero-intro{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;text-align:center;pointer-events:none;width:90%;max-width:750px}
+.hi-line{will-change:transform,opacity;opacity:0;transform:translateY(24px)}
+.hi-l1{font-family:'Fraunces',serif;font-size:clamp(28px,4.5vw,56px);font-weight:300;font-style:italic;color:rgba(245,239,232,.9);line-height:1.3;letter-spacing:-0.5px;margin-bottom:6px}
+.hi-l2{font-family:'Fraunces',serif;font-size:clamp(28px,4.5vw,56px);font-weight:400;font-style:italic;line-height:1.3;letter-spacing:-0.5px;margin-bottom:28px}
+.hi-l2 em{font-style:normal;font-weight:500;background:linear-gradient(135deg,#c4752b,#e8943a,#f0a848);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hi-l3{font-family:'Outfit',sans-serif;font-size:clamp(10px,1.2vw,14px);font-weight:500;letter-spacing:6px;text-transform:uppercase;color:var(--a);margin-bottom:16px;opacity:.9}
+.hi-l4{font-family:'Crimson Pro',serif;font-size:clamp(15px,2vw,22px);font-weight:300;font-style:italic;color:rgba(245,239,232,.3);letter-spacing:0.5px}
 
 /* Section header animations */
 .sec-h h2,.sec-h p,.kit-h,.kit-sub{opacity:0;transform:translateY(20px)}
@@ -314,8 +314,8 @@ footer a:hover{color:#2dd4bf}
   html{scroll-snap-type:none}
   nav{padding:20px}
   .hero-text{padding:0 20px}
-  .cam-intro{bottom:6vh}
-  .cam-l3{letter-spacing:4px}
+  .hero-intro{width:95%}
+  .hi-l3{letter-spacing:4px}
   /* Hero videos: near full-width on mobile, 16:9 aspect */
   .hero-vid{width:92vw;height:51.75vw;border-radius:8px}
   .hero-vid .vid-title{font-size:14px}
@@ -529,12 +529,12 @@ footer a:hover{color:#2dd4bf}
       <p class="h-sub">6+ years turning brands into stories people actually watch. From luxury resorts to 4x4 adventures — strategy, camera, edit, publish.</p>
       <div class="h-cta"><a href="#work">View my work <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></a></div>
     </div>
-    <!-- Camera intro text (scroll-animated during camera section) -->
-    <div class="cam-intro" id="camIntro">
-      <div class="cam-line cam-l1">Every visual on this page</div>
-      <div class="cam-line cam-l2">— <em>filmed</em>, <em>edited</em>, and <em>delivered</em> by me.</div>
-      <div class="cam-line cam-l3">End to end</div>
-      <div class="cam-line cam-l4">Let the work do the talking.</div>
+    <!-- Hero intro text (visible on first screen, fades on scroll) -->
+    <div class="hero-intro" id="heroIntro">
+      <div class="hi-line hi-l1">Every visual on this page</div>
+      <div class="hi-line hi-l2">— <em>filmed</em>, <em>edited</em>, and <em>delivered</em> by me.</div>
+      <div class="hi-line hi-l3">End to end</div>
+      <div class="hi-line hi-l4">Let the work do the talking.</div>
     </div>
     <div class="h-scroll"><span>Scroll</span><i></i></div>
   </div>
@@ -1243,46 +1243,31 @@ window.updateHeroScroll = function(progress) {
     }
   }
 
-  // ── Camera Intro Text: staggered reveal stages 5-11, fade out before video 1 ──
-  const camIntro = document.getElementById('camIntro');
-  if (camIntro) {
-    const lines = camIntro.querySelectorAll('.cam-line');
-    // 4 lines stagger across stages 5→10, each takes ~1.5 stages to fully appear
-    const lineTimings = [
-      [S*5,   S*6.5],   // "Every visual on this page"
-      [S*6,   S*7.5],   // "— filmed, edited, and delivered by me."
-      [S*7.5, S*9],     // "End to end"
-      [S*8.5, S*10],    // "Let the work do the talking."
-    ];
-    const fadeOutStart = S*10.5;
-    const fadeOutEnd = S*11.5;
+  // ── Hero Intro Text: visible on first screen, fades out stages 1.5→2.5 ──
+  const heroIntro = document.getElementById('heroIntro');
+  if (heroIntro) {
+    const hiLines = heroIntro.querySelectorAll('.hi-line');
+    const fadeStart = S*1.5;
+    const fadeEnd = S*2.5;
+    const maxOpacities = [1, 1, 0.9, 0.3]; // target opacity per line
 
-    lines.forEach((line, i) => {
-      const [start, peak] = lineTimings[i];
-      if (progress < start) {
-        line.style.opacity = 0;
-        line.style.transform = 'translateY(28px)';
-      } else if (progress < peak) {
-        const t = (progress - start) / (peak - start);
-        const e = t * t * (3 - 2 * t); // smoothstep
-        line.style.opacity = e;
-        line.style.transform = `translateY(${28 * (1 - e)}px)`;
-      } else if (progress < fadeOutStart) {
-        line.style.opacity = 1;
-        line.style.transform = 'translateY(0)';
-      } else if (progress < fadeOutEnd) {
-        const t = (progress - fadeOutStart) / (fadeOutEnd - fadeOutStart);
+    hiLines.forEach((line, i) => {
+      if (progress < fadeStart) {
+        // Don't override — startHeroAnim CSS transition handles entrance
+      } else if (progress < fadeEnd) {
+        line.style.transition = 'none';
+        const t = (progress - fadeStart) / (fadeEnd - fadeStart);
         const e = t * t * (3 - 2 * t);
-        line.style.opacity = 1 - e;
-        line.style.transform = `translateY(${-20 * e}px)`;
+        line.style.opacity = maxOpacities[i] * (1 - e);
+        line.style.transform = `translateY(${-30 * e}px)`;
       } else {
+        line.style.transition = 'none';
         line.style.opacity = 0;
-        line.style.transform = 'translateY(-20px)';
       }
     });
   }
 
-  // ── Video Showcase: 4 videos, 5 scrolls each (stages 12-29) ──
+    // ── Video Showcase: 4 videos, 5 scrolls each (stages 12-29) ──
   if (heroVidsEl) {
     const inVideoZone = progress >= S*11 && progress < S*30;
     heroVidsEl.style.pointerEvents = inVideoZone ? 'auto' : 'none';
@@ -1567,7 +1552,15 @@ gsap.ticker.add((t, dt) => {
 // ── Entrance (camera fades in via scroll — no initial animation) ──
 window.startHeroAnim = function() {
   if (!solidGroup) { window._heroAnimRequested = true; return; }
-  // Camera starts hidden, scroll reveals it at stage 3
+  // Animate hero intro text in with stagger
+  const hiLines = document.querySelectorAll('.hi-line');
+  hiLines.forEach((line, i) => {
+    setTimeout(() => {
+      line.style.transition = 'opacity 0.9s ease-out, transform 0.9s ease-out';
+      line.style.opacity = line.classList.contains('hi-l4') ? 0.3 : (line.classList.contains('hi-l3') ? 0.9 : 1);
+      line.style.transform = 'translateY(0)';
+    }, i * 180 + 100);
+  });
 };
 </script>
 
