@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Typography Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=DM+Serif+Display&family=DM+Serif+Text:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@200;300;400;500;600&family=Syne:wght@300;400;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#f5efe8;overflow-x:hidden}
+.option{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;position:relative;border-bottom:1px solid rgba(255,255,255,.04)}
+.option::before{content:attr(data-label);position:absolute;top:24px;left:32px;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(196,117,43,.5)}
+.option::after{content:attr(data-desc);position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(245,239,232,.15);max-width:500px;text-align:center}
+.gold{background:linear-gradient(135deg,#c4752b,#e8943a,#f0a848,#c4752b);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shim 6s linear infinite}
+@keyframes shim{to{background-position:200% center}}
+
+/* ═══ CONCEPT 1: Word-by-word reveal ═══ */
+.c1-wrap{max-width:900px}
+.c1-wrap .word{display:inline-block;font-family:'DM Serif Display',serif;font-size:clamp(40px,7vw,96px);line-height:1.05;letter-spacing:-2px;opacity:0;transform:translateY(20px);animation:wordIn 0.6s ease forwards}
+.c1-wrap .word.light{font-family:'DM Sans',sans-serif;font-weight:300;color:rgba(245,239,232,.8)}
+.c1-wrap .word.bold{font-weight:400}
+.c1-wrap .word:nth-child(1){animation-delay:0.1s}
+.c1-wrap .word:nth-child(2){animation-delay:0.25s}
+.c1-wrap .word:nth-child(3){animation-delay:0.4s}
+.c1-wrap .word:nth-child(4){animation-delay:0.55s}
+.c1-wrap .word:nth-child(5){animation-delay:0.7s}
+.c1-wrap .word:nth-child(6){animation-delay:0.85s}
+.c1-wrap .sub{display:block;margin-top:24px;opacity:0;animation:wordIn 0.8s 1.2s ease forwards}
+.c1-wrap .sub span{font-family:'Outfit',sans-serif;font-size:clamp(9px,1vw,12px);letter-spacing:7px;text-transform:uppercase;color:#c4752b}
+.c1-wrap .whisper{display:block;margin-top:12px;opacity:0;animation:wordIn 0.8s 1.5s ease forwards}
+.c1-wrap .whisper span{font-family:'DM Serif Text',serif;font-size:clamp(13px,1.4vw,18px);font-style:italic;color:rgba(245,239,232,.18)}
+@keyframes wordIn{to{opacity:1;transform:translateY(0)}}
+
+/* ═══ CONCEPT 2: Giant keyword stack ═══ */
+.c2-wrap{max-width:1000px}
+.c2-line{overflow:hidden}
+.c2-line span{display:inline-block;animation:slideUp 0.7s ease forwards;opacity:0;transform:translateY(100%)}
+.c2-top{font-family:'DM Sans',sans-serif;font-size:clamp(14px,1.8vw,22px);font-weight:300;letter-spacing:3px;color:rgba(245,239,232,.4);margin-bottom:12px}
+.c2-top span{animation-delay:0.1s}
+.c2-big{font-family:'DM Serif Display',serif;font-size:clamp(50px,9vw,130px);line-height:.88;letter-spacing:-4px;margin-bottom:4px}
+.c2-big:nth-child(2) span{animation-delay:0.3s}
+.c2-big:nth-child(3) span{animation-delay:0.5s}
+.c2-bot{font-family:'Outfit',sans-serif;font-size:clamp(10px,1.1vw,13px);font-weight:500;letter-spacing:7px;text-transform:uppercase;color:#c4752b;margin-top:20px}
+.c2-bot span{animation-delay:0.8s}
+.c2-end{font-family:'DM Serif Text',serif;font-size:clamp(13px,1.4vw,18px);font-style:italic;color:rgba(245,239,232,.15);margin-top:14px}
+.c2-end span{animation-delay:1s}
+@keyframes slideUp{to{opacity:1;transform:translateY(0)}}
+
+/* ═══ CONCEPT 3: Left-aligned cinematic ═══ */
+.c3-wrap{max-width:900px;text-align:left;padding-left:8vw}
+.c3-small{font-family:'DM Sans',sans-serif;font-size:clamp(11px,1.2vw,15px);font-weight:400;letter-spacing:3px;color:rgba(245,239,232,.3);margin-bottom:16px;opacity:0;animation:fadeSlideR 0.6s 0.1s ease forwards}
+.c3-main{font-family:'DM Serif Display',serif;font-size:clamp(38px,6vw,84px);line-height:.92;letter-spacing:-2px;margin-bottom:8px;opacity:0;animation:fadeSlideR 0.7s 0.3s ease forwards}
+.c3-main2{font-family:'DM Serif Display',serif;font-size:clamp(38px,6vw,84px);line-height:.92;letter-spacing:-2px;margin-bottom:28px;opacity:0;animation:fadeSlideR 0.7s 0.5s ease forwards}
+.c3-rule{width:60px;height:1px;background:linear-gradient(90deg,#c4752b,transparent);margin-bottom:16px;opacity:0;animation:fadeSlideR 0.5s 0.7s ease forwards}
+.c3-tag{font-family:'Outfit',sans-serif;font-size:clamp(9px,1vw,12px);letter-spacing:6px;text-transform:uppercase;color:#c4752b;margin-bottom:10px;opacity:0;animation:fadeSlideR 0.5s 0.8s ease forwards}
+.c3-end{font-family:'DM Serif Text',serif;font-size:clamp(14px,1.6vw,20px);font-style:italic;color:rgba(245,239,232,.18);opacity:0;animation:fadeSlideR 0.6s 1s ease forwards}
+@keyframes fadeSlideR{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+
+/* ═══ CONCEPT 4: Split highlight ═══ */
+.c4-wrap{max-width:900px}
+.c4-top{font-family:'DM Sans',sans-serif;font-size:clamp(28px,4.5vw,60px);font-weight:300;line-height:1.15;color:rgba(245,239,232,.7);margin-bottom:6px;opacity:0;animation:wordIn 0.7s 0.2s ease forwards}
+.c4-mid{display:flex;align-items:center;justify-content:center;gap:clamp(12px,2vw,24px);margin-bottom:28px;opacity:0;animation:wordIn 0.7s 0.5s ease forwards}
+.c4-mid .kw{font-family:'DM Serif Display',serif;font-size:clamp(36px,6vw,82px);letter-spacing:-2px}
+.c4-mid .dot{width:8px;height:8px;border-radius:50%;background:#c4752b;flex-shrink:0}
+.c4-sub{font-family:'Outfit',sans-serif;font-size:clamp(9px,1vw,12px);letter-spacing:7px;text-transform:uppercase;color:#c4752b;margin-bottom:14px;opacity:0;animation:wordIn 0.6s 0.9s ease forwards}
+.c4-end{font-family:'DM Serif Text',serif;font-size:clamp(13px,1.4vw,18px);font-style:italic;color:rgba(245,239,232,.18);opacity:0;animation:wordIn 0.6s 1.1s ease forwards}
+
+/* ═══ CONCEPT 5: Minimal mono grid ═══ */
+.c5-wrap{max-width:800px;text-align:left}
+.c5-label{font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:rgba(196,117,43,.5);margin-bottom:20px;opacity:0;animation:wordIn 0.5s 0.1s ease forwards}
+.c5-line{font-family:'DM Serif Display',serif;font-size:clamp(42px,7vw,100px);line-height:.9;letter-spacing:-3px;opacity:0;animation:wordIn 0.6s ease forwards}
+.c5-l1{animation-delay:0.2s;color:rgba(245,239,232,.85)}
+.c5-l2{animation-delay:0.4s;margin-bottom:24px}
+.c5-divider{display:flex;align-items:center;gap:16px;margin-bottom:20px;opacity:0;animation:wordIn 0.5s 0.7s ease forwards}
+.c5-divider hr{flex:1;border:none;height:1px;background:rgba(196,117,43,.2)}
+.c5-divider span{font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:#c4752b;white-space:nowrap}
+.c5-end{font-family:'DM Serif Text',serif;font-size:clamp(15px,1.8vw,22px);font-style:italic;color:rgba(245,239,232,.15);opacity:0;animation:wordIn 0.6s 0.9s ease forwards}
+
+/* ═══ CONCEPT 6: Scattered → assembled ═══ */
+.c6-wrap{max-width:1000px;position:relative;height:300px}
+.c6-word{position:absolute;font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,68px);opacity:0;transition:all 1.2s cubic-bezier(.16,1,.3,1)}
+.c6-word.assembled{opacity:1}
+.c6-w1{top:0;left:50%;transform:translate(-50%,0)}
+.c6-w2{top:35%;left:10%;color:rgba(245,239,232,.8)}
+.c6-w3{top:35%;left:35%}
+.c6-w4{top:35%;left:58%;color:rgba(245,239,232,.8)}
+.c6-w5{top:35%;right:10%}
+.c6-w6{top:70%;left:50%;transform:translate(-50%,0);color:rgba(245,239,232,.8)}
+.c6-sub{position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:6px;text-transform:uppercase;color:#c4752b;opacity:0;transition:opacity 0.8s 1s ease;white-space:nowrap}
+.c6-sub.assembled{opacity:1}
+
+/* ═══ CONCEPT 7: Typewriter with cursor ═══ */
+.c7-wrap{max-width:900px;text-align:left;padding-left:8vw}
+.c7-line{font-family:'DM Serif Display',serif;font-size:clamp(36px,5.5vw,76px);line-height:1;letter-spacing:-2px;overflow:hidden;white-space:nowrap;border-right:2px solid #c4752b;width:0;animation:typeOut 1.5s 0.3s steps(30) forwards}
+.c7-line2{font-family:'DM Serif Display',serif;font-size:clamp(36px,5.5vw,76px);line-height:1;letter-spacing:-2px;overflow:hidden;white-space:nowrap;border-right:2px solid #c4752b;width:0;animation:typeOut 1.8s 1.8s steps(35) forwards}
+.c7-cursor{animation:blink 0.8s infinite}
+.c7-tag{font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:6px;text-transform:uppercase;color:#c4752b;margin-top:24px;opacity:0;animation:wordIn 0.6s 3.8s ease forwards}
+.c7-end{font-family:'DM Serif Text',serif;font-size:clamp(14px,1.6vw,20px);font-style:italic;color:rgba(245,239,232,.15);margin-top:12px;opacity:0;animation:wordIn 0.6s 4.2s ease forwards}
+@keyframes typeOut{to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
+</style>
+</head>
+<body>
+
+<!-- CONCEPT 1: Word-by-word -->
+<div class="option" data-label="Concept 1 — Word by Word" data-desc="Each word drops in individually, building the sentence piece by piece">
+  <div class="c1-wrap">
+    <span class="word light">Every </span><span class="word light">visual </span><span class="word light">on </span><span class="word light">this </span><span class="word light">page </span><br>
+    <span class="word bold gold">filmed, </span><span class="word bold gold">edited, </span><span class="word bold gold">and </span><span class="word bold gold">delivered </span><span class="word bold gold">by </span><span class="word bold gold">me.</span>
+    <span class="sub"><span>End to end</span></span>
+    <span class="whisper"><span>Let the work do the talking.</span></span>
+  </div>
+</div>
+
+<!-- CONCEPT 2: Giant keyword stack -->
+<div class="option" data-label="Concept 2 — Giant Stack" data-desc="Keywords dominate. Slide up from below like film credits in reverse.">
+  <div class="c2-wrap">
+    <div class="c2-line c2-top"><span>Every visual on this page</span></div>
+    <div class="c2-line c2-big"><span class="gold">Filmed.</span></div>
+    <div class="c2-line c2-big"><span class="gold">Edited.</span></div>
+    <div class="c2-line c2-big"><span class="gold">Delivered.</span></div>
+    <div class="c2-line c2-bot"><span>End to end</span></div>
+    <div class="c2-line c2-end"><span>Let the work do the talking.</span></div>
+  </div>
+</div>
+
+<!-- CONCEPT 3: Left-aligned cinematic -->
+<div class="option" data-label="Concept 3 — Left Cinematic" data-desc="Left-aligned with a gold rule divider. Slides in from the left like opening credits.">
+  <div class="c3-wrap">
+    <div class="c3-small">Every visual on this page</div>
+    <div class="c3-main gold">Filmed, edited,</div>
+    <div class="c3-main2 gold">and delivered by me.</div>
+    <div class="c3-rule"></div>
+    <div class="c3-tag">End to end</div>
+    <div class="c3-end">Let the work do the talking.</div>
+  </div>
+</div>
+
+<!-- CONCEPT 4: Split highlight with dots -->
+<div class="option" data-label="Concept 4 — Split Keywords" data-desc="Three golden keywords separated by dots. Clean, punchy, memorable.">
+  <div class="c4-wrap">
+    <div class="c4-top">Every visual on this page</div>
+    <div class="c4-mid">
+      <span class="kw gold">filmed</span>
+      <span class="dot"></span>
+      <span class="kw gold">edited</span>
+      <span class="dot"></span>
+      <span class="kw gold">delivered</span>
+    </div>
+    <div class="c4-sub">End to end</div>
+    <div class="c4-end">Let the work do the talking.</div>
+  </div>
+</div>
+
+<!-- CONCEPT 5: Minimal with divider -->
+<div class="option" data-label="Concept 5 — Minimal Divider" data-desc="Left-aligned oversized type with a ruled divider. Quiet confidence.">
+  <div class="c5-wrap">
+    <div class="c5-label">Piyush Diwte</div>
+    <div class="c5-line c5-l1">Every visual on this page</div>
+    <div class="c5-line c5-l2 gold">filmed, edited, delivered.</div>
+    <div class="c5-divider"><hr><span>End to end</span><hr></div>
+    <div class="c5-end">Let the work do the talking.</div>
+  </div>
+</div>
+
+<!-- CONCEPT 6: Scattered → assembled -->
+<div class="option" data-label="Concept 6 — Scattered Assemble" data-desc="Words start scattered across the screen, then assemble into place on scroll.">
+  <div class="c6-wrap" id="c6">
+    <div class="c6-word c6-w1" style="color:rgba(245,239,232,.7)">Every visual on this page</div>
+    <div class="c6-word c6-w2 gold">filmed,</div>
+    <div class="c6-word c6-w3 gold">edited,</div>
+    <div class="c6-word c6-w4">and</div>
+    <div class="c6-word c6-w5 gold">delivered.</div>
+    <div class="c6-word c6-w6">by me.</div>
+    <div class="c6-sub" id="c6sub">End to end</div>
+  </div>
+</div>
+
+<!-- CONCEPT 7: Typewriter -->
+<div class="option" data-label="Concept 7 — Typewriter" data-desc="Text types itself out with a blinking cursor. Feels like a terminal or a director's script.">
+  <div class="c7-wrap">
+    <div class="c7-line">Every visual on this page</div>
+    <div class="c7-line2 gold">filmed, edited, and delivered by me.</div>
+    <div class="c7-tag">End to end</div>
+    <div class="c7-end">Let the work do the talking.</div>
+  </div>
+</div>
+
+<script>
+// Concept 6: auto-assemble after 1s
+setTimeout(() => {
+  document.querySelectorAll('.c6-word').forEach(w => w.classList.add('assembled'));
+  document.getElementById('c6sub').classList.add('assembled');
+}, 1500);
+
+// Replay animations when scrolled into view
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      // Clone and replace to restart CSS animations
+      const clone = el.cloneNode(true);
+      el.parentNode.replaceChild(clone, el);
+      observer.observe(clone);
+      // Re-trigger concept 6
+      if (clone.querySelector('.c6-word')) {
+        setTimeout(() => {
+          clone.querySelectorAll('.c6-word').forEach(w => w.classList.add('assembled'));
+          clone.querySelector('.c6-sub').classList.add('assembled');
+        }, 1500);
+      }
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('.option').forEach(o => observer.observe(o));
+</script>
+</body>
+</html>
