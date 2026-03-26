@@ -935,49 +935,39 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
   const sz = box.getSize(new THREE.Vector3());
   const scaleFactor = 5.0 / Math.max(sz.x, sz.y, sz.z);
 
-  // Helper: detect flat/internal meshes (ground planes, aperture blades, iris)
-  function shouldHide(child) {
+  // Helper: is ground plane?
+  function isFlat(child) {
     if (!child.geometry) return false;
     child.geometry.computeBoundingBox();
     const s = child.geometry.boundingBox.getSize(new THREE.Vector3());
-    // Hide flat planes (ground, aperture blades)
-    if (s.x < 0.05 || s.y < 0.05 || s.z < 0.05) return true;
-    // Hide very bright/white internal meshes (lens interior, iris)
-    if (child.material) {
-      const m = child.material;
-      if (m.color) {
-        const lum = m.color.r * 0.299 + m.color.g * 0.587 + m.color.b * 0.114;
-        // Very bright white meshes are likely internal lens parts
-        if (lum > 0.9 && m.metalness < 0.3) return true;
-      }
-    }
-    return false;
+    return s.x < 0.01 || s.y < 0.01 || s.z < 0.01;
   }
 
   // ── SOLID MODEL ──
   solidGroup = new THREE.Group();
   model.traverse(child => {
     if (child.isMesh) {
-      if (shouldHide(child)) { child.visible = false; return; }
+      if (isFlat(child)) { child.visible = false; return; }
       if (child.material) {
         const m = child.material;
         if (m.isMeshStandardMaterial) {
           m.envMapIntensity = 0.1;
-          m.roughness = Math.max(m.roughness, 0.65);
+          m.roughness = Math.max(m.roughness, 0.6);
           m.metalness = Math.min(m.metalness, 0.5);
-          // Darken any glass/transparent lens elements
-          if (m.transparent || m.opacity < 1) {
-            m.color.setHex(0x111111);
-            m.roughness = 0.9;
-            m.metalness = 0.1;
-          }
-          // Darken very light colored parts (lens interior reflections)
+          // Darken the bright white lens interior / aperture blades
           if (m.color) {
             const lum = m.color.r * 0.299 + m.color.g * 0.587 + m.color.b * 0.114;
-            if (lum > 0.7) {
-              m.color.multiplyScalar(0.3);
-              m.roughness = 0.85;
+            if (lum > 0.85) {
+              m.color.setHex(0x1a1a1a);
+              m.roughness = 0.95;
+              m.metalness = 0.0;
+              m.emissive && m.emissive.setHex(0x000000);
             }
+          }
+          // Darken glass/transparent elements
+          if (m.transparent || m.opacity < 1) {
+            m.color.setHex(0x0a0a0a);
+            m.roughness = 0.95;
           }
         }
       }
