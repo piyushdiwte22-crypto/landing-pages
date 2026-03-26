@@ -817,11 +817,15 @@ function createParticlesFromModel(model) {
     bgModelOrig.push({ x, y, z });
     // Scatter outward from center
     const dist = Math.sqrt(x*x + y*y + z*z) || 1;
-    const er = 30 + Math.random() * 40;
+    // Scatter to random full-screen positions (frustum-aware)
+    const sZ = -25 + Math.random() * 50;
+    const sDist = 32 - sZ;
+    const sHalfH = sDist * 0.577 * 1.1;
+    const sHalfW = sHalfH * (window.innerWidth / window.innerHeight) * 1.1;
     bgScatterDest.push({
-      x: (x / dist) * er + (Math.random() - 0.5) * 25,
-      y: (y / dist) * er + (Math.random() - 0.5) * 25,
-      z: (z / dist) * er + (Math.random() - 0.5) * 15
+      x: (Math.random() - 0.5) * 2 * sHalfW,
+      y: (Math.random() - 0.5) * 2 * sHalfH,
+      z: sZ
     });
     positions[i*3] = x; positions[i*3+1] = y; positions[i*3+2] = z;
     const rnd = Math.random();
@@ -830,11 +834,20 @@ function createParticlesFromModel(model) {
     sizes[i] = Math.random() * 4.0 + 2.0;
   }
 
-  // Random field particles — dense cloud filling entire viewport
+  // Random field particles — distributed within camera frustum for full-screen coverage
+  // Camera at z=32, fov=60. At depth d from camera: halfH = d * tan(30°)
+  const camZ = 32;
+  const tanHalf = Math.tan(30 * Math.PI / 180); // tan(30°) ≈ 0.577
+  const aspect = window.innerWidth / window.innerHeight;
   for (let i = BG_MODEL; i < BG_TOTAL; i++) {
-    const x = (Math.random() - 0.5) * 200;
-    const y = (Math.random() - 0.5) * 200;
-    const z = (Math.random() - 0.5) * 90;
+    // Random depth: z from -30 to 28 (spread in front of camera)
+    const z = -30 + Math.random() * 58;
+    const depthFromCam = camZ - z;
+    // Visible half-extents at this depth (with 20% overflow for edge coverage)
+    const halfH = depthFromCam * tanHalf * 1.2;
+    const halfW = halfH * aspect * 1.2;
+    const x = (Math.random() - 0.5) * 2 * halfW;
+    const y = (Math.random() - 0.5) * 2 * halfH;
     positions[i*3] = x; positions[i*3+1] = y; positions[i*3+2] = z;
     bgModelOrig.push({ x, y, z });
     bgScatterDest.push({ x, y, z });
@@ -1472,8 +1485,8 @@ gsap.ticker.add((t, dt) => {
       // Explosion — max brightness
       targetFade = 1.0;
     } else {
-      // Rest of page — alive with soft scroll pulse
-      targetFade = 0.7 + Math.sin(gp * Math.PI) * 0.3;
+      // Rest of page — stay bright and alive
+      targetFade = 0.85;
     }
     if (heroProgress >= particleStart) {
       bgMat.uniforms.uFade.value += (targetFade - bgMat.uniforms.uFade.value) * 0.1;
@@ -1549,11 +1562,16 @@ ScrollTrigger.create({
   }
 });
 
-// ══ PROGRESS BAR ══
+// ══ PROGRESS BAR + PARTICLE CANVAS PERSISTENCE ══
 window.addEventListener('scroll', () => {
   const h = document.documentElement.scrollHeight - window.innerHeight;
   const p = (window.scrollY / h) * 100;
   document.getElementById('progressBar').style.width = p + '%';
+  // Keep particle canvas visible after hero section ends
+  const c3d = document.getElementById('cam3d');
+  if (c3d && heroProgress >= 0.9) {
+    c3d.style.opacity = 1;
+  }
 });
 
 // cursor glow removed
