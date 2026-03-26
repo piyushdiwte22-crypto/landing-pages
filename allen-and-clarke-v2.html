@@ -732,22 +732,20 @@ bgMat = new THREE.ShaderMaterial({
     void main() {
       vC = color;
       vec3 p = position;
-      // Mouse interaction — repulsion with smooth falloff
+      // Mouse interaction — gentle push with smooth falloff
       vec4 mv = modelViewMatrix * vec4(p, 1.0);
       vec4 pr = projectionMatrix * mv;
       vec2 s = pr.xy / pr.w;
       vec2 d = s - uMouse;
       float dist = length(d);
-      // Strong repulsion close, gentle push further out
-      if (dist < 0.8) {
-        float strength = smoothstep(0.8, 0.0, dist) * 4.0;
+      if (dist < 0.5) {
+        float strength = smoothstep(0.5, 0.0, dist) * 1.5;
         vec2 dir = dist > 0.001 ? normalize(d) : vec2(0.0);
-        p.x += dir.x * strength * 2.5;
-        p.y += dir.y * strength * 2.5;
+        p.x += dir.x * strength;
+        p.y += dir.y * strength;
       }
       mv = modelViewMatrix * vec4(p, 1.0);
-      // Slight size boost near mouse for glow effect
-      float mouseGlow = smoothstep(0.6, 0.0, dist) * 0.4 + 1.0;
+      float mouseGlow = smoothstep(0.4, 0.0, dist) * 0.25 + 1.0;
       gl_PointSize = size * (220.0 / -mv.z) * mouseGlow;
       gl_PointSize = max(gl_PointSize, 1.0);
       gl_Position = projectionMatrix * mv;
@@ -832,11 +830,11 @@ function createParticlesFromModel(model) {
     sizes[i] = Math.random() * 4.0 + 2.0;
   }
 
-  // Random field particles — dense cloud for immersive feel
+  // Random field particles — dense cloud filling entire viewport
   for (let i = BG_MODEL; i < BG_TOTAL; i++) {
-    const x = (Math.random() - 0.5) * 120;
-    const y = (Math.random() - 0.5) * 140;
-    const z = (Math.random() - 0.5) * 60;
+    const x = (Math.random() - 0.5) * 200;
+    const y = (Math.random() - 0.5) * 200;
+    const z = (Math.random() - 0.5) * 90;
     positions[i*3] = x; positions[i*3+1] = y; positions[i*3+2] = z;
     bgModelOrig.push({ x, y, z });
     bgScatterDest.push({ x, y, z });
@@ -1481,10 +1479,9 @@ gsap.ticker.add((t, dt) => {
       bgMat.uniforms.uFade.value += (targetFade - bgMat.uniforms.uFade.value) * 0.1;
     }
 
-    // Gentle scroll interaction — particles drift with scroll position
+    // Particles stay fixed in viewport, ultra-subtle drift
     if (bgParticles) {
-      bgParticles.position.y = -pageScrollY * 0.002; // soft parallax
-      bgParticles.rotation.y += 0.0002; // ultra-slow constant rotation for life
+      bgParticles.rotation.y += 0.00008;
     }
   }
 
