@@ -1530,13 +1530,13 @@ ScrollTrigger.create({
     // Drive the Three.js camera transitions
     if (window.updateHeroScroll) window.updateHeroScroll(p);
 
-    // ── CTA text (stage 31-33: one scroll gap after 4th video exits at 29) ──
+    // ── CTA text (stage 29-33: appears right as 4th video exits) ──
     if (heroTextEl) {
-      if (p < S*31) {
+      if (p < S*29) {
         heroTextEl.style.opacity = 0;
         heroTextEl.style.transform = 'translateY(40px)';
-      } else if (p < S*32) {
-        const t = (p - S*31) / S;
+      } else if (p < S*30) {
+        const t = (p - S*29) / S;
         const e = t * t * (3 - 2 * t);
         heroTextEl.style.opacity = e;
         heroTextEl.style.transform = `translateY(${40 * (1 - e)}px)`;
