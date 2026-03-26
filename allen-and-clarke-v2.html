@@ -935,25 +935,50 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
   const sz = box.getSize(new THREE.Vector3());
   const scaleFactor = 5.0 / Math.max(sz.x, sz.y, sz.z);
 
-  // Helper: is ground plane?
-  function isFlat(child) {
+  // Helper: detect flat/internal meshes (ground planes, aperture blades, iris)
+  function shouldHide(child) {
     if (!child.geometry) return false;
     child.geometry.computeBoundingBox();
     const s = child.geometry.boundingBox.getSize(new THREE.Vector3());
-    return s.x < 0.01 || s.y < 0.01 || s.z < 0.01;
+    // Hide flat planes (ground, aperture blades)
+    if (s.x < 0.05 || s.y < 0.05 || s.z < 0.05) return true;
+    // Hide very bright/white internal meshes (lens interior, iris)
+    if (child.material) {
+      const m = child.material;
+      if (m.color) {
+        const lum = m.color.r * 0.299 + m.color.g * 0.587 + m.color.b * 0.114;
+        // Very bright white meshes are likely internal lens parts
+        if (lum > 0.9 && m.metalness < 0.3) return true;
+      }
+    }
+    return false;
   }
 
   // ── SOLID MODEL ──
   solidGroup = new THREE.Group();
   model.traverse(child => {
     if (child.isMesh) {
-      if (isFlat(child)) { child.visible = false; return; }
+      if (shouldHide(child)) { child.visible = false; return; }
       if (child.material) {
         const m = child.material;
         if (m.isMeshStandardMaterial) {
-          m.envMapIntensity = 0.15;
-          m.roughness = Math.max(m.roughness, 0.55);
-          m.metalness = Math.min(m.metalness, 0.6);
+          m.envMapIntensity = 0.1;
+          m.roughness = Math.max(m.roughness, 0.65);
+          m.metalness = Math.min(m.metalness, 0.5);
+          // Darken any glass/transparent lens elements
+          if (m.transparent || m.opacity < 1) {
+            m.color.setHex(0x111111);
+            m.roughness = 0.9;
+            m.metalness = 0.1;
+          }
+          // Darken very light colored parts (lens interior reflections)
+          if (m.color) {
+            const lum = m.color.r * 0.299 + m.color.g * 0.587 + m.color.b * 0.114;
+            if (lum > 0.7) {
+              m.color.multiplyScalar(0.3);
+              m.roughness = 0.85;
+            }
+          }
         }
       }
     }
