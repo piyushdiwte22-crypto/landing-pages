@@ -447,7 +447,7 @@ footer a:hover{color:#2dd4bf}
       <div class="hero-thumb" style="width:209px;height:131px;top:68%;left:6%" data-speed="0.4"><img src="https://vumbnail.com/1028616139.jpg" alt=""></div>
       <div class="hero-thumb" style="width:152px;height:95px;top:8%;left:calc(100% - 6% - 152px)" data-speed="0.55"><img src="https://i.ytimg.com/vi/3-wYjmU7fC0/maxresdefault.jpg" alt=""></div>
       <div class="hero-thumb" style="width:287px;height:179px;top:6%;left:18%" data-speed="0.35"><img src="https://vumbnail.com/1016618742.jpg" alt=""></div>
-      <div class="hero-thumb" style="width:173px;height:108px;top:82%;left:44%" data-speed="0.45"><img src="https://i.ytimg.com/vi/wt0Du5e2r_4/maxresdefault.jpg" alt=""></div>
+      <div class="hero-thumb" style="width:173px;height:108px;top:82%;left:44%" data-speed="0.45"><img src="https://i.ytimg.com/vi/wt0Du5e2r_4/hqdefault.jpg" alt=""></div>
       <div class="hero-thumb" style="width:320px;height:200px;top:8%;left:8%" data-speed="0.3"><img src="https://vumbnail.com/1034381587.jpg" alt=""></div>
       <div class="hero-thumb" style="width:135px;height:84px;top:38%;left:calc(100% - 10% - 135px)" data-speed="0.4"><img src="https://vumbnail.com/1034751185.jpg" alt=""></div>
       <div class="hero-thumb" style="width:229px;height:143px;top:3%;left:44%" data-speed="0.5"><img src="https://vumbnail.com/1037371098.jpg" alt=""></div>
@@ -493,7 +493,7 @@ footer a:hover{color:#2dd4bf}
         <button class="vid-unmute" data-idx="1"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5zm2 3.17v7.66A6.5 6.5 0 0016.5 12 6.5 6.5 0 0013 8.17z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#f5efe8" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#f5efe8" stroke-width="2"/></svg> Unmute</button>
       </div>
       <div class="hero-vid" id="hv3">
-        <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/wt0Du5e2r_4/maxresdefault.jpg')"></div>
+        <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/wt0Du5e2r_4/hqdefault.jpg')"></div>
         <iframe data-src="https://www.youtube.com/embed/wt0Du5e2r_4?enablejsapi=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Conference</div><div class="vid-title">Soul Con</div></div>
@@ -717,7 +717,7 @@ let bgParticles = null, bgMat = null; // lp-test style background
 // ═══ BACKGROUND PARTICLES — created from camera model vertices after GLTF loads ═══
 let bgGeo = null, bgLinesMesh = null, bgLinesGeo = null, bgLinesMat = null;
 const bgModelOrig = [], bgScatterDest = [];
-let BG_MODEL = 0, BG_FIELD = 1200, BG_TOTAL = 0;
+let BG_MODEL = 0, BG_FIELD = 2500, BG_TOTAL = 0;
 
 // Particle shader material (created now, geometry added after model loads)
 bgMat = new THREE.ShaderMaterial({
@@ -788,7 +788,7 @@ function createParticlesFromModel(model) {
   });
 
   // Sample ~600 vertices evenly from the model (or use all if fewer)
-  const TARGET_MODEL = Math.min(900, allVerts.length);
+  const TARGET_MODEL = Math.min(1200, allVerts.length);
   const step = Math.max(1, Math.floor(allVerts.length / TARGET_MODEL));
   const sampledVerts = [];
   for (let i = 0; i < allVerts.length && sampledVerts.length < TARGET_MODEL; i += step) {
@@ -829,7 +829,7 @@ function createParticlesFromModel(model) {
     const rnd = Math.random();
     const c = rnd > 0.5 ? tealBright : rnd > 0.25 ? cyan : rnd > 0.1 ? aqua : iceBlue;
     colors[i*3] = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
-    sizes[i] = Math.random() * 3.5 + 1.5;
+    sizes[i] = Math.random() * 4.0 + 2.0;
   }
 
   // Random field particles — dense cloud for immersive feel
@@ -843,7 +843,7 @@ function createParticlesFromModel(model) {
     const rnd2 = Math.random();
     const c = rnd2 > 0.7 ? tealBright : rnd2 > 0.4 ? cyan : rnd2 > 0.2 ? dim : faint;
     colors[i*3] = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
-    sizes[i] = Math.random() * 2.2 + 0.5;
+    sizes[i] = Math.random() * 2.8 + 0.8;
   }
 
   bgGeo = new THREE.BufferGeometry();
