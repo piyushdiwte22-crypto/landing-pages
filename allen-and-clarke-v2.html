@@ -717,7 +717,7 @@ let bgParticles = null, bgMat = null; // lp-test style background
 // ═══ BACKGROUND PARTICLES — created from camera model vertices after GLTF loads ═══
 let bgGeo = null, bgLinesMesh = null, bgLinesGeo = null, bgLinesMat = null;
 const bgModelOrig = [], bgScatterDest = [];
-let BG_MODEL = 0, BG_FIELD = 400, BG_TOTAL = 0;
+let BG_MODEL = 0, BG_FIELD = 1200, BG_TOTAL = 0;
 
 // Particle shader material (created now, geometry added after model loads)
 bgMat = new THREE.ShaderMaterial({
@@ -788,7 +788,7 @@ function createParticlesFromModel(model) {
   });
 
   // Sample ~600 vertices evenly from the model (or use all if fewer)
-  const TARGET_MODEL = Math.min(600, allVerts.length);
+  const TARGET_MODEL = Math.min(900, allVerts.length);
   const step = Math.max(1, Math.floor(allVerts.length / TARGET_MODEL));
   const sampledVerts = [];
   for (let i = 0; i < allVerts.length && sampledVerts.length < TARGET_MODEL; i += step) {
@@ -819,11 +819,11 @@ function createParticlesFromModel(model) {
     bgModelOrig.push({ x, y, z });
     // Scatter outward from center
     const dist = Math.sqrt(x*x + y*y + z*z) || 1;
-    const er = 20 + Math.random() * 30;
+    const er = 30 + Math.random() * 40;
     bgScatterDest.push({
-      x: (x / dist) * er + (Math.random() - 0.5) * 15,
-      y: (y / dist) * er + (Math.random() - 0.5) * 15,
-      z: (z / dist) * er + (Math.random() - 0.5) * 10
+      x: (x / dist) * er + (Math.random() - 0.5) * 25,
+      y: (y / dist) * er + (Math.random() - 0.5) * 25,
+      z: (z / dist) * er + (Math.random() - 0.5) * 15
     });
     positions[i*3] = x; positions[i*3+1] = y; positions[i*3+2] = z;
     const rnd = Math.random();
@@ -832,17 +832,18 @@ function createParticlesFromModel(model) {
     sizes[i] = Math.random() * 3.5 + 1.5;
   }
 
-  // Random field particles
+  // Random field particles — dense cloud for immersive feel
   for (let i = BG_MODEL; i < BG_TOTAL; i++) {
-    const x = (Math.random() - 0.5) * 80;
-    const y = (Math.random() - 0.5) * 100;
-    const z = (Math.random() - 0.5) * 40;
+    const x = (Math.random() - 0.5) * 120;
+    const y = (Math.random() - 0.5) * 140;
+    const z = (Math.random() - 0.5) * 60;
     positions[i*3] = x; positions[i*3+1] = y; positions[i*3+2] = z;
     bgModelOrig.push({ x, y, z });
     bgScatterDest.push({ x, y, z });
-    const c = Math.random() > 0.6 ? dim : faint;
+    const rnd2 = Math.random();
+    const c = rnd2 > 0.7 ? tealBright : rnd2 > 0.4 ? cyan : rnd2 > 0.2 ? dim : faint;
     colors[i*3] = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
-    sizes[i] = Math.random() * 1.5 + 0.3;
+    sizes[i] = Math.random() * 2.2 + 0.5;
   }
 
   bgGeo = new THREE.BufferGeometry();
@@ -854,7 +855,7 @@ function createParticlesFromModel(model) {
   scene.add(bgParticles);
 
   // Connecting lines
-  const MAX_L = 600;
+  const MAX_L = 1000;
   const lArr = new Float32Array(MAX_L * 6);
   bgLinesGeo = new THREE.BufferGeometry();
   bgLinesGeo.setAttribute('position', new THREE.BufferAttribute(lArr, 3));
@@ -1133,11 +1134,11 @@ window.updateHeroScroll = function(progress) {
     canvas.style.opacity = 1;
   } else if (progress < S*12) {
     canvas.style.opacity = Math.max(0, 1 - (progress - S*11) / S);
-  } else if (progress < S*23) {
+  } else if (progress < S*22) {
     canvas.style.opacity = 0;
-  } else if (progress < S*24) {
-    // Particles fade in behind 4th video
-    canvas.style.opacity = (progress - S*23) / S;
+  } else if (progress < S*23) {
+    // Canvas fades in just before particles start
+    canvas.style.opacity = (progress - S*22) / S;
   } else {
     // Stay visible for particles through rest of page
     canvas.style.opacity = 1;
@@ -1399,9 +1400,9 @@ gsap.ticker.add((t, dt) => {
   // ── Background particles (camera dissolves into these) ──
   if (bgMat && bgGeo) {
     // Skip all particle work when fully invisible (before stage 23)
-    const particleStart = S * 23; // particles begin behind 4th video
+    const particleStart = S * 22; // particles begin 1 stage before 4th video
     const explodeStart = S * 28;  // explode when 4th video exits
-    if (heroProgress < particleStart && explode < 0.001 && bgMat.uniforms.uFade.value < 0.01) {
+    if (heroProgress < S * 21.5 && explode < 0.001 && bgMat.uniforms.uFade.value < 0.01) {
       bgMat.uniforms.uFade.value = 0;
       renderer.render(scene, cam);
       return;
@@ -1416,7 +1417,7 @@ gsap.ticker.add((t, dt) => {
       rawExplode = Math.min(1, (heroProgress - explodeStart) / (S * 2));
     }
     const prevExplode = explode;
-    explode += (rawExplode - explode) * 0.05;
+    explode += (rawExplode - explode) * 0.08;
 
     // Update positions only when explode is actively changing
     const pArr = bgGeo.attributes.position.array;
@@ -1436,8 +1437,8 @@ gsap.ticker.add((t, dt) => {
         let idx = 0;
         const th = 2.5 + explode * 6;
         bgLinesMat.opacity = Math.max(0, 0.06 - explode * 0.05) * bgMat.uniforms.uFade.value;
-        for (let i = 0; i < BG_MODEL && idx < 600 * 6; i += 3) {
-          for (let j = i + 3; j < BG_MODEL && idx < 600 * 6; j += 3) {
+        for (let i = 0; i < BG_MODEL && idx < 1000 * 6; i += 3) {
+          for (let j = i + 3; j < BG_MODEL && idx < 1000 * 6; j += 3) {
             const dx = pArr[i*3] - pArr[j*3];
             const dy = pArr[i*3+1] - pArr[j*3+1];
             const dz = pArr[i*3+2] - pArr[j*3+2];
@@ -1461,20 +1462,23 @@ gsap.ticker.add((t, dt) => {
       bgMat.uniforms.uFade.value = 0;
       targetFade = 0;
     } else if (heroProgress < particleStart + S * 2) {
-      // Gentle fade in over 2 stages (behind 4th video)
+      // Quick fade in — visible by the time 4th video arrives
       targetFade = (heroProgress - particleStart) / (S * 2);
+    } else if (heroProgress < S * 25) {
+      // Strong glow as 4th video enters and plays
+      targetFade = 0.85;
     } else if (heroProgress < explodeStart) {
-      // Subtle glow behind video
-      targetFade = 0.5;
+      // Full brightness during 4th video play
+      targetFade = 0.95;
     } else if (heroProgress < 1.0) {
-      // After explosion — full brightness
-      targetFade = 0.7 + Math.min(0.3, (heroProgress - explodeStart) / (S * 3));
+      // Explosion — max brightness
+      targetFade = 1.0;
     } else {
       // Rest of page — alive with soft scroll pulse
-      targetFade = 0.6 + Math.sin(gp * Math.PI) * 0.3;
+      targetFade = 0.7 + Math.sin(gp * Math.PI) * 0.3;
     }
     if (heroProgress >= particleStart) {
-      bgMat.uniforms.uFade.value += (targetFade - bgMat.uniforms.uFade.value) * 0.08;
+      bgMat.uniforms.uFade.value += (targetFade - bgMat.uniforms.uFade.value) * 0.1;
     }
 
     // Gentle scroll interaction — particles drift with scroll position
