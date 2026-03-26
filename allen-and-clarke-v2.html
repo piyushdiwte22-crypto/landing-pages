@@ -669,9 +669,9 @@ const cam = new THREE.PerspectiveCamera(60, 1, 0.1, 200);
 cam.position.z = 32;
 
 // ── Studio Product Lighting (natural, realistic) ──
-scene.add(new THREE.DirectionalLight(0xfff5e6, 2.2).translateX(5).translateY(5).translateZ(4));   // warm key light
-scene.add(new THREE.DirectionalLight(0xe8e0d8, 1.2).translateX(-4).translateY(2).translateZ(3));  // soft fill
-const rimLight = new THREE.DirectionalLight(0xffffff, 1.8);                                       // clean white rim
+scene.add(new THREE.DirectionalLight(0xfff5e6, 1.6).translateX(5).translateY(5).translateZ(4));   // warm key light
+scene.add(new THREE.DirectionalLight(0xe8e0d8, 0.9).translateX(-4).translateY(2).translateZ(3));  // soft fill
+const rimLight = new THREE.DirectionalLight(0xffffff, 1.2);                                       // clean white rim
 rimLight.position.set(-3, 3, -5);
 scene.add(rimLight);
 scene.add(new THREE.DirectionalLight(0xf0ebe4, 1.0).translateX(0).translateY(-2).translateZ(5)); // front fill
@@ -950,7 +950,11 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
       if (isFlat(child)) { child.visible = false; return; }
       if (child.material) {
         const m = child.material;
-        if (m.isMeshStandardMaterial) { m.envMapIntensity = 0.5; m.roughness = Math.max(m.roughness, 0.3); }
+        if (m.isMeshStandardMaterial) {
+          m.envMapIntensity = 0.15;
+          m.roughness = Math.max(m.roughness, 0.55);
+          m.metalness = Math.min(m.metalness, 0.6);
+        }
       }
     }
   });
@@ -1302,14 +1306,14 @@ window.updateHeroScroll = function(progress) {
     const eased = smoothstep(t);
     spotlight.position.x = 25 - eased * 20;
     spotlight.position.z = 28 + eased * 4;
-    spotlight.intensity = eased * 15;
+    spotlight.intensity = eased * 8;
   } else if (progress < S*11) {
     spotlight.position.x = 5;
     spotlight.position.z = 32;
-    spotlight.intensity = 15;
+    spotlight.intensity = 8;
   } else if (progress < S*12) {
     const t = (progress - S*11) / S;
-    spotlight.intensity = 15 * (1 - Math.min(1, t));
+    spotlight.intensity = 8 * (1 - Math.min(1, t));
   } else {
     spotlight.intensity = 0;
   }
