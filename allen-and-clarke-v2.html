@@ -1247,11 +1247,11 @@ window.updateHeroScroll = function(progress) {
   if (heroIntro) {
     const hiLines = heroIntro.querySelectorAll('.hi-line');
     const maxOpacities = [0.85, 1, 0.9, 0.25];
-    // Each line staggers in: line0 at stage 4, line1 at 5, line2 at 7, line3 at 8
-    const lineIn  = [S*4,   S*5,   S*7,   S*8  ];
-    const linePeak = [S*5.5, S*6.5, S*8,   S*9  ];
-    const fadeOutS = S*10;
-    const fadeOutE = S*11;
+    // Text appears right away on scroll, well before camera (stage 2.5)
+    const lineIn  = [S*0.3, S*0.6, S*1.2, S*1.5];
+    const linePeak = [S*0.8, S*1.1, S*1.6, S*1.9];
+    const fadeOutS = S*2.2;
+    const fadeOutE = S*2.8;
 
     hiLines.forEach((line, i) => {
       if (progress < lineIn[i]) {
@@ -1578,12 +1578,12 @@ ScrollTrigger.create({
   trigger: '#hero',
   start: 'top top',
   end: 'bottom bottom',
-  scrub: 0.3,
+  scrub: 0.15,
   snap: {
     snapTo: 1/34,
-    duration: {min: 0.2, max: _mob ? 0.4 : 0.5},
-    delay: 0.01,
-    ease: 'power2.inOut',
+    duration: {min: 0.15, max: _mob ? 0.3 : 0.4},
+    delay: 0.005,
+    ease: 'power3.inOut',
     directional: true,
     onStart: () => { window._heroSnapping = true; },
     onComplete: () => { window._heroSnapping = false; }
