@@ -1162,8 +1162,13 @@ window.updateHeroScroll = function(progress) {
       thumbsEl.style.opacity = (progress - S*2.5) / S;
     } else if (progress < S*28) {
       // Stay visible — dimmer during video showcase
-      const inVideoZone = progress > S*12;
-      thumbsEl.style.opacity = inVideoZone ? 0.3 : 1;
+      if (progress < S*12) {
+        thumbsEl.style.opacity = 1;
+      } else if (progress < S*13) {
+        thumbsEl.style.opacity = 1 - (progress - S*12) / S * 0.7;
+      } else {
+        thumbsEl.style.opacity = 0.3;
+      }
     } else if (progress < S*29) {
       thumbsEl.style.opacity = 0.3 * (1 - (progress - S*28) / S);
     } else {
@@ -1195,23 +1200,23 @@ window.updateHeroScroll = function(progress) {
       const fadeOut = d.thEnd - S;
       if (progress < fadeIn) {
         const t = (progress - d.thStart) / S;
-        th.style.opacity = 0.7 * t;
+        th.style.opacity = 0.55 * t;
         th.style.transform = `scale(${0.85 + 0.15 * t})`;
         d.lastState = 1;
       } else if (progress < fadeOut) {
         const drift = (progress - d.thStart) * d.speed * 200;
         const dx = d.cosA * drift;
         const dy = d.sinA * drift - drift * 0.15;
-        th.style.opacity = 0.7;
-        th.style.transform = `translate3d(${dx}px,${dy}px,0) scale(1) rotate(${dx * 0.01}deg)`;
+        th.style.opacity = 0.55;
+        th.style.transform = `translate3d(${dx}px,${dy}px,0) scale(1) rotate(${dx * 0.005}deg)`;
         d.lastState = 2;
       } else {
         const t = (progress - fadeOut) / S;
         const drift = (progress - d.thStart) * d.speed * 200;
         const dx = d.cosA * drift * (1 + t * 0.3);
         const dy = d.sinA * drift * (1 + t * 0.3) - drift * 0.15;
-        th.style.opacity = 0.7 * (1 - t);
-        th.style.transform = `translate3d(${dx}px,${dy}px,0) scale(${1 - t * 0.3}) rotate(${dx * 0.03}deg)`;
+        th.style.opacity = 0.55 * (1 - t);
+        th.style.transform = `translate3d(${dx}px,${dy}px,0) scale(${1 - t * 0.2}) rotate(${dx * 0.008}deg)`;
         d.lastState = 3;
       }
     }
@@ -1229,7 +1234,7 @@ window.updateHeroScroll = function(progress) {
       if (progress < enter) {
         // Not yet
         vid.style.opacity = 0;
-        vid.style.transform = `translate(calc(-50% + ${eX}vw), calc(-50% + ${eY}vh)) scale(0.75)`;
+        vid.style.transform = `translate(calc(-50% + ${eX}vw), calc(-50% + ${eY}vh)) scale(0.85)`;
         vid.classList.remove('entering', 'playing');
         setVideoState(i, 0);
       } else if (progress < play) {
@@ -1239,7 +1244,7 @@ window.updateHeroScroll = function(progress) {
         const x = eX * (1 - e);
         const y = eY * (1 - e);
         vid.style.opacity = e;
-        vid.style.transform = `translate(calc(-50% + ${x}vw), calc(-50% + ${y}vh)) scale(${0.75 + 0.25 * e})`;
+        vid.style.transform = `translate(calc(-50% + ${x}vw), calc(-50% + ${y}vh)) scale(${0.85 + 0.15 * e})`;
         vid.classList.add('entering');
         vid.classList.remove('playing');
         if (t > 0.3) loadVideoIframe(i);
@@ -1262,8 +1267,8 @@ window.updateHeroScroll = function(progress) {
         // Phase 5: Exit — slide out
         const t = (progress - exitS) / (exitE - exitS);
         const e = smoothstep(t);
-        vid.style.opacity = 1 - e * 0.9;
-        vid.style.transform = `translate(calc(-50% + ${xX * e}vw), calc(-50% + ${xY * e}vh)) scale(${1 - 0.15 * e})`;
+        vid.style.opacity = 1 - e;
+        vid.style.transform = `translate(calc(-50% + ${xX * e}vw), calc(-50% + ${xY * e}vh)) scale(${1 - 0.1 * e})`;
         vid.classList.remove('entering', 'playing');
         setVideoState(i, 4);
       } else {
@@ -1326,12 +1331,17 @@ window.updateHeroScroll = function(progress) {
 
   // ── Video backdrop: visible through hero, dim during video showcase ──
   if (bgVid) {
-    if (progress < S*12) {
+    if (progress < S*11) {
       bgVid.style.opacity = 1;
+    } else if (progress < S*12) {
+      // Smooth transition to dim
+      bgVid.style.opacity = 1 - (progress - S*11) / S * 0.75;
     } else if (progress < S*29) {
       bgVid.style.opacity = 0.25;
+    } else if (progress < S*30) {
+      bgVid.style.opacity = 0.25 * (1 - (progress - S*29) / S);
     } else {
-      bgVid.style.opacity = Math.max(0, 0.25 - (progress - S*29) / (S*2) * 0.25);
+      bgVid.style.opacity = 0;
     }
   }
 
@@ -1398,8 +1408,8 @@ gsap.ticker.add((t, dt) => {
   frameCount++;
 
   // Smooth mouse
-  smoothMouseX += (mouseX - smoothMouseX) * 0.008;
-  smoothMouseY += (mouseY - smoothMouseY) * 0.008;
+  smoothMouseX += (mouseX - smoothMouseX) * 0.04;
+  smoothMouseY += (mouseY - smoothMouseY) * 0.04;
 
   // Before scroll — subtle mouse parallax
   if (solidGroup && heroProgress === 0) {
@@ -1427,7 +1437,7 @@ gsap.ticker.add((t, dt) => {
       rawExplode = Math.min(1, (heroProgress - explodeStart) / (S * 2));
     }
     const prevExplode = explode;
-    explode += (rawExplode - explode) * 0.08;
+    explode += (rawExplode - explode) * 0.06;
 
     // Update positions only when explode is actively changing
     const pArr = bgGeo.attributes.position.array;
@@ -1482,7 +1492,7 @@ gsap.ticker.add((t, dt) => {
       targetFade = 0.6;
     }
     if (heroProgress >= particleStart) {
-      bgMat.uniforms.uFade.value += (targetFade - bgMat.uniforms.uFade.value) * 0.12;
+      bgMat.uniforms.uFade.value += (targetFade - bgMat.uniforms.uFade.value) * 0.08;
     }
 
     // Particles stay fixed in viewport, ultra-subtle drift
@@ -1514,12 +1524,12 @@ ScrollTrigger.create({
   trigger: '#hero',
   start: 'top top',
   end: 'bottom bottom',
-  scrub: 0.5,
+  scrub: 0.3,
   snap: {
     snapTo: 1/34,
-    duration: {min: 0.15, max: _mob ? 0.35 : 0.45},
-    delay: 0.02,
-    ease: 'power3.inOut',
+    duration: {min: 0.2, max: _mob ? 0.4 : 0.5},
+    delay: 0.01,
+    ease: 'power2.inOut',
     directional: true,
     onStart: () => { window._heroSnapping = true; },
     onComplete: () => { window._heroSnapping = false; }
@@ -1534,12 +1544,12 @@ ScrollTrigger.create({
     if (heroTextEl) {
       if (p < S*29) {
         heroTextEl.style.opacity = 0;
-        heroTextEl.style.transform = 'translateY(40px)';
+        heroTextEl.style.transform = 'translateY(30px)';
       } else if (p < S*30) {
         const t = (p - S*29) / S;
         const e = t * t * (3 - 2 * t);
         heroTextEl.style.opacity = e;
-        heroTextEl.style.transform = `translateY(${40 * (1 - e)}px)`;
+        heroTextEl.style.transform = `translateY(${30 * (1 - e)}px)`;
       } else if (p < S*33) {
         heroTextEl.style.opacity = 1;
         heroTextEl.style.transform = 'translateY(0)';
@@ -1551,7 +1561,7 @@ ScrollTrigger.create({
     }
 
     // Scroll indicator
-    if (heroScrollEl) heroScrollEl.style.opacity = p < S*1 ? 1 : 0;
+    if (heroScrollEl) heroScrollEl.style.opacity = p < S*0.5 ? 1 : p < S*1.5 ? Math.max(0, 1 - (p - S*0.5) / S) : 0;
   }
 });
 
@@ -1590,7 +1600,7 @@ document.querySelectorAll('[data-split]').forEach(block => {
   const words = block.querySelectorAll('.w');
   const stmtEl = block.closest('.stmt');
   ScrollTrigger.create({
-    trigger: stmtEl, start: 'top center', end: 'bottom top', scrub: 0.5,
+    trigger: stmtEl, start: 'top center', end: 'bottom top', scrub: 0.3,
     onEnter: () => stmtEl.classList.add('active'),
     onLeaveBack: () => stmtEl.classList.remove('active'),
     onUpdate: s => { words.forEach((w, i) => { w.classList.toggle('on', s.progress >= i / words.length); }); }
