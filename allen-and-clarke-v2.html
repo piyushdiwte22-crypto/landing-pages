@@ -717,7 +717,7 @@ let bgParticles = null, bgMat = null; // lp-test style background
 // ═══ BACKGROUND PARTICLES — created from camera model vertices after GLTF loads ═══
 let bgGeo = null, bgLinesMesh = null, bgLinesGeo = null, bgLinesMat = null;
 const bgModelOrig = [], bgScatterDest = [];
-let BG_MODEL = 0, BG_FIELD = 2500, BG_TOTAL = 0;
+let BG_MODEL = 0, BG_FIELD = 800, BG_TOTAL = 0;
 
 // Particle shader material (created now, geometry added after model loads)
 bgMat = new THREE.ShaderMaterial({
@@ -746,7 +746,7 @@ bgMat = new THREE.ShaderMaterial({
       }
       mv = modelViewMatrix * vec4(p, 1.0);
       float mouseGlow = smoothstep(0.4, 0.0, dist) * 0.25 + 1.0;
-      gl_PointSize = size * (220.0 / -mv.z) * mouseGlow;
+      gl_PointSize = size * (140.0 / -mv.z) * mouseGlow;
       gl_PointSize = max(gl_PointSize, 1.0);
       gl_Position = projectionMatrix * mv;
       vA = smoothstep(80.0, 8.0, -mv.z);
@@ -761,7 +761,7 @@ bgMat = new THREE.ShaderMaterial({
       if (d > 0.5) discard;
       float core = smoothstep(0.5, 0.05, d);
       float halo = exp(-d * 5.0);
-      gl_FragColor = vec4(vC * (core * 0.9 + halo * 0.4), (core * 0.85 + halo * 0.3) * vA * uFade);
+      gl_FragColor = vec4(vC * (core * 0.6 + halo * 0.25), (core * 0.6 + halo * 0.2) * vA * uFade);
     }
   `,
   transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
@@ -786,7 +786,7 @@ function createParticlesFromModel(model) {
   });
 
   // Sample ~600 vertices evenly from the model (or use all if fewer)
-  const TARGET_MODEL = Math.min(1200, allVerts.length);
+  const TARGET_MODEL = Math.min(500, allVerts.length);
   const step = Math.max(1, Math.floor(allVerts.length / TARGET_MODEL));
   const sampledVerts = [];
   for (let i = 0; i < allVerts.length && sampledVerts.length < TARGET_MODEL; i += step) {
@@ -831,7 +831,7 @@ function createParticlesFromModel(model) {
     const rnd = Math.random();
     const c = rnd > 0.5 ? tealBright : rnd > 0.25 ? cyan : rnd > 0.1 ? aqua : iceBlue;
     colors[i*3] = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
-    sizes[i] = Math.random() * 4.0 + 2.0;
+    sizes[i] = Math.random() * 2.0 + 0.8;
   }
 
   // Random field particles — distributed within camera frustum for full-screen coverage
@@ -854,7 +854,7 @@ function createParticlesFromModel(model) {
     const rnd2 = Math.random();
     const c = rnd2 > 0.7 ? tealBright : rnd2 > 0.4 ? cyan : rnd2 > 0.2 ? dim : faint;
     colors[i*3] = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
-    sizes[i] = Math.random() * 2.8 + 0.8;
+    sizes[i] = Math.random() * 1.2 + 0.3;
   }
 
   bgGeo = new THREE.BufferGeometry();
@@ -1478,8 +1478,8 @@ gsap.ticker.add((t, dt) => {
       // Full brightness through rest of hero
       targetFade = 1.0;
     } else {
-      // Rest of page — stay bright and alive
-      targetFade = 0.85;
+      // Rest of page — subtle ambient
+      targetFade = 0.6;
     }
     if (heroProgress >= particleStart) {
       bgMat.uniforms.uFade.value += (targetFade - bgMat.uniforms.uFade.value) * 0.12;
