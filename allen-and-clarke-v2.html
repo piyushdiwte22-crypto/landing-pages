@@ -951,23 +951,25 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
       if (child.material) {
         const m = child.material;
         if (m.isMeshStandardMaterial) {
-          m.envMapIntensity = 0.1;
-          m.roughness = Math.max(m.roughness, 0.6);
-          m.metalness = Math.min(m.metalness, 0.5);
-          // Darken the bright white lens interior / aperture blades
+          m.envMapIntensity = 0.15;
+          // Mirror/glass lens elements: metallic + shiny + white = reflective glass
           if (m.color) {
             const lum = m.color.r * 0.299 + m.color.g * 0.587 + m.color.b * 0.114;
-            if (lum > 0.85) {
-              m.color.setHex(0x1a1a1a);
-              m.roughness = 0.95;
-              m.metalness = 0.0;
-              m.emissive && m.emissive.setHex(0x000000);
+            if (lum > 0.9 && m.metalness > 0.8 && m.roughness < 0.1) {
+              // Perfect mirror lens element — make it dark glass
+              m.color.setHex(0x080808);
+              m.roughness = 0.85;
+              m.metalness = 0.1;
+            } else if (lum > 0.9 && m.roughness < 0.2) {
+              // Shiny bright rings — tone down
+              m.color.multiplyScalar(0.5);
+              m.roughness = Math.max(m.roughness, 0.4);
             }
           }
-          // Darken glass/transparent elements
+          // Darken transparent/glass parts
           if (m.transparent || m.opacity < 1) {
-            m.color.setHex(0x0a0a0a);
-            m.roughness = 0.95;
+            m.color.setHex(0x080808);
+            m.roughness = 0.9;
           }
         }
       }
