@@ -1419,7 +1419,7 @@ gsap.ticker.add((t, dt) => {
     }
 
     bgMat.uniforms.uTime.value = time;
-    bgMat.uniforms.uMouse.value.set(mouseX, mouseY);
+    bgMat.uniforms.uMouse.value.set(mouseX, -mouseY);
 
     // Explode: starts when 4th video exits (stage 28-29)
     let rawExplode = 0;
