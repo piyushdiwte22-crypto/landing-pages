@@ -163,6 +163,57 @@ section,.stmt,.vm{scroll-snap-align:start}
 .hs-text .arrow{color:#5eead4;font-style:normal;text-shadow:0 0 20px rgba(94,234,212,.3)}
 .hs-line{display:block;width:40px;height:1px;background:linear-gradient(90deg,transparent,rgba(94,234,212,.4),transparent);margin:0 auto 18px}
 
+/* ══ VIDEO PORTFOLIO CATEGORIES ══ */
+.vp-section{position:relative;overflow:hidden}
+.vp-cat{position:relative;height:100vh;overflow:hidden;cursor:pointer}
+.vp-cat+.vp-cat{border-top:1px solid rgba(255,255,255,.04)}
+.vp-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.35) saturate(.7);transition:filter .6s ease,transform 4s ease}
+.vp-cat:hover .vp-bg{filter:brightness(.45) saturate(.8);transform:scale(1.03)}
+.vp-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.7) 100%)}
+.vp-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.vp-label{font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:rgba(232,148,58,.6)}
+.vp-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,64px);color:#f5efe8;letter-spacing:-1px;text-align:center}
+.vp-count{font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(245,239,232,.3);letter-spacing:2px}
+.vp-play{width:72px;height:72px;border-radius:50%;border:1.5px solid rgba(232,148,56,.35);background:rgba(232,148,56,.08);display:flex;align-items:center;justify-content:center;margin-top:12px;transition:all .4s ease}
+.vp-play svg{width:22px;height:22px;fill:var(--a);margin-left:3px}
+.vp-cat:hover .vp-play{border-color:rgba(232,148,56,.6);background:rgba(232,148,56,.15);transform:scale(1.08)}
+.vp-allvids{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border:1px solid rgba(255,255,255,.12);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,239,232,.5);margin-top:20px;transition:all .3s ease}
+.vp-cat:hover .vp-allvids{border-color:rgba(255,255,255,.25);color:rgba(245,239,232,.7)}
+.vp-arrow{position:absolute;right:40px;top:50%;transform:translateY(-50%);z-index:3;color:rgba(245,239,232,.2);font-size:32px;transition:color .3s ease}
+.vp-cat:hover .vp-arrow{color:rgba(245,239,232,.5)}
+
+/* Lightbox */
+.vp-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);display:none;flex-direction:column;opacity:0;transition:opacity .4s ease}
+.vp-lightbox.open{display:flex;opacity:1}
+.vp-lb-close{position:absolute;top:20px;right:24px;z-index:10;width:40px;height:40px;border:none;background:none;color:#f5efe8;font-size:28px;cursor:pointer;opacity:.6;transition:opacity .3s}
+.vp-lb-close:hover{opacity:1}
+.vp-lb-share{position:absolute;top:24px;left:24px;z-index:10;display:flex;align-items:center;gap:8px;background:none;border:none;color:rgba(245,239,232,.5);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:1px}
+.vp-lb-main{flex:1;display:flex;padding:60px 40px 20px;gap:32px;min-height:0}
+.vp-lb-player{flex:2;position:relative;border-radius:8px;overflow:hidden;background:#000}
+.vp-lb-player iframe{width:100%;height:100%;border:none}
+.vp-lb-info{flex:0 0 280px;display:flex;flex-direction:column;justify-content:flex-start;padding-top:12px}
+.vp-lb-info h2{font-family:'DM Serif Display',serif;font-size:24px;color:#f5efe8;letter-spacing:-0.5px;margin-bottom:12px}
+.vp-lb-info .vp-lb-meta{font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(245,239,232,.35);margin-bottom:16px}
+.vp-lb-info .vp-lb-desc{font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(245,239,232,.5);line-height:1.7}
+.vp-lb-strip{flex:0 0 110px;display:flex;gap:8px;padding:12px 40px 24px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.vp-lb-strip::-webkit-scrollbar{height:4px}
+.vp-lb-strip::-webkit-scrollbar-thumb{background:rgba(232,148,56,.3);border-radius:2px}
+.vp-lb-thumb{flex:0 0 160px;height:90px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .3s,opacity .3s;opacity:.5}
+.vp-lb-thumb:hover,.vp-lb-thumb.active{border-color:var(--a);opacity:1}
+.vp-lb-thumb img{width:100%;height:100%;object-fit:cover}
+.vp-lb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:44px;height:44px;border:1px solid rgba(255,255,255,.15);border-radius:50%;background:rgba(0,0,0,.5);color:#f5efe8;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.vp-lb-nav:hover{border-color:var(--a);background:rgba(232,148,56,.15)}
+.vp-lb-nav.prev{left:16px}
+.vp-lb-nav.next{right:16px}
+
+@media(max-width:900px){
+  .vp-cat{height:60vh}
+  .vp-arrow{display:none}
+  .vp-lb-main{flex-direction:column;padding:50px 16px 12px}
+  .vp-lb-info{flex:0 0 auto;padding-top:0}
+  .vp-lb-strip{padding:8px 16px 16px}
+}
+
 /* ══ STATEMENT ══ */
 .stmt{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:80px 48px;position:relative;overflow:hidden}
 .stmt-glow{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,.04) 0%,transparent 70%);filter:blur(80px);pointer-events:none;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0;transition:opacity 1.5s ease}
@@ -539,6 +590,94 @@ footer a:hover{color:#2dd4bf}
     <div class="h-scroll"><span>Scroll</span><i></i></div>
   </div>
 </section>
+
+<!-- ══ VIDEO PORTFOLIO ══ -->
+<section class="vp-section" id="videoPortfolio">
+
+  <div class="vp-cat" data-cat="brand" onclick="openVPLightbox('brand',0)">
+    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1041460991.jpg')"></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-label">Collection</div>
+      <div class="vp-title">Brand & Cinematic</div>
+      <div class="vp-count">4 videos</div>
+      <div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+      <div class="vp-allvids">All Videos <span>+</span></div>
+    </div>
+    <div class="vp-arrow">&#8250;</div>
+  </div>
+
+  <div class="vp-cat" data-cat="corporate" onclick="openVPLightbox('corporate',0)">
+    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1016747108.jpg')"></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-label">Collection</div>
+      <div class="vp-title">Corporate & Training</div>
+      <div class="vp-count">11 videos</div>
+      <div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+      <div class="vp-allvids">All Videos <span>+</span></div>
+    </div>
+    <div class="vp-arrow">&#8250;</div>
+  </div>
+
+  <div class="vp-cat" data-cat="event" onclick="openVPLightbox('event',0)">
+    <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/zFR0Vs3o2fs/maxresdefault.jpg')"></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-label">Collection</div>
+      <div class="vp-title">Event Coverage</div>
+      <div class="vp-count">5 videos</div>
+      <div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+      <div class="vp-allvids">All Videos <span>+</span></div>
+    </div>
+    <div class="vp-arrow">&#8250;</div>
+  </div>
+
+  <div class="vp-cat" data-cat="ugc" onclick="openVPLightbox('ugc',0)">
+    <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/3bR7HUcPZ1c/hqdefault.jpg')"></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-label">Collection</div>
+      <div class="vp-title">UGC & Paid Ads</div>
+      <div class="vp-count">4 videos</div>
+      <div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+      <div class="vp-allvids">All Videos <span>+</span></div>
+    </div>
+    <div class="vp-arrow">&#8250;</div>
+  </div>
+
+  <div class="vp-cat" data-cat="product" onclick="openVPLightbox('product',0)">
+    <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/n7SDop-fo9Q/maxresdefault.jpg')"></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-label">Collection</div>
+      <div class="vp-title">Product & Explainers</div>
+      <div class="vp-count">3 videos</div>
+      <div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+      <div class="vp-allvids">All Videos <span>+</span></div>
+    </div>
+    <div class="vp-arrow">&#8250;</div>
+  </div>
+
+</section>
+
+<!-- Video Portfolio Lightbox -->
+<div class="vp-lightbox" id="vpLightbox">
+  <button class="vp-lb-share" onclick="event.stopPropagation()">&#9737; Share</button>
+  <button class="vp-lb-close" onclick="closeVPLightbox()">&times;</button>
+  <div class="vp-lb-main">
+    <div class="vp-lb-player" id="vpPlayer">
+      <button class="vp-lb-nav prev" onclick="vpNav(-1)">&#8249;</button>
+      <button class="vp-lb-nav next" onclick="vpNav(1)">&#8250;</button>
+    </div>
+    <div class="vp-lb-info">
+      <h2 id="vpTitle"></h2>
+      <div class="vp-lb-meta" id="vpMeta"></div>
+      <div class="vp-lb-desc" id="vpDesc"></div>
+    </div>
+  </div>
+  <div class="vp-lb-strip" id="vpStrip"></div>
+</div>
 
 <div class="dv"><span></span></div>
 
@@ -1738,6 +1877,116 @@ gsap.from('.cta-h', { opacity: 0, y: 40, duration: 1, ease: 'power3.out', scroll
 gsap.from('.cta-a', { opacity: 0, y: 20, duration: .8, delay: .2, ease: 'power3.out', scrollTrigger: { trigger: '#cta', start: 'top 65%' } });
 gsap.utils.toArray('.cta-lk a').forEach((a, i) => {
   gsap.from(a, { opacity: 0, y: 10, duration: .5, delay: .4 + i * .1, ease: 'power3.out', scrollTrigger: { trigger: '#cta', start: 'top 65%' } });
+});
+
+// ══ VIDEO PORTFOLIO LIGHTBOX ══
+const vpCatalogue = {
+  brand: [
+    { title:'20 Extraordinary Years of Hamilton Island', dur:'9:11', src:'https://player.vimeo.com/video/1027500811?autoplay=1', thumb:'https://vumbnail.com/1027500811.jpg', desc:'Full-length brand film celebrating 20 years of Hamilton Island. Cinematic storytelling from concept to publish.' },
+    { title:'20 Extraordinary Years (Short Cut)', dur:'1:07', src:'https://player.vimeo.com/video/1041460991?autoplay=1', thumb:'https://vumbnail.com/1041460991.jpg', desc:'Condensed edit for social distribution.' },
+    { title:'Attraction Idea — HIE Lifestyle', dur:'1:02', src:'https://player.vimeo.com/video/1028245298?autoplay=1', thumb:'https://vumbnail.com/1028245298.jpg', desc:'Lifestyle concept piece for Hamilton Island Entertainment.' },
+    { title:"Here's to the Future", dur:'3:35', src:'https://player.vimeo.com/video/1027506350?autoplay=1', thumb:'https://vumbnail.com/1027506350.jpg', desc:'Forward-looking brand narrative. Strategy, camera, edit — end to end.' }
+  ],
+  corporate: [
+    { title:'Code of Conduct — Upholding Integrity', dur:'2:17', src:'https://player.vimeo.com/video/1016747108?autoplay=1', thumb:'https://vumbnail.com/1016747108.jpg', desc:'Workplace values training video for Hamilton Island.' },
+    { title:'Code of Conduct — Introduction', dur:'0:32', src:'https://player.vimeo.com/video/1035948210?autoplay=1', thumb:'https://vumbnail.com/1035948210.jpg', desc:'Series opener for the code of conduct training.' },
+    { title:'Anti-Harassment and Bullying', dur:'1:33', src:'https://player.vimeo.com/video/1027242217?autoplay=1', thumb:'https://vumbnail.com/1027242217.jpg', desc:'WHS compliance module.' },
+    { title:'Sustainability and Environmental Responsibility', dur:'1:29', src:'https://player.vimeo.com/video/1028616139?autoplay=1', thumb:'https://vumbnail.com/1028616139.jpg', desc:'Environmental values training.' },
+    { title:'Rules and Regulations', dur:'1:19', src:'https://player.vimeo.com/video/1027474653?autoplay=1', thumb:'https://vumbnail.com/1027474653.jpg', desc:'Staff guidelines and workplace policy.' },
+    { title:'Welcome to Hamilton Island — Recruitment', dur:'2:24', src:'https://player.vimeo.com/video/1034519753?autoplay=1', thumb:'https://vumbnail.com/1034519753.jpg', desc:'Recruitment and onboarding welcome video.' },
+    { title:'GM Welcome — Qualia Resort', dur:'1:57', src:'https://player.vimeo.com/video/1034751728?autoplay=1', thumb:'https://vumbnail.com/1034751728.jpg', desc:'General Manager welcome for Qualia luxury resort.' },
+    { title:'GM Welcome — Reef View Hotel', dur:'1:58', src:'https://player.vimeo.com/video/1034751185?autoplay=1', thumb:'https://vumbnail.com/1034751185.jpg', desc:'General Manager welcome for Reef View Hotel.' },
+    { title:'Welcome to Beach Club — Raza', dur:'1:35', src:'https://player.vimeo.com/video/1034381587?autoplay=1', thumb:'https://vumbnail.com/1034381587.jpg', desc:'Property-specific onboarding for Beach Club.' },
+    { title:'Welcome to Holiday Homes — Wendy', dur:'1:57', src:'https://player.vimeo.com/video/1037371098?autoplay=1', thumb:'https://vumbnail.com/1037371098.jpg', desc:'Holiday Homes welcome and orientation.' },
+    { title:'Food & Beverage — Qualia Resort', dur:'1:52', src:'https://player.vimeo.com/video/1016618742?autoplay=1', thumb:'https://vumbnail.com/1016618742.jpg', desc:'F&B service training for Qualia.' }
+  ],
+  event: [
+    { title:'Melbourne 4x4 Outdoors Show — Highlights', dur:'1:30', src:'https://www.youtube.com/embed/zFR0Vs3o2fs?autoplay=1', thumb:'https://i.ytimg.com/vi/zFR0Vs3o2fs/maxresdefault.jpg', desc:'Live event highlights filmed and edited same day.' },
+    { title:'Melbourne 4x4 Outdoors Show — Trailer', dur:'0:25', src:'https://www.youtube.com/embed/_8s_YCfoaAY?autoplay=1', thumb:'https://i.ytimg.com/vi/_8s_YCfoaAY/maxresdefault.jpg', desc:'Quick-cut trailer for national outdoor show.' },
+    { title:'Arise GT Racing Crowned 2024', dur:'1:44', src:'https://www.youtube.com/embed/KWhS3k3HOZU?autoplay=1', thumb:'https://i.ytimg.com/vi/KWhS3k3HOZU/maxresdefault.jpg', desc:'Live motorsport event — championship win captured in real-time.' },
+    { title:'Scape Australia Conference Day 1', dur:'1:07', src:'https://www.youtube.com/embed/W0fDzO-zibA?autoplay=1', thumb:'https://i.ytimg.com/vi/W0fDzO-zibA/maxresdefault.jpg', desc:'Full conference day and after party. Solo shoot, 16-hour day.' },
+    { title:'Operations Reel — Scape Australia', dur:'0:59', src:'https://www.youtube.com/embed/emUIKqQCwH8?autoplay=1', thumb:'https://i.ytimg.com/vi/emUIKqQCwH8/maxresdefault.jpg', desc:'Internal stakeholder piece for Scape operations team.' }
+  ],
+  ugc: [
+    { title:'Quad Lock Edit in Classic YouTube Style', dur:'0:45', src:'https://www.youtube.com/embed/3bR7HUcPZ1c?autoplay=1', thumb:'https://i.ytimg.com/vi/3bR7HUcPZ1c/hqdefault.jpg', desc:'Commissioned UGC paid ad for Quad Lock.' },
+    { title:'Earths Water — Hook Ad', dur:'0:18', src:'https://www.youtube.com/embed/3-wYjmU7fC0?autoplay=1', thumb:'https://i.ytimg.com/vi/3-wYjmU7fC0/maxresdefault.jpg', desc:'18-second hook-driven brand awareness clip with motion graphics.' },
+    { title:'Acknowledgment of Country — Scape', dur:'0:49', src:'https://www.youtube.com/embed/seGbAGIVsMw?autoplay=1', thumb:'https://i.ytimg.com/vi/seGbAGIVsMw/maxresdefault.jpg', desc:'Cultural awareness piece — joint production with Redfern Aboriginal community.' },
+    { title:'Behind the Scenes: Scape Blooper Reel', dur:'2:23', src:'https://www.youtube.com/embed/39AFJmIKOa8?autoplay=1', thumb:'https://i.ytimg.com/vi/39AFJmIKOa8/maxresdefault.jpg', desc:'On-set BTS content across 43 properties.' }
+  ],
+  product: [
+    { title:'Nissan Patrol & Navara Experts — Brand Ad', dur:'0:30', src:'https://www.youtube.com/embed/KvzC8g-YoIY?autoplay=1', thumb:'https://i.ytimg.com/vi/KvzC8g-YoIY/maxresdefault.jpg', desc:'30-second commercial for Patrolapart and Navarapart.' },
+    { title:'Easy Rear Lift for Y62 Patrol', dur:'2:00', src:'https://www.youtube.com/embed/n7SDop-fo9Q?autoplay=1', thumb:'https://i.ytimg.com/vi/n7SDop-fo9Q/maxresdefault.jpg', desc:'Product explainer designed to convert — part of the system that drove 157% CTR lift.' },
+    { title:'Product Development & R&D at Patrolapart', dur:'1:56', src:'https://www.youtube.com/embed/-2w8Q9QH2R0?autoplay=1', thumb:'https://i.ytimg.com/vi/-2w8Q9QH2R0/maxresdefault.jpg', desc:'Behind-the-builds storytelling — brand trust through transparency.' }
+  ]
+};
+
+let vpCurrentCat = null, vpCurrentIdx = 0;
+
+function openVPLightbox(cat, idx) {
+  vpCurrentCat = cat;
+  vpCurrentIdx = idx;
+  const lb = document.getElementById('vpLightbox');
+  const videos = vpCatalogue[cat];
+  const v = videos[idx];
+
+  // Player
+  document.getElementById('vpPlayer').querySelector('iframe')?.remove();
+  const iframe = document.createElement('iframe');
+  iframe.src = v.src;
+  iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+  iframe.allowFullscreen = true;
+  document.getElementById('vpPlayer').insertBefore(iframe, document.getElementById('vpPlayer').firstChild);
+
+  // Info
+  document.getElementById('vpTitle').textContent = v.title;
+  document.getElementById('vpMeta').textContent = 'Diwte Piyush  •  ' + v.dur;
+  document.getElementById('vpDesc').textContent = v.desc;
+
+  // Thumbnail strip
+  const strip = document.getElementById('vpStrip');
+  strip.innerHTML = '';
+  videos.forEach((vid, i) => {
+    const d = document.createElement('div');
+    d.className = 'vp-lb-thumb' + (i === idx ? ' active' : '');
+    d.innerHTML = '<img src="' + vid.thumb + '" alt="' + vid.title + '">';
+    d.onclick = (e) => { e.stopPropagation(); openVPLightbox(cat, i); };
+    strip.appendChild(d);
+  });
+
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVPLightbox() {
+  const lb = document.getElementById('vpLightbox');
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('vpPlayer').querySelector('iframe')?.remove();
+}
+
+function vpNav(dir) {
+  if (!vpCurrentCat) return;
+  const videos = vpCatalogue[vpCurrentCat];
+  vpCurrentIdx = (vpCurrentIdx + dir + videos.length) % videos.length;
+  openVPLightbox(vpCurrentCat, vpCurrentIdx);
+}
+
+document.getElementById('vpLightbox').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('vpLightbox') || e.target.classList.contains('vp-overlay')) closeVPLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('vpLightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeVPLightbox();
+  if (e.key === 'ArrowRight') vpNav(1);
+  if (e.key === 'ArrowLeft') vpNav(-1);
+});
+
+// Animate category cards on scroll
+gsap.utils.toArray('.vp-cat').forEach((cat, i) => {
+  gsap.from(cat, {
+    opacity: 0, y: 60, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: cat, start: 'top 80%' }
+  });
 });
 </script>
 </body>
