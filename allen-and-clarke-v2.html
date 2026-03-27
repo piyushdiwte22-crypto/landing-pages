@@ -164,8 +164,8 @@ section,.stmt,.vm{scroll-snap-align:start}
 .hs-line{display:block;width:40px;height:1px;background:linear-gradient(90deg,transparent,rgba(94,234,212,.4),transparent);margin:0 auto 18px}
 
 /* ══ VIDEO PORTFOLIO CATEGORIES ══ */
-.vp-section{position:relative;overflow:hidden}
-.vp-cat{position:relative;height:100vh;overflow:hidden;cursor:pointer}
+.vp-section{position:relative;overflow:hidden;z-index:3}
+.vp-cat{position:relative;height:100vh;overflow:hidden;cursor:pointer;background:#0a0a0a}
 .vp-cat+.vp-cat{border-top:1px solid rgba(255,255,255,.04)}
 .vp-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.55) saturate(.8);transition:filter .6s ease,transform 4s ease}
 .vp-cat:hover .vp-bg{filter:brightness(.7) saturate(.9);transform:scale(1.03)}
