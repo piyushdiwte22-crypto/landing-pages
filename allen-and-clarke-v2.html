@@ -167,9 +167,9 @@ section,.stmt,.vm{scroll-snap-align:start}
 .vp-section{position:relative;overflow:hidden;z-index:3}
 .vp-cat{position:relative;height:100vh;overflow:hidden;cursor:pointer;background:#0a0a0a}
 .vp-cat+.vp-cat{border-top:1px solid rgba(255,255,255,.04)}
-.vp-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.55) saturate(.8);transition:filter .6s ease,transform 4s ease}
-.vp-cat:hover .vp-bg{filter:brightness(.7) saturate(.9);transform:scale(1.03)}
-.vp-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.35) 50%,rgba(0,0,0,.55) 100%)}
+.vp-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 4s ease}
+.vp-cat:hover .vp-bg{transform:scale(1.03)}
+.vp-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45)}
 .vp-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
 .vp-label{font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:rgba(232,148,58,.6)}
 .vp-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,64px);color:#f5efe8;letter-spacing:-1px;text-align:center}
