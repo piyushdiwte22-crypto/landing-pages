@@ -186,7 +186,7 @@ section,.stmt,.vm{scroll-snap-align:start}
 /* Lightbox */
 .vp-lightbox{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.95);display:none;flex-direction:column;opacity:0;transition:opacity .4s ease}
 .vp-lightbox.open{display:flex;opacity:1}
-body.lb-open nav{visibility:hidden}
+body.lb-open nav{display:none!important}
 .vp-lb-close{position:fixed;top:16px;right:20px;z-index:10001;width:44px;height:44px;border:1px solid rgba(255,255,255,.25);border-radius:50%;background:rgba(0,0,0,.7);color:#f5efe8;font-size:22px;cursor:pointer;opacity:1;transition:all .3s;display:flex;align-items:center;justify-content:center;line-height:1;backdrop-filter:blur(8px)}
 .vp-lb-close:hover{border-color:var(--a);background:rgba(232,148,56,.2);transform:scale(1.1)}
 .vp-lb-share{position:absolute;top:24px;left:24px;z-index:10;display:flex;align-items:center;gap:8px;background:none;border:none;color:rgba(245,239,232,.5);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:1px}
