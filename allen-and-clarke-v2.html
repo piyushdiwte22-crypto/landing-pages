@@ -1976,12 +1976,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Animate category cards on scroll
-gsap.utils.toArray('.vp-cat').forEach((cat, i) => {
-  gsap.from(cat, {
-    opacity: 0, y: 60, duration: 1, ease: 'power3.out',
-    scrollTrigger: { trigger: cat, start: 'top 80%' }
-  });
-});
+// Video portfolio cards — no opacity animation, they're full-bleed sections
 </script>
 </body>
 </html>
