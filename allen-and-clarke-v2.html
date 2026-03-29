@@ -165,22 +165,28 @@ section,.stmt,.vm{scroll-snap-align:start}
 
 /* ══ VIDEO PORTFOLIO CATEGORIES ══ */
 .vp-section{position:relative;overflow:hidden;z-index:3}
-.vp-cat{position:relative;height:100vh;overflow:hidden;cursor:pointer;background:#0a0a0a}
-.vp-cat+.vp-cat{border-top:1px solid rgba(255,255,255,.04)}
-.vp-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 4s ease}
-.vp-cat:hover .vp-bg{transform:scale(1.03)}
-.vp-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45)}
-.vp-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-.vp-label{font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:rgba(232,148,58,.6)}
-.vp-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,64px);color:#f5efe8;letter-spacing:-1px;text-align:center}
-.vp-count{font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(245,239,232,.3);letter-spacing:2px}
-.vp-play{width:72px;height:72px;border-radius:50%;border:1.5px solid rgba(232,148,56,.35);background:rgba(232,148,56,.08);display:flex;align-items:center;justify-content:center;margin-top:12px;transition:all .4s ease}
-.vp-play svg{width:22px;height:22px;fill:var(--a);margin-left:3px}
-.vp-cat:hover .vp-play{border-color:rgba(232,148,56,.6);background:rgba(232,148,56,.15);transform:scale(1.08)}
-.vp-allvids{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border:1px solid rgba(255,255,255,.12);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,239,232,.5);margin-top:20px;transition:all .3s ease}
-.vp-cat:hover .vp-allvids{border-color:rgba(255,255,255,.25);color:rgba(245,239,232,.7)}
-.vp-arrow{position:absolute;right:40px;top:50%;transform:translateY(-50%);z-index:3;color:rgba(245,239,232,.2);font-size:32px;transition:color .3s ease}
-.vp-cat:hover .vp-arrow{color:rgba(245,239,232,.5)}
+.vp-cat{position:relative;height:70vh;min-height:480px;overflow:hidden;cursor:pointer;background:#0a0a0a}
+.vp-cat+.vp-cat{border-top:1px solid rgba(255,255,255,.06)}
+.vp-bg{position:absolute;inset:-20px;background-size:cover;background-position:center;animation:vpKenBurns 20s ease-in-out infinite alternate}
+@keyframes vpKenBurns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.08) translate(-1%,1%)}}
+.vp-cat:nth-child(2) .vp-bg{animation-delay:-5s;animation-direction:alternate-reverse}
+.vp-cat:nth-child(3) .vp-bg{animation-delay:-10s}
+.vp-cat:nth-child(4) .vp-bg{animation-delay:-3s;animation-direction:alternate-reverse}
+.vp-cat:nth-child(5) .vp-bg{animation-delay:-7s}
+.vp-cat:hover .vp-bg{animation-play-state:paused}
+.vp-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.4) 40%,rgba(0,0,0,.55) 100%);transition:background .5s ease}
+.vp-cat:hover .vp-overlay{background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.3) 40%,rgba(0,0,0,.45) 100%)}
+.vp-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.vp-title{font-family:'DM Sans',sans-serif;font-size:clamp(24px,4vw,48px);font-weight:400;color:#f5efe8;letter-spacing:clamp(8px,1.5vw,18px);text-transform:uppercase;text-align:center}
+.vp-playwrap{display:flex;align-items:center;gap:10px;margin-top:8px}
+.vp-play{width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;transition:all .4s ease}
+.vp-play svg{width:18px;height:18px;fill:#f5efe8;margin-left:2px}
+.vp-cat:hover .vp-play{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.12);transform:scale(1.06)}
+.vp-playtext{font-family:'DM Sans',sans-serif;font-size:13px;font-style:italic;color:rgba(245,239,232,.6);letter-spacing:0.5px}
+.vp-allvids{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border:1px solid rgba(255,255,255,.12);border-radius:4px;font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,239,232,.45);margin-top:16px;transition:all .3s ease}
+.vp-cat:hover .vp-allvids{border-color:rgba(255,255,255,.25);color:rgba(245,239,232,.65)}
+.vp-arrow{position:absolute;right:36px;top:50%;transform:translateY(-50%);z-index:3;color:rgba(245,239,232,.15);font-size:36px;font-weight:200;transition:color .3s ease}
+.vp-cat:hover .vp-arrow{color:rgba(245,239,232,.45)}
 
 /* Lightbox */
 .vp-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);display:none;flex-direction:column;opacity:0;transition:opacity .4s ease}
@@ -207,7 +213,8 @@ section,.stmt,.vm{scroll-snap-align:start}
 .vp-lb-nav.next{right:16px}
 
 @media(max-width:900px){
-  .vp-cat{height:60vh}
+  .vp-cat{height:55vh;min-height:360px}
+  .vp-title{letter-spacing:8px!important}
   .vp-arrow{display:none}
   .vp-lb-main{flex-direction:column;padding:50px 16px 12px}
   .vp-lb-info{flex:0 0 auto;padding-top:0}
@@ -598,10 +605,8 @@ footer a:hover{color:#2dd4bf}
     <div class="vp-bg" style="background-image:url('https://vumbnail.com/1041460991.jpg')"></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
-      <div class="vp-label">Collection</div>
       <div class="vp-title">Brand & Cinematic</div>
-      <div class="vp-count">4 videos</div>
-      <div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
       <div class="vp-allvids">All Videos <span>+</span></div>
     </div>
     <div class="vp-arrow">&#8250;</div>
@@ -611,10 +616,8 @@ footer a:hover{color:#2dd4bf}
     <div class="vp-bg" style="background-image:url('https://vumbnail.com/1016747108.jpg')"></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
-      <div class="vp-label">Collection</div>
       <div class="vp-title">Corporate & Training</div>
-      <div class="vp-count">11 videos</div>
-      <div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
       <div class="vp-allvids">All Videos <span>+</span></div>
     </div>
     <div class="vp-arrow">&#8250;</div>
@@ -624,10 +627,8 @@ footer a:hover{color:#2dd4bf}
     <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/zFR0Vs3o2fs/maxresdefault.jpg')"></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
-      <div class="vp-label">Collection</div>
       <div class="vp-title">Event Coverage</div>
-      <div class="vp-count">5 videos</div>
-      <div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
       <div class="vp-allvids">All Videos <span>+</span></div>
     </div>
     <div class="vp-arrow">&#8250;</div>
@@ -637,10 +638,8 @@ footer a:hover{color:#2dd4bf}
     <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/3bR7HUcPZ1c/hqdefault.jpg')"></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
-      <div class="vp-label">Collection</div>
       <div class="vp-title">UGC & Paid Ads</div>
-      <div class="vp-count">4 videos</div>
-      <div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
       <div class="vp-allvids">All Videos <span>+</span></div>
     </div>
     <div class="vp-arrow">&#8250;</div>
@@ -650,10 +649,8 @@ footer a:hover{color:#2dd4bf}
     <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/n7SDop-fo9Q/maxresdefault.jpg')"></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
-      <div class="vp-label">Collection</div>
       <div class="vp-title">Product & Explainers</div>
-      <div class="vp-count">3 videos</div>
-      <div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
       <div class="vp-allvids">All Videos <span>+</span></div>
     </div>
     <div class="vp-arrow">&#8250;</div>
