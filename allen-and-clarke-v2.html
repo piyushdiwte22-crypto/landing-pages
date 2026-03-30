@@ -1667,6 +1667,7 @@ const thumbsEl = document.getElementById('heroThumbs');
 const thumbEls = document.querySelectorAll('.hero-thumb');
 const heroVidsEl = document.getElementById('heroVids');
 const heroVidEls = document.querySelectorAll('.hero-vid');
+window.heroVidEls = heroVidEls;
 const S = 1/34; // stage size = 2.94% (each stage = 100vh)
 
 // Video showcase state
@@ -1739,6 +1740,7 @@ function pauseVid(idx) {
 const videoPendingPlay = [false, false, false, false];
 window._heroSnapping = false;
 
+window.setVideoState = setVideoState;
 function setVideoState(idx, newState) {
   const old = videoStates[idx];
   if (old === newState) return;
@@ -2051,7 +2053,10 @@ window.updateHeroScroll = function(progress) {
       bgVid.style.opacity = 0.25 * (1 - (progress - S*29) / S);
     } else {
       bgVid.style.opacity = 0;
+      if (!bgVid.paused) bgVid.pause();
     }
+    // Resume when scrolling back into view
+    if (progress < S*30 && bgVid.paused && progress > 0) bgVid.play().catch(()=>{});
   }
 
   // ── Camera bloom glow: visible stages 2-10, fade out 10-11 ──
@@ -2267,6 +2272,16 @@ ScrollTrigger.create({
     directional: true,
     onStart: () => { window._heroSnapping = true; },
     onComplete: () => { window._heroSnapping = false; }
+  },
+  onLeave: () => {
+    // Force-pause all hero videos when scrolling past the hero
+    if (window.heroVidEls) window.heroVidEls.forEach((v,i) => { if (window.setVideoState) window.setVideoState(i, 0); });
+    const bgv = document.getElementById('heroBgVideo');
+    if (bgv) bgv.pause();
+  },
+  onLeaveBack: () => {
+    const bgv = document.getElementById('heroBgVideo');
+    if (bgv) bgv.pause();
   },
   onUpdate: (self) => {
     const p = self.progress;
