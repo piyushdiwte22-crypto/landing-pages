@@ -570,38 +570,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .hero-thumb{display:none}
 }
 
-/* ── Touch device performance optimizations (iPad + iPhone) ── */
+/* ── Touch device performance (keep all features, optimize rendering) ── */
 @media(pointer:coarse){
-  /* Kill heavy GPU layers on all touch devices */
-  .grain{display:none}
-  .light-motes{display:none}
-  #cam3d{display:none}
-  .section-mesh{display:none}
-  /* Remove all backdrop-filters — very expensive on mobile GPU */
-  nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,10,15,.92)}
-  .cta-footer{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,10,15,.92)}
+  /* Swap backdrop-filter for solid bg (invisible difference, big perf gain) */
+  nav{-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+  .cta-footer{-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
   .stories-nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(7,7,13,.9)}
-  .btn-outline{backdrop-filter:none;-webkit-backdrop-filter:none}
   .scroll-top{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,10,15,.9)}
   .cat-tile{backdrop-filter:none;-webkit-backdrop-filter:none}
-  .cat-back-btn{backdrop-filter:none;-webkit-backdrop-filter:none}
-  .cat-modal-close{backdrop-filter:none;-webkit-backdrop-filter:none}
-  .cat-nav{backdrop-filter:none;-webkit-backdrop-filter:none}
-  .cat-feat-play-btn{backdrop-filter:none;-webkit-backdrop-filter:none}
-  .yt-popup-overlay{backdrop-filter:none;-webkit-backdrop-filter:none}
-  .stories-fs-close{backdrop-filter:none;-webkit-backdrop-filter:none}
-  .fs-nav-btn{backdrop-filter:none;-webkit-backdrop-filter:none}
-  /* Remove all will-change to free GPU memory */
+  /* Reduce will-change to free GPU memory */
   .hero-thumb,.hero-vid,.reveal,.why-item-pin,.metric,.mesh-orb,.tool-pill,.hi-line{will-change:auto}
-  /* Simpler bg video */
-  #heroBgVideo{filter:brightness(.3) saturate(.4)}
-  /* Kill infinite CSS animations that aren't visible */
-  .btn-primary{animation:none}
-  .h-gd{animation:none}
-}
-/* ── iPad-specific tweaks ── */
-@media(pointer:coarse) and (min-width:768px) and (max-width:1366px){
-  .hero-thumb{transform:scale(.65)!important;opacity:.5!important}
+  /* Fewer light motes on touch */
+  .mote:nth-child(n+11){display:none}
+  /* Simpler grain */
+  .grain{opacity:.02}
 }
 
 /* ── Mobile responsive for new sections ── */
@@ -1849,35 +1831,18 @@ if(scrollTopBtn){
   scrollTopBtn.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});
 }
 
-// ── Touch device: fast-dismiss loading screen (3D module won't load) ──
+// ── Touch device: safety net — never block loading more than 8s ──
 if (window.matchMedia('(pointer:coarse)').matches) {
-  const _ls = document.getElementById('loadScreen');
-  const _pct = document.getElementById('loadPct');
-  const _bgv = document.getElementById('heroBgVideo');
-  // Wait for video + fonts only, skip 3D model
-  let _ready = { video: false, fonts: false };
-  function _checkTouch() {
-    if (_ready.video && _ready.fonts) {
+  setTimeout(() => {
+    const _ls = document.getElementById('loadScreen');
+    const _bgv = document.getElementById('heroBgVideo');
+    if (_ls && !_ls.classList.contains('done')) {
+      const _pct = document.getElementById('loadPct');
       if (_pct) _pct.textContent = '100';
-      setTimeout(() => {
-        if (_ls) _ls.classList.add('done');
-        if (_bgv) _bgv.play().catch(() => {});
-      }, 400);
+      _ls.classList.add('done');
+      if (_bgv) _bgv.play().catch(() => {});
     }
-  }
-  if (_bgv) {
-    if (_bgv.readyState >= 4) { _ready.video = true; }
-    else {
-      _bgv.addEventListener('canplaythrough', () => { _ready.video = true; if (_pct) _pct.textContent = '60'; _checkTouch(); }, { once: true });
-      _bgv.addEventListener('error', () => { _ready.video = true; _checkTouch(); }, { once: true });
-    }
-  } else { _ready.video = true; }
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(() => { _ready.fonts = true; if (_pct) _pct.textContent = '80'; _checkTouch(); });
-  } else { _ready.fonts = true; }
-  // Absolute fallback — never block more than 4s on touch
-  setTimeout(() => { if (_ls && !_ls.classList.contains('done')) { if (_pct) _pct.textContent = '100'; _ls.classList.add('done'); if (_bgv) _bgv.play().catch(() => {}); } }, 4000);
-  _checkTouch();
+  }, 8000);
 }
 </script>
 
@@ -1891,21 +1856,14 @@ if (window.matchMedia('(pointer:coarse)').matches) {
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-// Skip 3D on touch devices (iPad/iPhone) — too heavy
-if (window.matchMedia('(pointer:coarse)').matches) {
-  window._3dSkipped = true;
-  const _fakeResolve = () => {};
-  if (window._3dReady) window._3dReady();
-  // Signal loading system that 3D is done
-  document.dispatchEvent(new Event('3d-skipped'));
-  throw new Error('3D skipped on touch device'); // exits module cleanly
-}
+// On touch devices, use lower pixel ratio for better performance
+const _isTouch = window.matchMedia('(pointer:coarse)').matches;
 
 const canvas = document.getElementById('cam3d');
 
 // ── Renderer ──
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: !_isTouch, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(_isTouch ? 1 : Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(0x050505, 0);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.4;
@@ -2190,12 +2148,7 @@ if (heroBgVideo.readyState >= 4) { loadTasks.video = true; updateLoadPct(); }
   setTimeout(() => { if (!loadTasks.fonts) { loadTasks.fonts = true; updateLoadPct(); checkAllLoaded(); } }, 5000);
 })();
 
-// 4. 3D model — skip on touch devices (3D module won't load)
-if (window.matchMedia('(pointer:coarse)').matches) {
-  loadTasks.model = true;
-  updateLoadPct();
-  checkAllLoaded();
-}
+// 4. 3D model (tracked via loadManager)
 loadManager.onProgress = (url, loaded, total) => {
   // Update pct smoothly during model load
   const modelPct = Math.round((loaded / total) * 25);
