@@ -874,7 +874,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 <!-- ═══ WHAT I BRING TO THE TABLE (scroll-pinned) ═══ -->
 <section class="why-pin-wrap" id="whyMe" style="position:relative">
   <div class="section-mesh"><div class="mesh-orb mesh-orb-2"></div><div class="mesh-orb mesh-orb-3"></div></div>
-  <div style="height:400vh;position:relative">
+  <div style="height:400vh;position:relative;pointer-events:none">
     <div class="why-pin-inner">
       <div class="container">
         <div class="reveal">
@@ -918,7 +918,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 <!-- ═══ PROOF POINTS (scroll-pinned) ═══ -->
 <section class="proof-pin-wrap" id="proofSection" style="position:relative">
-  <div style="height:500vh;position:relative">
+  <div style="height:500vh;position:relative;pointer-events:none">
     <div class="proof-pin-inner">
       <div class="container">
         <div class="reveal">
@@ -938,7 +938,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 <!-- ═══ TOOLS & SKILLS (scroll-pinned) ═══ -->
 <section class="tools-pin-wrap" id="toolsSection" style="position:relative">
-  <div style="height:600vh;position:relative">
+  <div style="height:600vh;position:relative;pointer-events:none">
     <div class="tools-pin-inner">
       <div class="container">
         <div class="reveal">
@@ -969,7 +969,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 <!-- ═══ CATEGORY OVERVIEW (intro tiles) ═══ -->
 <!-- ═══ CATEGORY OVERVIEW (scroll-pinned title shrink, no tiles) ═══ -->
 <section class="cat-pin-wrap" id="catOverview" style="position:relative">
-  <div style="height:300vh;position:relative">
+  <div style="height:300vh;position:relative;pointer-events:none">
     <div class="cat-pin-inner">
       <div class="container" style="max-width:900px">
         <div class="reveal">
@@ -1049,7 +1049,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 <!-- ═══ VERTICAL SHOWCASE ═══ -->
 <section class="vert-pin-wrap" id="vertical" style="position:relative">
-  <div style="height:500vh;position:relative">
+  <div style="height:500vh;position:relative;pointer-events:none">
     <div class="vert-pin-inner">
       <div class="container" style="max-width:1260px">
         <div class="reveal">
@@ -1255,7 +1255,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 <!-- ═══ ABOUT + CTA (scroll-pinned) ═══ -->
 <section class="about-pin-wrap" id="about" style="position:relative">
-  <div style="height:400vh;position:relative">
+  <div style="height:400vh;position:relative;pointer-events:none">
     <div class="about-pin-inner">
       <div class="container" style="position:relative;z-index:2;max-width:900px">
         <p class="label" style="text-align:center">About Me</p>
@@ -1740,6 +1740,7 @@ var storyGoTo;
 (function(){
   const fsEl=document.getElementById('storiesFS');
   if(!fsEl) return;
+  document.body.appendChild(fsEl); // Move out of #content stacking context
   const openBtn=document.getElementById('fsOpenBtn');
   const closeBtn=document.getElementById('fsCloseBtn');
   const doneScreen=document.getElementById('fsDoneScreen');
