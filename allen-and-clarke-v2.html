@@ -6,7 +6,7 @@
 <title>Piyush Diwte | Campaign + Content Manager for Allen and Clarke</title>
 <meta name="description" content="Custom application landing page for Allen and Clarke by Piyush Diwte.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Three.js import map -->
 <script type="importmap">
@@ -24,6 +24,8 @@
 html{scroll-behavior:smooth;scroll-snap-type:y proximity}
 body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:clamp(16px,1.1vw,18px)}
 ::selection{background:rgba(232,148,58,.3);color:#f0a848}
+:focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:4px}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
 /* ══ PROGRESS BAR ══ */
 #progressBar{position:fixed;top:0;left:0;height:2px;width:0%;z-index:9999;background:linear-gradient(90deg,var(--a2),var(--a),var(--a2));pointer-events:none}
@@ -329,7 +331,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .stories-fs-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-size:13px;font-weight:600;background:linear-gradient(135deg,var(--a2),var(--a));color:var(--w);border:none;cursor:pointer;transition:all .3s cubic-bezier(.16,1,.3,1);letter-spacing:.3px;animation:btnPulse 3s ease-in-out infinite}
 .stories-fs-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
 .stories-fs-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(196,117,43,0.35)}
-.stories-fullscreen{display:none;position:fixed;inset:0;z-index:500;background:#000;flex-direction:column;overflow:hidden;width:100vw;height:100vh;height:100dvh}
+.stories-fullscreen{display:none;position:fixed;inset:0;z-index:600;background:#000;flex-direction:column;overflow:hidden;width:100vw;height:100vh;height:100dvh}
 .stories-fullscreen.open{display:flex}
 .stories-fs-close{position:absolute;top:14px;right:14px;z-index:20;width:36px;height:36px;border-radius:50%;border:none;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);color:var(--w);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .stories-fs-close:hover{background:rgba(255,255,255,0.2)}
@@ -443,7 +445,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .cta-footer .footer-socials{display:flex;gap:14px;margin-bottom:0}
 .cta-footer .footer-social{width:36px;height:36px}
 .cta-footer .footer-social svg{width:15px;height:15px}
-.cta-footer-text{font-size:13px;color:rgba(245,239,232,.45);letter-spacing:.5px}
+.cta-footer-text{font-size:13px;color:rgba(245,239,232,.45);letter-spacing:.5px;white-space:normal;word-wrap:break-word;min-width:0;flex-shrink:1}
 .cta-footer-text a{color:var(--a);text-decoration:none;transition:color .2s}
 .cta-footer-text a:hover{color:var(--w)}
 
@@ -969,10 +971,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 <section class="cat-pin-wrap" id="catOverview" style="position:relative">
   <div style="height:300vh;position:relative">
     <div class="cat-pin-inner">
-      <div class="container">
+      <div class="container" style="max-width:900px">
         <div class="reveal">
-          <p class="label">Video Portfolio</p>
-          <h2 class="section-title" data-splitting>Projects I have worked on.</h2>
+          <p class="label" style="text-align:center">Video Portfolio</p>
+          <h2 class="section-title" data-splitting style="text-align:center">Projects I have worked on.</h2>
         </div>
         <p class="cat-brief" style="text-align:center;max-width:640px;margin:0 auto;opacity:0;font-size:clamp(15px,1.2vw,18px);color:rgba(245,239,232,.5);line-height:1.7;letter-spacing:.3px">End-to-end production — scripting, filming, direction, post-production, and content scheduling across brands, government, and lifestyle.</p>
       </div>
@@ -1049,7 +1051,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 <section class="vert-pin-wrap" id="vertical" style="position:relative">
   <div style="height:500vh;position:relative">
     <div class="vert-pin-inner">
-      <div class="container">
+      <div class="container" style="max-width:1260px">
         <div class="reveal">
           <p class="label">Vertical Content</p>
           <h2 class="section-title" data-splitting>Made to stop you scrolling.</h2>
@@ -1255,9 +1257,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 <section class="about-pin-wrap" id="about" style="position:relative">
   <div style="height:400vh;position:relative">
     <div class="about-pin-inner">
-      <div class="container" style="position:relative;z-index:2">
-        <p class="label">About Me</p>
-        <h2 class="section-title" data-splitting>Built for brands<br>that move fast.</h2>
+      <div class="container" style="position:relative;z-index:2;max-width:900px">
+        <p class="label" style="text-align:center">About Me</p>
+        <h2 class="section-title" data-splitting style="text-align:center;margin-bottom:24px">Built for brands<br>that move fast.</h2>
         <p class="about-text about-item" style="text-align:center">
           I'm a digital content creator and social media manager based in Melbourne. Right now I run content across two automotive lifestyle brands, <strong>Patrolapart</strong> and <strong>Navarapart</strong>. Before that I shot cinematic and social content for <strong>Hamilton Island</strong> and coordinated digital content across <strong>43 Scape Australia properties</strong> nationally.
         </p>
@@ -1273,7 +1275,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
             <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             Call Me
           </a>
-          <a href="#" class="btn btn-outline magnetic" id="resumeBtn" onclick="event.preventDefault();alert('Resume will be available soon!');" title="Resume coming soon">
+          <a href="#" class="btn btn-outline magnetic" id="resumeBtn" onclick="event.preventDefault();var t=this;if(!t.querySelector('.resume-toast')){var s=document.createElement('span');s.className='resume-toast';s.textContent='Coming soon';s.style.cssText='position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(232,148,58,.15);border:1px solid rgba(232,148,58,.3);color:var(--a);padding:6px 14px;border-radius:20px;font-size:11px;letter-spacing:1px;white-space:nowrap;pointer-events:none;animation:toastIn .3s ease forwards';t.style.position='relative';t.appendChild(s);setTimeout(function(){s.style.opacity='0';s.style.transition='opacity .3s';setTimeout(function(){s.remove()},300)},2000)}" title="Resume coming soon">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Resume
           </a>
@@ -1331,7 +1333,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 </div>
 <!-- ═══ CATEGORY VIDEO MODAL (Portfolio-style) ═══ -->
 <div class="cat-modal-overlay" id="catModal">
-  <a href="#" class="cat-back-btn" onclick="event.preventDefault();closeCatModal();document.getElementById('catOverview').scrollIntoView({behavior:'smooth'})">
+  <a href="#" class="cat-back-btn" onclick="event.preventDefault();closeCatModal();var t=document.getElementById('catOverview');if(window._lenis){window._lenis.scrollTo(t)}else{t.scrollIntoView({behavior:'smooth'})}">
     <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     Back to Categories
   </a>
@@ -1551,7 +1553,7 @@ function catSelectVid(idx){
   if(oldIframe) oldIframe.remove();
   // Update info
   document.getElementById('catInfoTitle').textContent=v.title;
-  document.getElementById('catInfoMeta').textContent='Diwte Piyush';
+  document.getElementById('catInfoMeta').textContent='Piyush Diwte';
   document.getElementById('catInfoDesc').textContent=v.desc||'';
   document.getElementById('catInfoClient').textContent=v.client;
   // Update thumb highlights
@@ -1619,7 +1621,7 @@ document.querySelectorAll('.cat-tile').forEach(tile=>{
     e.preventDefault();
     const target=tile.dataset.target;
     const card=document.querySelector('.vp-cat[data-cat="'+target+'"]');
-    if(card){card.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>openCatModal(target),400);}
+    if(card){if(window._lenis){window._lenis.scrollTo(card);setTimeout(()=>openCatModal(target),800);}else{card.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>openCatModal(target),400);}}
   });
 });
 // Escape key & keyboard nav
@@ -2115,6 +2117,8 @@ function checkAllLoaded() {
 heroBgVideo.addEventListener('canplaythrough', () => { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); }, { once: true });
 heroBgVideo.addEventListener('error', () => { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); }, { once: true });
 if (heroBgVideo.readyState >= 4) { loadTasks.video = true; updateLoadPct(); }
+// Desktop video timeout — don't block loading if CDN is slow
+setTimeout(() => { if (!loadTasks.video) { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); } }, 6000);
 
 // 2. Thumbnail preload (hero thumbs + vid covers)
 (function preloadThumbs() {
@@ -2867,7 +2871,7 @@ function registerPinnedOverlay(pinInner, zIndex) {
       pinInner.style.position = 'absolute';
       pinInner.style.top = 'auto';
       pinInner.style.bottom = '0';
-      pinInner.style.pointerEvents = '';
+      pinInner.style.pointerEvents = 'auto';
     },
     onEnterBack: () => {
       pinInner.style.position = 'fixed';
@@ -2879,7 +2883,7 @@ function registerPinnedOverlay(pinInner, zIndex) {
     onUpdate: (self) => {
       const p = self.progress;
       pinInner.style.opacity = '1';
-      if (p > 0.3) pinInner.style.pointerEvents = '';
+      if (p > 0.3) pinInner.style.pointerEvents = 'auto';
       const TITLE_END = 0.25;
       if (titleEl) {
         const tp = Math.min(1, p / TITLE_END);
@@ -2980,11 +2984,11 @@ function registerPinnedOverlay(pinInner, zIndex) {
 
   ScrollTrigger.create({
     trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = ''; },
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
     onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.pointerEvents = 'none'; proofCoord.show(); },
     onUpdate: (self) => {
       const p = self.progress;
-      if (p > 0.25) pinInner.style.pointerEvents = '';
+      if (p > 0.25) pinInner.style.pointerEvents = 'auto';
 
       const TITLE_END = 0.2;
       if (titleEl) {
@@ -3078,11 +3082,11 @@ function registerPinnedOverlay(pinInner, zIndex) {
     trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
     onEnter: () => { toolsCoord.show(); },
     onLeaveBack: () => { toolsCoord.show(); },
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = ''; },
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
     onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; toolsCoord.show(); pinInner.style.pointerEvents = 'none'; },
     onUpdate: (self) => {
       const p = self.progress;
-      if (p > 0.25) pinInner.style.pointerEvents = '';
+      if (p > 0.25) pinInner.style.pointerEvents = 'auto';
 
       const TITLE_END = 0.15;
       if (titleEl) {
@@ -3126,9 +3130,9 @@ function registerPinnedOverlay(pinInner, zIndex) {
   const wrap = document.getElementById('catOverview');
   if (!wrap) return;
   const pinInner = wrap.querySelector('.cat-pin-inner');
-  const titleEl = wrap.querySelector('.section-title');
-  const labelEl = wrap.querySelector('.label');
-  const briefEl = wrap.querySelector('.cat-brief');
+  const titleEl = pinInner.querySelector('.section-title');
+  const labelEl = pinInner.querySelector('.label');
+  const briefEl = pinInner.querySelector('.cat-brief');
 
   pinInner.style.position = 'fixed';
   pinInner.style.top = '0';
@@ -3158,11 +3162,11 @@ function registerPinnedOverlay(pinInner, zIndex) {
     trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
     onEnter: () => { pinInner.style.opacity = '1'; },
     onLeaveBack: () => { pinInner.style.opacity = '0'; },
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = ''; },
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
     onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
     onUpdate: (self) => {
       const p = self.progress;
-      if (p > 0.2) pinInner.style.pointerEvents = '';
+      if (p > 0.2) pinInner.style.pointerEvents = 'auto';
 
       // Title shrink: 0-20%
       const TITLE_END = 0.2;
@@ -3187,12 +3191,12 @@ function registerPinnedOverlay(pinInner, zIndex) {
   if (!wrap) return;
   const pinInner = wrap.querySelector('.vert-pin-inner');
   if (!pinInner) return;
-  const titleEl = wrap.querySelector('.section-title');
-  const labelEl = wrap.querySelector('.label');
-  const layout = wrap.querySelector('.stories-layout');
-  const phone = wrap.querySelector('.stories-phone');
-  const navVert = wrap.querySelector('.stories-nav-vertical');
-  const right = wrap.querySelector('.stories-right');
+  const titleEl = pinInner.querySelector('.section-title');
+  const labelEl = pinInner.querySelector('.label');
+  const layout = pinInner.querySelector('.stories-layout');
+  const phone = pinInner.querySelector('.stories-phone');
+  const navVert = pinInner.querySelector('.stories-nav-vertical');
+  const right = pinInner.querySelector('.stories-right');
 
   pinInner.style.position = 'fixed';
   pinInner.style.top = '0';
@@ -3222,11 +3226,11 @@ function registerPinnedOverlay(pinInner, zIndex) {
     trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
     onEnter: () => { pinInner.style.opacity = '1'; },
     onLeaveBack: () => { pinInner.style.opacity = '0'; },
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = ''; },
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
     onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
     onUpdate: (self) => {
       const p = self.progress;
-      if (p > 0.2) pinInner.style.pointerEvents = '';
+      if (p > 0.2) pinInner.style.pointerEvents = 'auto';
 
       // Title shrink: 0-15%
       if (titleEl) {
@@ -3255,9 +3259,9 @@ function registerPinnedOverlay(pinInner, zIndex) {
   if (!wrap) return;
   const pinInner = wrap.querySelector('.about-pin-inner');
   if (!pinInner) return;
-  const titleEl = wrap.querySelector('.section-title');
-  const labelEl = wrap.querySelector('.label');
-  const items = wrap.querySelectorAll('.about-item');
+  const titleEl = pinInner.querySelector('.section-title');
+  const labelEl = pinInner.querySelector('.label');
+  const items = pinInner.querySelectorAll('.about-item');
   const itemCount = items.length;
 
   pinInner.style.position = 'fixed';
@@ -3288,11 +3292,11 @@ function registerPinnedOverlay(pinInner, zIndex) {
     trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
     onEnter: () => { pinInner.style.opacity = '1'; },
     onLeaveBack: () => { pinInner.style.opacity = '0'; },
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = ''; },
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
     onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
     onUpdate: (self) => {
       const p = self.progress;
-      if (p > 0.25) pinInner.style.pointerEvents = '';
+      if (p > 0.25) pinInner.style.pointerEvents = 'auto';
 
       // Title shrink: 0-20%
       if (titleEl) {
@@ -3405,12 +3409,18 @@ ScrollTrigger.create({
 });
 
 // ══ PROGRESS BAR + PARTICLE CANVAS PERSISTENCE ══
+// Throttled progress bar update via rAF
+let _progTick = false;
 window.addEventListener('scroll', () => {
-  const h = document.documentElement.scrollHeight - window.innerHeight;
-  const p = (window.scrollY / h) * 100;
-  document.getElementById('progressBar').style.width = p + '%';
-  // Canvas visibility handled by updateHeroScroll — no override needed here
-});
+  if (_progTick) return;
+  _progTick = true;
+  requestAnimationFrame(() => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const p = (window.scrollY / h) * 100;
+    document.getElementById('progressBar').style.width = p + '%';
+    _progTick = false;
+  });
+}, { passive: true });
 
 // cursor glow removed
 
@@ -3513,7 +3523,11 @@ window.addEventListener('scroll', () => {
       e.preventDefault();
       const target = document.getElementById(link.getAttribute('data-section'));
       if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
+        if (window._lenis) {
+          window._lenis.scrollTo(target);
+        } else {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     });
   });
