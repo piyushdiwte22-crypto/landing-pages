@@ -3166,7 +3166,8 @@ function registerPinnedOverlay(pinInner, zIndex) {
     onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
     onUpdate: (self) => {
       const p = self.progress;
-      if (p > 0.2) pinInner.style.pointerEvents = 'auto';
+      if (p > 0) pinInner.style.opacity = '1';
+      if (p > 0.1) pinInner.style.pointerEvents = 'auto';
 
       // Title shrink: 0-20%
       const TITLE_END = 0.2;
@@ -3230,7 +3231,8 @@ function registerPinnedOverlay(pinInner, zIndex) {
     onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
     onUpdate: (self) => {
       const p = self.progress;
-      if (p > 0.2) pinInner.style.pointerEvents = 'auto';
+      if (p > 0) pinInner.style.opacity = '1';
+      if (p > 0.1) pinInner.style.pointerEvents = 'auto';
 
       // Title shrink: 0-15%
       if (titleEl) {
@@ -3296,7 +3298,8 @@ function registerPinnedOverlay(pinInner, zIndex) {
     onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
     onUpdate: (self) => {
       const p = self.progress;
-      if (p > 0.25) pinInner.style.pointerEvents = 'auto';
+      if (p > 0) pinInner.style.opacity = '1';
+      if (p > 0.1) pinInner.style.pointerEvents = 'auto';
 
       // Title shrink: 0-20%
       if (titleEl) {
