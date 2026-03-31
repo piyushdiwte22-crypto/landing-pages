@@ -21,8 +21,8 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#050505;--a:#e8943a;--a2:#c4752b;--a3:#7C4A1E;--a4:#3a2e22;--w:#f5efe8;--wm:rgba(245,239,232,.4)}
-html{scroll-snap-type:y proximity}
-body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:clamp(16px,1.1vw,18px)}
 ::selection{background:rgba(232,148,58,.3);color:#f0a848}
 
 /* ══ PROGRESS BAR ══ */
@@ -30,7 +30,6 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;overflow
 
 /* ══ CURSOR GLOW ══ */
 /* cursor glow removed */
-
 
 /* ══ LOADING SCREEN ══ */
 #loadScreen{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#050505;transition:opacity .8s cubic-bezier(.16,1,.3,1)}
@@ -46,14 +45,22 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;overflow
 .grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.04;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") repeat;background-size:256px}
 
 /* Nav */
-nav{position:fixed;top:2px;left:0;right:0;z-index:500;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}
-.nl{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:#fff}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,48px);display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(10,10,15,.8) 0%,rgba(10,10,15,.4) 60%,transparent 100%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nl-gif{height:clamp(24px,2.5vw,32px);width:auto;opacity:.9;border-radius:50%;overflow:hidden}
+.nl-text{font-family:'Playfair Display',serif;font-size:clamp(10px,1.2vw,13px);font-weight:700;letter-spacing:clamp(3px,.4vw,5px);text-transform:uppercase;color:#fff}
+.nav-links{display:flex;gap:clamp(6px,1vw,12px);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-link{font-family:'DM Sans',Inter,sans-serif;font-size:clamp(9px,1vw,11px);letter-spacing:clamp(1px,.3vw,3px);text-transform:uppercase;color:rgba(245,239,232,.5);text-decoration:none;padding:clamp(6px,.8vh,8px) clamp(12px,1.5vw,18px);border:1px solid rgba(245,239,232,.12);border-radius:50px;transition:all .3s ease;white-space:nowrap}
+.nav-link:hover{color:var(--a);border-color:rgba(232,148,58,.3)}
+.nav-link.active{color:var(--w);border-color:rgba(245,239,232,.2);background:rgba(245,239,232,.08)}
 .nr{display:flex;gap:28px}
 .nr a{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);text-decoration:none;transition:color .3s}
 .nr a:hover{color:#fff}
 
-/* Sections scroll snap */
-section{scroll-snap-align:start}
+/* Hero/WhyMe: free scroll (no snap), other sections snap */
+#hero{scroll-snap-align:none}
+#whyMe{scroll-snap-align:start;scroll-snap-stop:always}
 
 /* ══ HERO VIDEO BACKDROP ══ */
 #heroBgVideo{position:fixed;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;pointer-events:none;opacity:1;filter:brightness(.35) saturate(.6)}
@@ -107,7 +114,7 @@ section{scroll-snap-align:start}
 #content{position:relative;z-index:2}
 
 /* ══ HERO ══ */
-#hero{height:3400vh;position:relative;overflow:visible}
+#hero{height:1800vh;position:relative;overflow:visible;scroll-snap-align:start}
 .hero-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .hero-text{position:relative;z-index:3;text-align:center;max-width:900px;padding:0 48px}
 .hero-text{opacity:0}
@@ -164,18 +171,18 @@ section{scroll-snap-align:start}
 .bg-grid canvas{width:100%;height:100%;display:block}
 
 /* Snap sections */
-.snap-section{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:110px 36px}
+.snap-section{position:relative;z-index:2;min-height:100vh;min-height:100svh;padding:clamp(60px,8vh,100px) clamp(24px,4vw,48px);box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start}
+.cat-overview{scroll-snap-align:start}
 
-/* Reveal animations */
-.reveal{opacity:0;transform:translate3d(0,40px,0);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);will-change:opacity,transform}
-.reveal.visible{opacity:1;transform:translate3d(0,0,0)}
-.reveal-d1{transition-delay:.12s}.reveal-d2{transition-delay:.24s}.reveal-d3{transition-delay:.36s}
+/* Reveal animations — GSAP handles opacity/transform via ScrollTrigger */
+.reveal{will-change:opacity,transform}
+.reveal-d1,.reveal-d2,.reveal-d3{/* delays handled by GSAP */}
 
 /* Containers */
 .container{max-width:1060px;margin:0 auto;width:100%}
 .label{font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--a);margin-bottom:14px;font-weight:600;display:flex;align-items:center;gap:10px}
 .label::before{content:'';width:24px;height:1px;background:var(--a)}
-.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,5.5vw,60px);font-weight:700;color:var(--w);margin-bottom:44px;line-height:1.08;letter-spacing:-1.5px}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,5.5vw,64px);font-weight:700;color:var(--w);margin-bottom:48px;line-height:1.08;letter-spacing:-1.5px}
 
 /* Section glow */
 .section-glow{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(196,117,43,0.06) 0%,transparent 70%);pointer-events:none;filter:blur(60px);z-index:0}
@@ -194,14 +201,13 @@ section{scroll-snap-align:start}
 
 /* Why me timeline */
 .why-grid{display:grid;gap:0;position:relative;padding-left:4px}
-.why-grid::before{content:'';position:absolute;left:36px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--a),rgba(196,117,43,0.08))}
-.why-item{display:flex;gap:28px;align-items:flex-start;padding:32px 0;position:relative;opacity:0;transform:translateX(-20px);transition:all .6s cubic-bezier(.16,1,.3,1)}
-.why-item.visible{opacity:1;transform:translateX(0)}
-.why-num{width:66px;height:66px;border-radius:50%;flex-shrink:0;background:var(--bg);border:2px solid var(--a);color:var(--a);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;position:relative;z-index:1;transition:all .3s ease}
+.why-grid::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--a),rgba(196,117,43,0.08))}
+.why-item{display:flex;gap:20px;align-items:flex-start;padding:18px 0;position:relative;will-change:opacity,transform}
+.why-num{width:48px;height:48px;border-radius:50%;flex-shrink:0;background:var(--bg);border:2px solid var(--a);color:var(--a);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;position:relative;z-index:1;transition:all .3s ease}
 .why-item:hover .why-num{background:linear-gradient(135deg,var(--a2),var(--a));color:var(--w);box-shadow:0 0 24px rgba(196,117,43,0.35)}
-.why-text{padding-top:10px}
-.why-text h3{font-size:20px;font-weight:700;color:var(--w);margin-bottom:8px}
-.why-text p{font-size:17px;color:rgba(122,122,142,1);line-height:1.7}
+.why-text{padding-top:4px}
+.why-text h3{font-size:18px;font-weight:700;color:var(--w);margin-bottom:4px}
+.why-text p{font-size:14px;color:rgba(122,122,142,1);line-height:1.6}
 
 /* Metrics */
 .metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-top:44px}
@@ -211,35 +217,33 @@ section{scroll-snap-align:start}
 .metric:hover{transform:translateY(-6px);background:rgba(22,22,35,0.95);box-shadow:0 0 40px rgba(196,117,43,0.12)}
 .metric::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);transition:left .6s ease;pointer-events:none}
 .metric:hover::after{left:150%}
-.metric-val{font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:700;background:linear-gradient(135deg,var(--a),#f0b060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
-.metric-lbl{font-size:13px;color:rgba(122,122,142,1);letter-spacing:1.5px;text-transform:uppercase}
+.metric-val{font-family:'Space Grotesk',sans-serif;font-size:clamp(44px,5vw,64px);font-weight:700;background:linear-gradient(135deg,var(--a),#f0b060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.metric-lbl{font-size:clamp(12px,1vw,14px);color:rgba(122,122,142,1);letter-spacing:1.5px;text-transform:uppercase}
 
 /* Tools pills */
 .tools-wrap{display:flex;flex-wrap:wrap;gap:16px;margin-top:36px}
-.tool-pill{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:50px;font-size:15px;font-weight:500;color:var(--w);background:rgba(14,14,22,0.9);border:1px solid rgba(255,255,255,0.06);transition:all .3s cubic-bezier(.16,1,.3,1);letter-spacing:.3px}
+.tool-pill{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:50px;font-size:clamp(14px,1vw,16px);font-weight:500;color:var(--w);background:rgba(14,14,22,0.9);border:1px solid rgba(255,255,255,0.06);transition:all .3s cubic-bezier(.16,1,.3,1);letter-spacing:.3px}
 .tool-pill:hover{border-color:rgba(196,117,43,0.3);background:rgba(196,117,43,0.06);transform:translateY(-2px);color:var(--w)}
 .tool-pill .tp-icon{font-size:17px}
-.tools-wrap .tool-pill{opacity:0;transform:translate3d(0,12px,0);transition:all .4s cubic-bezier(.16,1,.3,1)}
-.tools-wrap.visible .tool-pill{opacity:1;transform:translate3d(0,0,0)}
-.tools-wrap.visible .tool-pill:nth-child(1){transition-delay:.05s}
-.tools-wrap.visible .tool-pill:nth-child(2){transition-delay:.08s}
-.tools-wrap.visible .tool-pill:nth-child(3){transition-delay:.11s}
-.tools-wrap.visible .tool-pill:nth-child(4){transition-delay:.14s}
-.tools-wrap.visible .tool-pill:nth-child(5){transition-delay:.17s}
-.tools-wrap.visible .tool-pill:nth-child(6){transition-delay:.20s}
-.tools-wrap.visible .tool-pill:nth-child(7){transition-delay:.23s}
-.tools-wrap.visible .tool-pill:nth-child(8){transition-delay:.26s}
-.tools-wrap.visible .tool-pill:nth-child(9){transition-delay:.29s}
-.tools-wrap.visible .tool-pill:nth-child(10){transition-delay:.32s}
-.tools-wrap.visible .tool-pill:nth-child(11){transition-delay:.35s}
-.tools-wrap.visible .tool-pill:nth-child(12){transition-delay:.38s}
-.tools-wrap.visible .tool-pill:nth-child(13){transition-delay:.41s}
-.tools-wrap.visible .tool-pill:nth-child(14){transition-delay:.44s}
-
+/* Tool pill animations handled by GSAP ScrollTrigger */
 
 /* About */
-.about-text{color:rgba(122,122,142,1);font-size:19px;line-height:1.9}
+.vert-pin-wrap{position:relative;z-index:2}
+.vert-pin-inner{position:fixed;top:0;left:0;right:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible;opacity:0;pointer-events:none;background:none}
+.stories-nav-vertical{display:flex;flex-direction:column;gap:12px;margin-right:16px}
+.about-pin-wrap{position:relative;z-index:2}
+.about-pin-inner{position:fixed;top:0;left:0;right:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible;opacity:0;pointer-events:none;background:none}
+.about-section{overflow:hidden;min-height:auto;display:flex;flex-direction:column;justify-content:center;padding:clamp(80px,12vh,140px) 0 clamp(40px,6vh,60px);position:relative;z-index:5}
+.about-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.15;filter:blur(2px);z-index:0}
+.about-bg-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,13,.85) 0%,rgba(7,7,13,.7) 50%,rgba(7,7,13,.9) 100%);z-index:1}
+.about-content{display:flex;flex-direction:column;align-items:center;max-width:720px;margin:0 auto}
+.about-text-col{display:flex;flex-direction:column;align-items:center;text-align:center}
+.about-text{color:rgba(122,122,142,1);font-size:clamp(17px,1.3vw,20px);line-height:1.9}
 .about-text strong{color:var(--w);font-weight:600}
+.about-stats{display:flex;flex-direction:column;gap:28px;padding:36px;border-left:1px solid rgba(196,117,43,.2)}
+.about-stat{display:flex;flex-direction:column;gap:4px}
+.about-stat-num{font-family:'Space Grotesk',sans-serif;font-size:clamp(44px,4.5vw,56px);font-weight:700;color:var(--a);line-height:1}
+.about-stat-lbl{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:rgba(122,122,142,1)}
 
 /* ── Bridge section ── */
 .bridge-section{position:relative;z-index:2;min-height:60vh;display:flex;align-items:center;justify-content:center;padding:120px 36px;text-align:center}
@@ -247,26 +251,47 @@ section{scroll-snap-align:start}
 .bridge-text span{color:var(--a);font-weight:700;font-style:normal}
 
 /* ── Scroll-pinned Why Me ── */
-.why-pin-wrap{position:relative;z-index:2}
-.why-pin-inner{min-height:100vh;display:flex;align-items:center;padding:80px 36px}
+.why-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
+.why-pin-inner{min-height:100vh;display:flex;align-items:center;padding:40px 36px;overflow:visible}
 .why-progress{position:absolute;left:36px;top:0;bottom:0;width:2px;background:rgba(255,255,255,0.04)}
 .why-progress-fill{width:100%;height:0%;background:linear-gradient(to bottom,var(--a),var(--a2));transition:height 0.3s ease}
-.why-item-pin{opacity:0;transform:translateY(40px);transition:all 0.7s cubic-bezier(.16,1,.3,1)}
-.why-item-pin.active{opacity:1;transform:translateY(0)}
+.why-item-pin{will-change:opacity,transform}
 
-/* ── Video Categories ── */
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:44px}
-.cat-card{background:rgba(14,14,22,0.9);border:1px solid rgba(255,255,255,0.06);border-radius:20px;overflow:hidden;cursor:pointer;transition:all .4s cubic-bezier(.16,1,.3,1)}
-.cat-card:hover{border-color:rgba(196,117,43,0.3);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
-.cat-thumb-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;aspect-ratio:16/9;overflow:hidden}
-.cat-thumb{background:rgba(255,255,255,0.03);position:relative;overflow:hidden}
-.cat-thumb img{width:100%;height:100%;object-fit:cover;filter:brightness(.7) saturate(.7);transition:filter .3s}
-.cat-card:hover .cat-thumb img{filter:brightness(.85) saturate(.9)}
-.cat-thumb-placeholder{width:100%;height:100%;background:linear-gradient(135deg,rgba(196,117,43,0.08),rgba(196,117,43,0.02));display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.08);font-size:32px}
-.cat-info{padding:20px}
-.cat-title{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--w);margin-bottom:6px}
-.cat-count{font-size:13px;color:rgba(122,122,142,1);letter-spacing:1px}
-.cat-icon{font-size:20px;margin-right:8px}
+/* ── Video Categories (immersive full-height) ── */
+/* Category overview tiles */
+.cat-pin-wrap{position:relative;z-index:2}
+.cat-pin-inner{position:fixed;top:0;left:0;right:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible;opacity:0;pointer-events:none;background:none}
+.cat-overview{position:relative;z-index:2;padding:80px 24px;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always}
+.cat-tiles{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.cat-tile{display:flex;flex-direction:column;align-items:center;text-align:center;width:200px;padding:32px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(10,10,15,.95);backdrop-filter:blur(16px);text-decoration:none;transition:all .4s ease;cursor:pointer}
+.cat-tile:hover{border-color:rgba(232,148,58,.2);background:rgba(15,15,20,.95);transform:translateY(-4px)}
+.cat-tile-icon{width:56px;height:56px;margin-bottom:20px;color:var(--a);opacity:.7;transition:opacity .3s}
+.cat-tile:hover .cat-tile-icon{opacity:1}
+.cat-tile-icon svg{width:100%;height:100%}
+.cat-tile-title{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--w);letter-spacing:1px;margin-bottom:10px}
+.cat-tile-desc{font-family:'DM Sans',sans-serif;font-size:12px;line-height:1.6;color:rgba(245,239,232,.4);letter-spacing:.3px}
+
+.vp-section{position:relative;overflow:hidden;z-index:3;scroll-snap-align:start}
+.vp-cat{position:relative;height:100vh;min-height:100svh;overflow:hidden;cursor:pointer;background:#0a0a0a;scroll-snap-align:start;scroll-snap-stop:always}
+.vp-cat+.vp-cat{border-top:1px solid rgba(255,255,255,.04)}
+.vp-bg{position:absolute;inset:0;overflow:hidden;background-size:cover;background-position:center}
+.vp-bg iframe{position:absolute;top:50%;left:50%;width:100vw;height:56.25vw;min-height:100%;min-width:177.78vh;transform:translate(-50%,-50%) scale(1.2);border:none;pointer-events:none}
+.vp-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.45);transition:background .5s ease}
+.vp-cat:hover .vp-overlay{background:rgba(0,0,0,.3)}
+.vp-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:40px 40px 0}
+.vp-allvids-wrap{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);z-index:2}
+.vp-count{display:none}
+.vp-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,5vw,64px);font-weight:700;color:#fff;letter-spacing:clamp(4px,1vw,12px);text-transform:uppercase;text-align:center;text-shadow:0 4px 30px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.7);line-height:1.15}
+.vp-subtitle{display:none}
+.vp-playwrap{display:flex;align-items:center;gap:14px;margin-top:8px}
+.vp-play{width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:transparent;display:flex;align-items:center;justify-content:center;transition:all .4s ease}
+.vp-play svg{width:18px;height:18px;fill:#fff;margin-left:3px}
+.vp-cat:hover .vp-play{border-color:#fff;background:rgba(255,255,255,.1);transform:scale(1.05)}
+.vp-playtext{font-family:'Playfair Display',serif;font-size:16px;font-weight:400;font-style:italic;color:rgba(255,255,255,.9);letter-spacing:.5px;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.vp-allvids{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border:1px solid rgba(255,255,255,.35);border-radius:0;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:none;color:rgba(255,255,255,.85);margin-top:0;transition:all .3s ease;background:transparent;font-style:italic}
+.vp-cat:hover .vp-allvids{border-color:rgba(255,255,255,.6);color:#fff;background:rgba(255,255,255,.05)}
+.vp-arrow{position:absolute;right:36px;top:50%;transform:translateY(-50%);z-index:3;color:rgba(245,239,232,.25);font-size:52px;font-weight:200;transition:all .4s ease}
+.vp-cat:hover .vp-arrow{color:rgba(245,239,232,.7);transform:translateY(-50%) translateX(6px)}
 
 /* ── Vertical Stories Viewer ── */
 .stories-layout{display:flex;align-items:center;gap:52px;margin-top:44px}
@@ -285,17 +310,18 @@ section{scroll-snap-align:start}
 .stories-info-inner{position:absolute;bottom:0;left:0;right:0;z-index:5;padding:40px 14px 14px;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%)}
 .stories-tag{display:inline-block;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--w);background:rgba(196,117,43,0.85);padding:3px 10px;border-radius:50px;margin-bottom:6px}
 .stories-title-sm{font-size:12px;font-weight:600;color:var(--w)}
-.stories-right{flex:1;min-width:0}
-.stories-right-content{opacity:0;transform:translateX(20px);transition:all .5s cubic-bezier(.16,1,.3,1)}
+.stories-right{flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:center;padding-bottom:0}
+.stories-right-content{opacity:0;transform:translateX(20px);transition:all .5s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column}
 .stories-right-content.active{opacity:1;transform:translateX(0)}
+.sr-nav{/* positioned absolutely — see below */}
 .sr-counter{font-size:11px;color:rgba(122,122,142,1);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
 .sr-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--a);background:rgba(196,117,43,0.1);padding:5px 14px;border-radius:50px;margin-bottom:16px;border:1px solid rgba(196,117,43,0.2)}
 .sr-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:var(--w);margin-bottom:10px}
 .sr-desc{font-size:17px;color:rgba(122,122,142,1);line-height:1.7;margin-bottom:28px}
-.sr-nav{display:flex;gap:8px;margin-bottom:20px}
-.stories-nav{width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:rgba(7,7,13,0.8);backdrop-filter:blur(8px);color:rgba(122,122,142,1);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;flex-shrink:0}
+.sr-nav{display:flex;gap:12px;position:absolute;bottom:40px;left:0;z-index:10}
+.stories-nav{width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:rgba(7,7,13,0.8);backdrop-filter:blur(8px);color:rgba(122,122,142,1);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;flex-shrink:0}
 .stories-nav:hover{color:var(--w);border-color:var(--a);background:rgba(196,117,43,0.15);box-shadow:0 0 20px rgba(196,117,43,0.35)}
-.stories-nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.5}
+.stories-nav svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2.5}
 .stories-nav.disabled{opacity:0.2;pointer-events:none}
 .stories-tap{position:absolute;top:30px;bottom:60px;z-index:8;width:35%}
 .stories-tap-left{left:0}.stories-tap-right{right:0}
@@ -336,12 +362,56 @@ section{scroll-snap-align:start}
 .fs-nav-btn.disabled{opacity:0.15;pointer-events:none}
 .fs-nav-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5}
 
-/* ── Quote section ── */
-.quote-section{position:relative;z-index:2;padding:120px 36px;text-align:center;min-height:50vh;display:flex;align-items:center;justify-content:center}
-.quote-inner{max-width:800px}
-.quote-mark{font-family:'Playfair Display',serif;font-size:120px;color:var(--a);opacity:0.15;line-height:0.5;margin-bottom:-20px}
-.quote-text{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,44px);font-weight:400;font-style:italic;color:rgba(245,239,232,.9);line-height:1.5;margin-bottom:24px}
-.quote-attr{font-size:14px;color:var(--a);letter-spacing:3px;text-transform:uppercase;font-weight:600}
+/* ── Category Modal (Portfolio-style) ── */
+.cat-modal-overlay{display:none;position:fixed;inset:0;z-index:9000;background:#0a0a0a;flex-direction:column}
+.cat-modal-overlay.open{display:flex}
+.cat-modal-top{position:relative;flex:1;display:flex;min-height:0}
+.cat-modal-close{position:fixed;top:16px;right:20px;z-index:9010;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.7);backdrop-filter:blur(8px);color:var(--w);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cat-modal-close:hover{background:rgba(255,255,255,.15);border-color:var(--a)}
+.cat-back-btn{position:fixed;top:16px;left:20px;z-index:9010;display:flex;align-items:center;gap:8px;padding:8px 18px;border-radius:50px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.7);backdrop-filter:blur(8px);color:rgba(245,239,232,.7);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;text-decoration:none}
+.cat-back-btn:hover{background:rgba(255,255,255,.1);border-color:var(--a);color:var(--w)}
+.cat-back-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5}
+/* Featured video area */
+.cat-feat-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:12px;min-width:0;position:relative}
+.cat-feat-player{width:100%;max-width:85vw;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#000;position:relative}
+.cat-feat-player iframe{width:100%;height:100%;border:none}
+.cat-feat-player .cat-feat-cover{position:absolute;inset:0;background-size:cover;background-position:center;cursor:pointer;transition:opacity .3s}
+.cat-feat-player .cat-feat-cover.hidden{opacity:0;pointer-events:none}
+.cat-feat-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:50%;border:2px solid rgba(255,255,255,.5);background:rgba(0,0,0,.35);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s}
+.cat-feat-play-btn:hover{transform:translate(-50%,-50%) scale(1.1);border-color:var(--w);background:rgba(0,0,0,.5)}
+.cat-feat-play-btn svg{width:24px;height:24px;fill:#f5efe8;margin-left:3px}
+/* Nav arrows */
+.cat-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.4);backdrop-filter:blur(6px);color:rgba(255,255,255,.6);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cat-nav:hover{border-color:var(--a);color:var(--w);background:rgba(196,117,43,.15)}
+.cat-nav.disabled{opacity:.2;pointer-events:none}
+.cat-nav-prev{left:12px}
+.cat-nav-next{right:12px}
+/* Right info panel */
+.cat-info-panel{width:280px;flex-shrink:0;padding:60px 24px 24px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(255,255,255,.06)}
+.cat-info-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--w);text-transform:uppercase;letter-spacing:1px;line-height:1.3;margin-bottom:16px}
+.cat-info-meta{font-size:12px;color:rgba(122,122,142,1);margin-bottom:12px}
+.cat-info-desc{font-size:14px;color:rgba(180,180,195,.7);line-height:1.6;margin-bottom:24px}
+.cat-info-client{display:inline-block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--a);font-weight:600;padding:5px 14px;border:1px solid rgba(196,117,43,.2);border-radius:50px;background:rgba(196,117,43,.06)}
+/* Bottom thumbnail strip */
+.cat-thumb-strip{height:110px;flex-shrink:0;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;padding:0 16px;gap:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cat-thumb-strip::-webkit-scrollbar{display:none}
+.cat-thumb-item{flex-shrink:0;width:150px;height:85px;border-radius:6px;overflow:hidden;cursor:pointer;position:relative;border:2px solid transparent;transition:all .2s;opacity:.5}
+.cat-thumb-item:hover{opacity:.8}
+.cat-thumb-item.active{border-color:var(--a);opacity:1}
+.cat-thumb-item img{width:100%;height:100%;object-fit:cover;display:block}
+.cat-thumb-label{position:absolute;bottom:0;left:0;right:0;padding:14px 6px 5px;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 100%);font-size:9px;font-weight:600;color:var(--w);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Mobile */
+@media(max-width:900px){
+  .cat-modal-top{flex-direction:column}
+  .cat-info-panel{width:100%;border-left:none;border-top:1px solid rgba(255,255,255,.06);padding:16px 20px;flex-direction:row;align-items:center;gap:16px;flex:0}
+  .cat-info-title{font-size:16px;margin-bottom:0;flex:1}
+  .cat-info-desc,.cat-info-meta{display:none}
+  .cat-info-client{flex-shrink:0}
+  .cat-feat-wrap{padding:10px}
+  .cat-thumb-strip{height:80px}
+  .cat-thumb-item{width:120px;height:68px}
+  .cat-nav{width:36px;height:36px;font-size:18px}
+}
 
 /* ── Social Footer ── */
 .footer-socials{display:flex;justify-content:center;gap:16px;margin-bottom:20px}
@@ -364,11 +434,69 @@ section{scroll-snap-align:start}
 .yt-channel-desc{font-size:12px;color:rgba(122,122,142,1)}
 
 /* CTA */
+/* CTA styles now merged into about section */
 .cta-inner{text-align:center}
 .cta-inner h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,6vw,66px);font-weight:700;color:var(--w);margin-bottom:20px;letter-spacing:-1.5px}
-.cta-inner p{color:rgba(122,122,142,1);font-size:19px;margin-bottom:44px}
+.cta-inner p{color:rgba(122,122,142,1);font-size:clamp(17px,1.3vw,20px);margin-bottom:44px}
 .cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-footer{width:100%;padding:18px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to top,rgba(10,10,15,.8) 0%,rgba(10,10,15,.4) 60%,transparent 100%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);position:relative;z-index:50}
+.cta-footer .footer-socials{display:flex;gap:14px;margin-bottom:0}
+.cta-footer .footer-social{width:36px;height:36px}
+.cta-footer .footer-social svg{width:15px;height:15px}
+.cta-footer-text{font-size:13px;color:rgba(245,239,232,.45);letter-spacing:.5px}
+.cta-footer-text a{color:var(--a);text-decoration:none;transition:color .2s}
+.cta-footer-text a:hover{color:var(--w)}
 
+/* Custom cursor */
+.cursor-dot{position:fixed;top:0;left:0;width:8px;height:8px;background:var(--a);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1.5px solid rgba(196,117,43,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s,background .3s}
+.cursor-dot.hovering{width:14px;height:14px;background:rgba(196,117,43,.8)}
+.cursor-ring.hovering{width:52px;height:52px;border-color:var(--a);background:rgba(196,117,43,.08)}
+.cursor-dot.clicking{width:6px;height:6px}
+.cursor-ring.clicking{width:28px;height:28px}
+@media(pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+
+/* Magnetic button effect */
+.magnetic{transition:transform .3s cubic-bezier(.16,1,.3,1)}
+
+/* Splitting.js text reveal */
+[data-splitting] .char{opacity:0;transform:translateY(20px);transition:opacity .4s ease,transform .4s ease}
+[data-splitting].split-visible .char{opacity:1;transform:translateY(0)}
+
+/* Gradient mesh bg */
+.section-mesh{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;opacity:.35}
+.mesh-orb{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform}
+.mesh-orb-1{width:400px;height:400px;background:radial-gradient(circle,rgba(196,117,43,.25),transparent 70%);top:-10%;left:-5%;animation:orbFloat1 18s ease-in-out infinite}
+.mesh-orb-2{width:300px;height:300px;background:radial-gradient(circle,rgba(232,148,58,.15),transparent 70%);bottom:-5%;right:-8%;animation:orbFloat2 22s ease-in-out infinite}
+.mesh-orb-3{width:250px;height:250px;background:radial-gradient(circle,rgba(160,90,30,.2),transparent 70%);top:40%;right:20%;animation:orbFloat3 15s ease-in-out infinite}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,40px) scale(1.15)}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-50px,-30px) scale(1.1)}}
+@keyframes orbFloat3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-50px) scale(1.2)}}
+
+/* Merged Metrics+Tools section */
+/* ── Scroll-pinned Proof Points ── */
+.proof-pin-wrap{position:relative;z-index:2}
+.proof-pin-inner{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible}
+.metrics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,3vw,32px);margin-top:44px;max-width:900px;margin-left:auto;margin-right:auto}
+.metrics-grid .metric{background:rgba(14,14,22,0.85);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:clamp(32px,5vw,64px) clamp(24px,4vw,48px);text-align:center;position:relative;overflow:hidden;will-change:opacity,transform}
+.metrics-grid .metric-val{font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,7vw,84px);font-weight:700;background:linear-gradient(135deg,var(--a),#f0b060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+.metrics-grid .metric-lbl{font-size:clamp(12px,1.3vw,16px);letter-spacing:2.5px;text-transform:uppercase;color:rgba(245,239,232,.5)}
+/* ── Scroll-pinned Tools ── */
+.tools-pin-wrap{position:relative;z-index:2}
+.tools-pin-inner{min-height:100vh;display:flex;align-items:center;padding:40px 36px;overflow:visible}
+.tools-grid{display:flex;flex-wrap:wrap;gap:16px;margin-top:36px;justify-content:center}
+.tools-grid .tool-pill{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-size:clamp(14px,1.1vw,17px);font-weight:500;color:var(--w);background:rgba(14,14,22,0.85);border:1px solid rgba(255,255,255,0.06);transition:border-color .3s,background .3s;letter-spacing:.3px;will-change:opacity,transform}
+.tools-grid .tool-pill:hover{border-color:rgba(196,117,43,0.3);background:rgba(196,117,43,0.06)}
+.tools-grid .tp-icon{width:20px;height:20px;display:flex;align-items:center;color:var(--a);flex-shrink:0}
+.tools-grid .tp-icon svg,.tools-grid .tp-icon img{width:100%;height:100%;object-fit:contain}
+.tools-grid .tp-icon img{filter:invert(62%) sepia(85%) saturate(450%) hue-rotate(350deg) brightness(95%) contrast(90%)}
+
+/* Bigger cat tiles with thumbnail */
+.cat-tile{width:220px;flex-shrink:0}
+.cat-tile-thumb{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;margin-bottom:10px;background:rgba(245,239,232,.05);border:1px solid rgba(245,239,232,.08);position:relative}
+.cat-tile-thumb img{width:100%;height:100%;object-fit:cover;opacity:.7;transition:opacity .4s}
+.cat-tile:hover .cat-tile-thumb img{opacity:1}
+.cat-tile-thumb .thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:28px;color:rgba(245,239,232,.15)}
 
 /* Scroll to top */
 .scroll-top{position:fixed;bottom:28px;right:28px;z-index:100;width:44px;height:44px;border-radius:50%;border:1px solid rgba(196,117,43,0.3);background:rgba(7,7,13,0.9);backdrop-filter:blur(12px);color:var(--a);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(20px);pointer-events:none;transition:all .3s cubic-bezier(.16,1,.3,1)}
@@ -376,28 +504,28 @@ section{scroll-snap-align:start}
 .scroll-top:hover{background:var(--a);color:var(--w);border-color:var(--a);box-shadow:0 4px 20px rgba(196,117,43,0.35)}
 .scroll-top svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5}
 
-/* Footer */
-footer{scroll-snap-align:end;padding:24px 32px;border-top:1px solid rgba(255,255,255,0.04);text-align:center;position:relative;z-index:2}
-footer p{font-size:11px;color:rgba(122,122,142,1);letter-spacing:.5px}
-footer a{color:var(--a);text-decoration:none;transition:color .2s}
-footer a:hover{color:var(--w)}
+/* Footer (merged into CTA) */
 
 /* ── Mobile responsive ── */
 @media(max-width:640px){
-  .snap-section{padding:48px 16px}
+  .snap-section{padding:40px 16px;min-height:100vh;min-height:100svh}
+  .about-content{max-width:100%}
+  .about-stats{flex-direction:row;gap:24px;padding:24px 0 0;border-left:none;border-top:1px solid rgba(196,117,43,.2);flex-wrap:wrap}
+  .about-stat-num{font-size:32px}
   .label{font-size:10px;margin-bottom:10px}
   .section-title{font-size:clamp(26px,7vw,34px);margin-bottom:28px}
-  .metrics{grid-template-columns:1fr 1fr;gap:10px}
-  .metric{padding:20px 12px}.metric-val{font-size:24px}
-  .metric-lbl{font-size:10px}
+  .metrics-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .metrics-grid .metric{padding:20px 12px}
+  .metrics-grid .metric-val{font-size:28px}
   .why-grid::before{left:23px}
   .why-num{width:40px;height:40px;font-size:14px}
   .why-item{gap:16px;padding:20px 0}
   .why-text h3{font-size:14px}.why-text p{font-size:12px}
   .about-text{font-size:14px}
-  .tools-wrap{gap:8px;margin-top:20px}
-  .tool-pill{font-size:11px;padding:7px 14px}
-  .tool-pill .tp-icon{font-size:13px}
+  .tools-grid{gap:8px;margin-top:20px}
+  .tools-grid .tool-pill{font-size:11px;padding:7px 14px}
+  .tools-grid .tp-icon{width:14px;height:14px}
+  .proof-pin-inner,.tools-pin-inner{padding:40px 16px}
   .cta-inner h2{font-size:clamp(26px,7vw,36px)}
   .cta-inner p{font-size:14px;margin-bottom:28px}
   .cta-buttons{flex-direction:column;align-items:center}
@@ -406,7 +534,7 @@ footer a:hover{color:var(--w)}
 }
 @media(min-width:900px){
   .container{max-width:1140px}
-  .metrics{gap:28px}.metric{padding:42px 28px}.metric-val{font-size:48px}
+  .metrics-grid{gap:28px}.metrics-grid .metric{padding:42px 28px}.metrics-grid .metric-val{font-size:56px}
   .why-text h3{font-size:22px}.why-text p{font-size:18px}
   .about-text{font-size:20px}
 }
@@ -421,8 +549,7 @@ footer a:hover{color:var(--w)}
 
 /* ══ RESPONSIVE ══ */
 @media(max-width:900px){
-  html{scroll-snap-type:none}
-  nav{padding:20px}
+  nav{padding:12px 16px}
   .hero-text{padding:0 20px}
   .hero-intro{width:95%}
   .hi-l3{letter-spacing:4px}
@@ -451,10 +578,20 @@ footer a:hover{color:var(--w)}
 
 /* ── Mobile responsive for new sections ── */
 @media(max-width:767px){
-  .stories-layout{justify-content:center}
+  .vert-pin-inner{padding:20px 16px}
+  .about-pin-inner{padding:20px 16px}
+  .cat-pin-inner{padding:20px 16px}
+  .about-pin-inner .section-title{font-size:clamp(28px,7vw,42px)}
+  .cat-pin-inner .section-title{font-size:clamp(28px,7vw,42px)}
+  #vertical .label{text-align:center}
+  #vertical .section-title{text-align:center;font-size:clamp(28px,7vw,42px);margin-bottom:8px}
+  .stories-layout{justify-content:center;flex-direction:column;align-items:center}
   .stories-left{display:none}
   .stories-right{display:none}
+  .stories-nav-vertical{display:none}
   .stories-fs-prompt{display:block}
+  .stories-fs-prompt p{font-size:14px;line-height:1.6;max-width:280px;margin:0 auto 20px}
+  .stories-fs-btn{padding:16px 36px;font-size:14px}
 }
 @media(min-width:768px){
   .stories-layout{justify-content:center}
@@ -471,29 +608,70 @@ footer a:hover{color:var(--w)}
 }
 @media(max-width:640px){
   .bridge-text{font-size:clamp(24px,6vw,36px)}
-  .cat-grid{grid-template-columns:1fr;gap:12px}
-  .cat-info{padding:14px}
-  .cat-title{font-size:15px}
-  .quote-text{font-size:clamp(20px,5vw,32px)}
-  .quote-mark{font-size:80px}
-  .footer-socials{gap:12px}
-  .footer-social{width:38px;height:38px}
-  .footer-social svg{width:15px;height:15px}
+  .vp-title{font-size:clamp(24px,8vw,48px);letter-spacing:4px!important}
+  .vp-count{font-size:10px;letter-spacing:2px}
+  .vp-subtitle{font-size:12px}
+  .vp-arrow{display:none}
+  .vp-play{width:42px;height:42px}
+  .vp-play svg{width:15px;height:15px}
+  .vp-playtext{font-size:14px}
+  .vp-allvids{font-size:11px;padding:10px 20px}
+  .cta-footer{flex-direction:column;gap:12px;padding:16px 16px;align-items:center}
+  .cta-footer .footer-socials{gap:10px}
+  .cta-footer .footer-social{width:32px;height:32px}
+  .cta-footer .footer-social svg{width:13px;height:13px}
+  .cta-footer-text{text-align:center;font-size:12px}
+  /* Category tiles mobile */
+  .cat-overview{padding:60px 16px 48px}
+  .cat-tiles{gap:12px}
+  .cat-tile{width:calc(50% - 8px);padding:20px 12px}
+  .cat-tile-icon{width:40px;height:40px;margin-bottom:12px}
+  .cat-tile-title{font-size:13px;letter-spacing:.5px}
+  .cat-tile-desc{font-size:11px;line-height:1.5}
+  /* Modal mobile */
+  .cat-back-btn{top:12px;left:12px;padding:6px 14px;font-size:10px}
+  .cat-modal-close{top:12px;right:12px;width:36px;height:36px;font-size:18px}
+  .cat-modal-top{padding-top:50px}
+  .cat-feat-wrap{padding:4px}
+  .cat-feat-player{max-width:100vw;border-radius:4px}
+  .cat-info-panel{padding:10px 16px}
+  .cat-info-title{font-size:14px}
+  .cat-thumb-strip{height:64px;padding:0 8px;gap:6px}
+  .cat-thumb-item{width:90px;height:50px}
+  .cat-nav{width:28px;height:28px;font-size:14px}
 }
 @media(min-width:641px) and (max-width:1024px){
-  .metrics{grid-template-columns:repeat(3,1fr)}
+  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .cat-tiles{gap:20px}
+  .cat-tile{width:170px;padding:24px 14px}
+  .cat-feat-player{max-width:75vw}
+}
+@media(min-width:1025px) and (max-width:1400px){
+  .cat-feat-player{max-width:80vw}
+}
+@media(min-width:1401px){
+  .cat-feat-player{max-width:85vw}
 }
 </style>
+<!-- Lenis smooth scroll -->
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<!-- Splitting.js for text reveals -->
+<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css">
+<script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
 <script defer src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
+
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- ══ PROGRESS BAR ══ -->
 <div id="progressBar"></div>
 
 <!-- ══ CURSOR GLOW ══ -->
 <!-- cursor glow removed -->
-
 
 <!-- ══ LOADING SCREEN ══ -->
 <div id="loadScreen">
@@ -525,8 +703,16 @@ footer a:hover{color:var(--w)}
 <div class="grain"></div>
 
 <nav>
-  <div class="nl">Piyush Diwte</div>
-  <a href="gallery.html" style="font-family:'DM Sans',Inter,sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,239,232,.5);text-decoration:none;padding:8px 18px;border:1px solid rgba(245,239,232,.12);border-radius:50px;transition:all .3s ease" onmouseover="this.style.color='#e8943a';this.style.borderColor='rgba(232,148,58,.3)'" onmouseout="this.style.color='rgba(245,239,232,.5)';this.style.borderColor='rgba(245,239,232,.12)'">Gallery</a>
+  <a href="#hero" class="nl">
+    <img src="../Capturedbypiyush.gif" alt="Captured by Piyush" class="nl-gif">
+    <span class="nl-text">Captured by Piyush</span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#hero" class="nav-link active" data-section="hero">Home</a>
+    <a href="#catOverview" class="nav-link" data-section="catOverview">Videos</a>
+    <a href="#vertical" class="nav-link" data-section="vertical">Vertical</a>
+    <a href="#about" class="nav-link" data-section="about">About</a>
+  </div>
 </nav>
 
 <!-- ══ FLOATING LIGHT MOTES ══ -->
@@ -674,19 +860,15 @@ footer a:hover{color:var(--w)}
   </div>
 </section>
 
-<!-- ═══ BRIDGE: Every Campaign Tells a Story ═══ -->
-<div class="bridge-section reveal" id="bridge">
-  <div class="bridge-text">Every campaign tells a <span>story</span>.<br>Here's how I tell them.</div>
-</div>
-
 <!-- ═══ WHAT I BRING TO THE TABLE (scroll-pinned) ═══ -->
-<section class="why-pin-wrap" id="whyMe">
-  <div style="height:300vh;position:relative">
-    <div class="why-pin-inner" style="position:sticky;top:0">
+<section class="why-pin-wrap" id="whyMe" style="position:relative">
+  <div class="section-mesh"><div class="mesh-orb mesh-orb-2"></div><div class="mesh-orb mesh-orb-3"></div></div>
+  <div style="height:400vh;position:relative">
+    <div class="why-pin-inner">
       <div class="container">
         <div class="reveal">
           <p class="label">What I Bring to the Table</p>
-          <h2 class="section-title">Why me? Let me show you.</h2>
+          <h2 class="section-title" data-splitting>Why me? Let me show you.</h2>
         </div>
         <div class="why-grid" id="whyGrid">
           <div class="why-item why-item-pin" data-why="0">
@@ -710,123 +892,165 @@ footer a:hover{color:var(--w)}
               <p>I build repeatable content workflows, not one-offs. At Scape I managed a national content calendar across properties, platforms, and stakeholders simultaneously. The system scales.</p>
             </div>
           </div>
+          <div class="why-item why-item-pin" data-why="3">
+            <div class="why-num">4</div>
+            <div class="why-text">
+              <h3>Government & Public Sector Ready</h3>
+              <p>I've delivered campaigns for government bodies and public institutions. Compliance-aware messaging, accessible content standards, stakeholder sign-off workflows — I understand the unique requirements of public sector communications.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ METRICS ═══ -->
-<section class="snap-section" id="metrics2">
-  <div class="section-glow section-glow-left"></div>
-  <div class="container">
-    <div class="reveal">
-      <p class="label">Proof Points</p>
-      <h2 class="section-title">Numbers that matter.</h2>
-    </div>
-    <div class="metrics">
-      <div class="metric reveal"><div class="metric-val" data-count="157" data-suffix="%">0%</div><div class="metric-lbl">CTR Lift in 3 Months</div></div>
-      <div class="metric reveal reveal-d1"><div class="metric-val" data-count="15" data-suffix="%+">0%+</div><div class="metric-lbl">Monthly Sales Increase</div></div>
-      <div class="metric reveal reveal-d2"><div class="metric-val" data-count="50" data-suffix="M+">0M+</div><div class="metric-lbl">Channel Views</div></div>
-      <div class="metric reveal"><div class="metric-val" data-count="1500" data-suffix="+" data-separator=",">0+</div><div class="metric-lbl">Videos Produced</div></div>
-      <div class="metric reveal reveal-d1"><div class="metric-val" data-count="50" data-suffix="%">0%</div><div class="metric-lbl">Faster Turnaround</div></div>
+<!-- ═══ PROOF POINTS (scroll-pinned) ═══ -->
+<section class="proof-pin-wrap" id="proofSection" style="position:relative">
+  <div style="height:500vh;position:relative">
+    <div class="proof-pin-inner">
+      <div class="container">
+        <div class="reveal">
+          <p class="label">Proof Points</p>
+          <h2 class="section-title" data-splitting>Numbers that matter.</h2>
+        </div>
+        <div class="metrics-grid" id="metricsGrid">
+          <div class="metric metric-pin"><div class="metric-val" data-count="157" data-suffix="%">0%</div><div class="metric-lbl">CTR Lift in 3 Months</div></div>
+          <div class="metric metric-pin"><div class="metric-val" data-count="15" data-suffix="%+">0%+</div><div class="metric-lbl">Monthly Sales Increase</div></div>
+          <div class="metric metric-pin"><div class="metric-val" data-count="50" data-suffix="M+">0M+</div><div class="metric-lbl">Channel Views</div></div>
+          <div class="metric metric-pin"><div class="metric-val" data-count="1500" data-suffix="+" data-separator=",">0+</div><div class="metric-lbl">Videos Produced</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ TOOLS ═══ -->
-<section class="snap-section" id="tools">
-  <div class="container">
-    <div class="reveal">
-      <p class="label">Tools &amp; Skills</p>
-      <h2 class="section-title">What I work with daily.</h2>
-    </div>
-    <div class="tools-wrap reveal">
-      <span class="tool-pill"><span class="tp-icon">🎬</span> Adobe Premiere Pro</span>
-      <span class="tool-pill"><span class="tp-icon">🖼</span> Photoshop</span>
-      <span class="tool-pill"><span class="tp-icon">🎨</span> Canva</span>
-      <span class="tool-pill"><span class="tp-icon">📊</span> Meta Business Suite</span>
-      <span class="tool-pill"><span class="tp-icon">📋</span> Content Planning</span>
-      <span class="tool-pill"><span class="tp-icon">📹</span> Camera Equipment</span>
-      <span class="tool-pill"><span class="tp-icon">📸</span> Lightroom</span>
-      <span class="tool-pill"><span class="tp-icon">✍️</span> Copywriting</span>
-      <span class="tool-pill"><span class="tp-icon">📱</span> Social Media Strategy</span>
-      <span class="tool-pill"><span class="tp-icon">🎥</span> DaVinci Resolve</span>
-      <span class="tool-pill"><span class="tp-icon">🤖</span> Claude AI</span>
-      <span class="tool-pill"><span class="tp-icon">📐</span> After Effects</span>
-      <span class="tool-pill"><span class="tp-icon">🎙</span> Rode Mics</span>
-      <span class="tool-pill"><span class="tp-icon">📈</span> Google Analytics</span>
+<!-- ═══ TOOLS & SKILLS (scroll-pinned) ═══ -->
+<section class="tools-pin-wrap" id="toolsSection" style="position:relative">
+  <div style="height:600vh;position:relative">
+    <div class="tools-pin-inner">
+      <div class="container">
+        <div class="reveal">
+          <p class="label">Tools &amp; Skills</p>
+          <h2 class="section-title" data-splitting>What I work with daily.</h2>
+        </div>
+        <div class="tools-grid" id="toolsGrid">
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/adobepremierepro.svg" alt="Pr"></span> Premiere Pro</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/adobephotoshop.svg" alt="Ps"></span> Photoshop</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/canva.svg" alt="Canva"></span> Canva</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/meta.svg" alt="Meta"></span> Meta Business Suite</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/notion.svg" alt="Notion"></span> Content Planning</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/sony.svg" alt="Sony"></span> Camera Equipment</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/adobelightroom.svg" alt="Lr"></span> Lightroom</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="1.5"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></span> Copywriting</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/buffer.svg" alt="Social"></span> Social Media Strategy</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/davinciresolve.svg" alt="Resolve"></span> DaVinci Resolve</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/anthropic.svg" alt="Claude"></span> Claude AI</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/adobeaftereffects.svg" alt="Ae"></span> After Effects</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><svg viewBox="0 0 24 24" fill="var(--a)"><circle cx="12" cy="12" r="10"/><rect x="10" y="6" width="4" height="12" rx="2" fill="var(--bg)"/></svg></span> Rode Mics</span>
+          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googleanalytics.svg" alt="GA"></span> Google Analytics</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ VIDEO CATEGORIES ═══ -->
-<section class="snap-section" id="categories">
-  <div class="section-glow section-glow-right"></div>
-  <div class="container">
-    <div class="reveal">
-      <p class="label">Work Categories</p>
-      <h2 class="section-title">Browse by category.</h2>
-    </div>
-    <div class="cat-grid reveal reveal-d1">
-      <div class="cat-card" data-cat="brand">
-        <div class="cat-thumb-grid">
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
+<!-- ═══ CATEGORY OVERVIEW (intro tiles) ═══ -->
+<!-- ═══ CATEGORY OVERVIEW (scroll-pinned title shrink, no tiles) ═══ -->
+<section class="cat-pin-wrap" id="catOverview" style="position:relative">
+  <div style="height:300vh;position:relative">
+    <div class="cat-pin-inner">
+      <div class="container" style="max-width:900px">
+        <div class="reveal">
+          <p class="label" style="text-align:center">Video Portfolio</p>
+          <h2 class="section-title" data-splitting style="text-align:center">Projects I have worked on.</h2>
         </div>
-        <div class="cat-info"><div class="cat-title"><span class="cat-icon">🎬</span>Brand Films</div><div class="cat-count">Cinematic storytelling &middot; 12 videos</div></div>
-      </div>
-      <div class="cat-card" data-cat="social">
-        <div class="cat-thumb-grid">
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-        </div>
-        <div class="cat-info"><div class="cat-title"><span class="cat-icon">📱</span>Social Content</div><div class="cat-count">Reels, Stories, TikToks &middot; 20+ videos</div></div>
-      </div>
-      <div class="cat-card" data-cat="corporate">
-        <div class="cat-thumb-grid">
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-        </div>
-        <div class="cat-info"><div class="cat-title"><span class="cat-icon">🏢</span>Corporate &amp; Training</div><div class="cat-count">Onboarding, safety, values &middot; 15 videos</div></div>
-      </div>
-      <div class="cat-card" data-cat="events">
-        <div class="cat-thumb-grid">
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-        </div>
-        <div class="cat-info"><div class="cat-title"><span class="cat-icon">🎤</span>Events &amp; Live</div><div class="cat-count">Conferences, races, coverage &middot; 8 videos</div></div>
-      </div>
-      <div class="cat-card" data-cat="product">
-        <div class="cat-thumb-grid">
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-          <div class="cat-thumb"><div class="cat-thumb-placeholder">▶</div></div>
-        </div>
-        <div class="cat-info"><div class="cat-title"><span class="cat-icon">📦</span>Product &amp; UGC</div><div class="cat-count">Demos, unboxings, UGC &middot; 10 videos</div></div>
+        <p class="cat-brief" style="text-align:center;max-width:640px;margin:0 auto;opacity:0;font-size:clamp(15px,1.2vw,18px);color:rgba(245,239,232,.5);line-height:1.7;letter-spacing:.3px">End-to-end production — scripting, filming, direction, post-production, and content scheduling across brands, government, and lifestyle.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ VIDEO CATEGORIES (immersive) ═══ -->
+<section class="vp-section" id="videoPortfolio">
+  <div class="vp-cat" data-cat="corporate_brand">
+    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1041460991.jpg')"><iframe data-src="https://player.vimeo.com/video/1027500811?background=1" allow="autoplay"></iframe></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-count">8 Videos</div>
+      <div class="vp-title">Corporate &amp; Brand</div>
+      <div class="vp-subtitle">Brand films, stakeholder content, and cinematic storytelling</div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
+    </div>
+    <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-arrow">&#8250;</div>
+  </div>
+  <div class="vp-cat" data-cat="events">
+    <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/KWhS3k3HOZU/maxresdefault.jpg')"><iframe data-src="https://www.youtube.com/embed/KWhS3k3HOZU?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&enablejsapi=1&playlist=KWhS3k3HOZU" allow="autoplay"></iframe></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-count">6 Videos</div>
+      <div class="vp-title">Events</div>
+
+      <div class="vp-subtitle">Conferences, motorsport, and trade shows captured in real time</div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
+    </div>
+    <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-arrow">&#8250;</div>
+  </div>
+  <div class="vp-cat" data-cat="people_culture">
+    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1016747108.jpg')"><iframe data-src="https://player.vimeo.com/video/1034519753?background=1" allow="autoplay"></iframe></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-count">26 Videos</div>
+      <div class="vp-title">People &amp; Culture</div>
+      <div class="vp-subtitle">WHS compliance, F&amp;B modules, onboarding, and hospitality training</div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
+    </div>
+    <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-arrow">&#8250;</div>
+  </div>
+  <div class="vp-cat" data-cat="lifestyle">
+    <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/KvzC8g-YoIY/maxresdefault.jpg')"><iframe data-src="https://www.youtube.com/embed/KvzC8g-YoIY?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&enablejsapi=1&playlist=KvzC8g-YoIY" allow="autoplay"></iframe></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-count">9 Videos</div>
+      <div class="vp-title">Builds &amp; Adventure</div>
+      <div class="vp-subtitle">4x4 installs, product deep dives, and hands-on workshop content</div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
+    </div>
+    <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-arrow">&#8250;</div>
+  </div>
+  <div class="vp-cat" data-cat="my_films">
+    <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/j8dGCPuVJWk/maxresdefault.jpg')"><iframe data-src="https://www.youtube.com/embed/j8dGCPuVJWk?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&enablejsapi=1&playlist=j8dGCPuVJWk" allow="autoplay"></iframe></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-count">7 Videos</div>
+      <div class="vp-title">My Films</div>
+      <div class="vp-subtitle">Solo cinematic camping, drone aerials, and nature filmmaking</div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
+    </div>
+    <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-arrow">&#8250;</div>
   </div>
 </section>
 
 <!-- ═══ VERTICAL SHOWCASE ═══ -->
-<section class="snap-section" id="vertical">
-  <div class="container" style="max-width:1260px">
-    <div class="reveal">
-      <p class="label">Vertical Content</p>
-      <h2 class="section-title">Made to stop you scrolling.</h2>
-    </div>
-    <div class="stories-layout reveal reveal-d1">
+<section class="vert-pin-wrap" id="vertical" style="position:relative">
+  <div style="height:500vh;position:relative">
+    <div class="vert-pin-inner">
+      <div class="container" style="max-width:1260px">
+        <div class="reveal">
+          <p class="label">Vertical Content</p>
+          <h2 class="section-title" data-splitting>Made to stop you scrolling.</h2>
+        </div>
+        <div class="stories-layout">
       <div class="stories-left">
+        <div class="stories-nav-vertical">
+          <button class="stories-nav" id="storiesPrev"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
+          <button class="stories-nav" id="storiesNext"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+        </div>
         <div class="stories-phone" id="storiesPhone">
           <div class="stories-progress" id="storiesProgress"></div>
           <div class="stories-tap stories-tap-left" id="storyTapL"></div>
@@ -851,23 +1075,64 @@ footer a:hover{color:var(--w)}
             <iframe src="https://www.instagram.com/reel/DNXiYOygJ83/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">TD42T Long Engines GU Patrol</div></div>
           </div>
-          <div class="stories-slide" data-idx="5" data-dur="30" data-tag="Reel" data-title="Latest Reel" data-desc="Recent Instagram Reel from the Captured By Piyush feed. Hooks, pacing, and native editing built to stop the scroll." data-client="Piyush Diwte">
+          <div class="stories-slide" data-idx="5" data-dur="30" data-tag="Lifestyle" data-title="Lifestyle Reel" data-desc="Lifestyle vertical content. Hooks, pacing, and native editing built to stop the scroll." data-client="Piyush Diwte">
+            <iframe src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Lifestyle</span><div class="stories-title-sm">Lifestyle Reel</div></div>
+          </div>
+          <div class="stories-slide" data-idx="6" data-dur="30" data-tag="Reel" data-title="Brand Reel" data-desc="Brand-focused vertical content that balances product storytelling with platform-native editing." data-client="Piyush Diwte">
             <iframe src="https://www.instagram.com/reel/DGGvLdeJlNL/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-            <div class="stories-info-inner"><span class="stories-tag">Reel</span><div class="stories-title-sm">Latest Reel</div></div>
+            <div class="stories-info-inner"><span class="stories-tag">Reel</span><div class="stories-title-sm">Brand Reel</div></div>
+          </div>
+          <div class="stories-slide" data-idx="7" data-dur="30" data-tag="Product" data-title="GU Shifter Surround" data-desc="Non-gen Y61 product showcase. 622 likes, 6 comments — highest engagement product reel on the account." data-client="Patrolapart">
+            <iframe src="https://www.instagram.com/reel/DM3ZUYVSqM4/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">GU Shifter Surround</div></div>
+          </div>
+          <div class="stories-slide" data-idx="8" data-dur="30" data-tag="Event" data-title="4x4 Show, Coolest Cars 2025" data-desc="Event coverage highlight reel from the Melbourne 4x4 Outdoors Show. Same-day fast-cut content for social reach." data-client="Patrolapart">
+            <iframe src="https://www.instagram.com/reel/DNz41YiXH9o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Event</span><div class="stories-title-sm">4x4 Show, Coolest Cars</div></div>
+          </div>
+          <div class="stories-slide" data-idx="9" data-dur="30" data-tag="Freelance" data-title="Every Gap = Money Lost" data-desc="Freelance client work for Affordable Insulation. Problem-awareness reel showing why gaps in insulation cost homeowners money. Built account from scratch." data-client="Affordable Insulation">
+            <iframe src="https://www.instagram.com/reel/DOp-AOiguQQ/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Every Gap = Money Lost</div></div>
+          </div>
+          <div class="stories-slide" data-idx="10" data-dur="30" data-tag="Product" data-title="GU Patrol Rear Step" data-desc="Problem-solution product format. 380 likes. Shows the before/after of a bolt-on rear step upgrade for GU Patrols." data-client="Patrolapart">
+            <iframe src="https://www.instagram.com/reel/DNtdY0Rg1tf/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">GU Patrol Rear Step</div></div>
+          </div>
+          <div class="stories-slide" data-idx="11" data-dur="30" data-tag="Freelance" data-title="Trade Insulation" data-desc="Freelance client work for Budget Insulation. Trade-focused content targeting contractors. Built social presence from zero." data-client="Budget Insulation">
+            <iframe src="https://www.instagram.com/reel/DN4LcNRkSo7/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Trade Insulation</div></div>
+          </div>
+          <div class="stories-slide" data-idx="12" data-dur="30" data-tag="Brand" data-title="Merch Launch" data-desc="Brand lifestyle reel for Patrolapart merch launch. Campfire setting, community vibe. 117 likes." data-client="Patrolapart">
+            <iframe src="https://www.instagram.com/reel/DMuUeWkSHDp/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Brand</span><div class="stories-title-sm">Merch Launch</div></div>
+          </div>
+          <div class="stories-slide" data-idx="13" data-dur="30" data-tag="Product" data-title="Y62 K-Frame Lift Kit" data-desc="Technical product explainer for Y62 K-Frame lift kit. 172 likes. Shows engineering detail and install process." data-client="Patrolapart">
+            <iframe src="https://www.instagram.com/reel/DNJXb7Pyi5W/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">Y62 K-Frame Lift Kit</div></div>
+          </div>
+          <div class="stories-slide" data-idx="14" data-dur="30" data-tag="Freelance" data-title="Cut Your Bills in Half" data-desc="Freelance client work for Affordable Insulation. Hook-driven CTA reel with value proposition. Built account and content from scratch." data-client="Affordable Insulation">
+            <iframe src="https://www.instagram.com/reel/DOvIQZXDh1K/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Cut Your Bills in Half</div></div>
+          </div>
+          <div class="stories-slide" data-idx="15" data-dur="30" data-tag="Product" data-title="NP300 Wheel Arch Flares" data-desc="Side-by-side product comparison reel for NP300 Navara flares. Music-driven edit showing before/after fitment." data-client="Patrolapart">
+            <iframe src="https://www.instagram.com/reel/DNfSav7B91Z/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">NP300 Wheel Arch Flares</div></div>
+          </div>
+          <div class="stories-slide" data-idx="16" data-dur="30" data-tag="Event" data-title="4x4 Show, First Look" data-desc="Same-day event teaser from the Melbourne 4x4 Outdoors Show. Fast turnaround social content to build buzz while the event was still running." data-client="Patrolapart">
+            <iframe src="https://www.instagram.com/reel/DNxSRKb5O61/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Event</span><div class="stories-title-sm">4x4 Show, First Look</div></div>
           </div>
         </div>
       </div>
       <div class="stories-right" id="storiesRight">
         <div class="stories-right-content active" id="srContent">
-          <div class="sr-counter" id="srCounter">1 of 6</div>
+          <div class="sr-counter" id="srCounter">1 of 17</div>
           <div class="sr-tag" id="srTag">UGC</div>
           <h3 class="sr-title" id="srTitle">Product UGC</h3>
           <p class="sr-desc" id="srDesc">Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced.</p>
-          <div class="sr-nav">
-            <button class="stories-nav" id="storiesPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-            <button class="stories-nav" id="storiesNext"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-          </div>
-          <a href="https://linktr.ee/Piyush_Diwte" target="_blank" class="btn btn-outline" style="font-size:12px;padding:10px 22px">
+          <!-- nav arrows moved to vertical beside phone -->
+          <a href="https://linktr.ee/Piyush_Diwte" target="_blank" class="btn btn-outline magnetic" style="font-size:12px;padding:10px 22px">
             <svg viewBox="0 0 24 24" style="width:14px;height:14px"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             View All Vertical Work
           </a>
@@ -875,13 +1140,15 @@ footer a:hover{color:var(--w)}
       </div>
     </div>
     <div class="stories-fs-prompt reveal reveal-d1" id="fsMobilePrompt">
-      <p style="color:rgba(122,122,142,1);font-size:13px;margin-bottom:16px">6 vertical videos. Swipe through them like Stories.</p>
+      <p style="color:rgba(122,122,142,1);font-size:13px;margin-bottom:16px">Vertical videos. Swipe through them like Stories.</p>
       <button class="stories-fs-btn" id="fsOpenBtn">
         <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
         Open Fullscreen Viewer
       </button>
       <div style="margin-top:12px">
         <a href="https://linktr.ee/Piyush_Diwte" target="_blank" style="font-size:12px;color:var(--a);text-decoration:none">or view all on Linktree &rarr;</a>
+      </div>
+    </div>
       </div>
     </div>
   </div>
@@ -931,64 +1198,40 @@ footer a:hover{color:var(--w)}
   </div>
 </div>
 
-<!-- ═══ ABOUT ═══ -->
-<section class="snap-section" id="about">
-  <div class="section-glow section-glow-left"></div>
-  <div class="container">
-    <div class="reveal">
-      <p class="label">About Me</p>
-      <h2 class="section-title">Built for brands<br>that move fast.</h2>
-    </div>
-    <p class="about-text reveal reveal-d1">
-      I'm a digital content creator and social media manager based in Melbourne. Right now I run content across two automotive lifestyle brands, <strong>Patrolapart</strong> and <strong>Navarapart</strong>. Before that I shot cinematic and social content for <strong>Hamilton Island</strong> and coordinated digital content across <strong>43 Scape Australia properties</strong> nationally.
-    </p>
-    <br>
-    <p class="about-text reveal reveal-d2">
-      I create strategic content that communicates complex work clearly and compellingly. Campaign videos that engage stakeholders. Internal communications that people actually watch. Content that positions brands as the authority in their space.
-    </p>
-  </div>
-</section>
-
-<!-- ═══ QUOTE ═══ -->
-<div class="quote-section reveal" id="quote">
-  <div class="quote-inner">
-    <div class="quote-mark">&ldquo;</div>
-    <p class="quote-text">Content isn't king — context is. The right story, in the right format, at the right moment.</p>
-    <p class="quote-attr">— Piyush Diwte</p>
-  </div>
-</div>
-
-<!-- ═══ CTA ═══ -->
-<section class="snap-section" id="cta">
-  <div class="container">
-    <div class="cta-inner">
-      <div class="reveal">
-        <h2>Let's build something<br>worth watching.</h2>
-        <p>Ready to chat about what I can do for your brand.</p>
-      </div>
-      <div class="cta-buttons reveal reveal-d1">
-        <a href="mailto:piyushdiwte22@gmail.com" class="btn btn-primary">
-          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Email Me
-        </a>
-        <a href="tel:+61415122028" class="btn btn-outline">
-          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          +61 415 122 028
-        </a>
-        <a href="https://www.capturedbypiyush.com" target="_blank" class="btn btn-outline">
-          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Full Website
-        </a>
+<!-- ═══ ABOUT + CTA (scroll-pinned) ═══ -->
+<section class="about-pin-wrap" id="about" style="position:relative">
+  <div style="height:400vh;position:relative">
+    <div class="about-pin-inner">
+      <div class="container" style="position:relative;z-index:2;max-width:900px">
+        <p class="label" style="text-align:center">About Me</p>
+        <h2 class="section-title" data-splitting style="text-align:center;margin-bottom:24px">Built for brands<br>that move fast.</h2>
+        <p class="about-text about-item" style="text-align:center">
+          I'm a digital content creator and social media manager based in Melbourne. Right now I run content across two automotive lifestyle brands, <strong>Patrolapart</strong> and <strong>Navarapart</strong>. Before that I shot cinematic and social content for <strong>Hamilton Island</strong> and coordinated digital content across <strong>43 Scape Australia properties</strong> nationally.
+        </p>
+        <p class="about-text about-item" style="margin-top:16px;text-align:center">
+          I create strategic content that communicates complex work clearly and compellingly. Campaign videos that engage stakeholders. Internal communications that people actually watch.
+        </p>
+        <div class="cta-buttons about-item" style="margin-top:32px;justify-content:center">
+          <a href="mailto:piyushdiwte22@gmail.com" class="btn btn-primary magnetic">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email Me
+          </a>
+          <a href="tel:+61415122028" class="btn btn-outline magnetic">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call Me
+          </a>
+          <a href="#" class="btn btn-outline magnetic" id="resumeBtn">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Resume
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
-  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-</button>
-
-<footer>
+<!-- ═══ FOOTER ═══ -->
+<footer class="cta-footer">
   <div class="footer-socials">
     <a href="https://www.linkedin.com/in/piyushdiwte/?skipRedirect=true" target="_blank" class="footer-social" aria-label="LinkedIn">
       <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -1002,12 +1245,13 @@ footer a:hover{color:var(--w)}
     <a href="#" class="footer-social" aria-label="YouTube" id="ytSocialBtn" onclick="event.preventDefault();document.getElementById('ytPopup').classList.add('open')">
       <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
     </a>
-    <a href="mailto:piyushdiwte22@gmail.com" class="footer-social" aria-label="Email">
-      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-    </a>
   </div>
-  <p>Piyush Diwte &middot; Melbourne, VIC &middot; <a href="mailto:piyushdiwte22@gmail.com">piyushdiwte22@gmail.com</a> &middot; <a href="https://www.capturedbypiyush.com" target="_blank">CapturedByPiyush.com</a></p>
+  <p class="cta-footer-text">Piyush Diwte &middot; Melbourne, VIC &middot; <a href="mailto:piyushdiwte22@gmail.com">piyushdiwte22@gmail.com</a> &middot; <a href="https://www.capturedbypiyush.com" target="_blank">CapturedByPiyush.com</a></p>
 </footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 
 <!-- YouTube Channel Popup -->
 <div class="yt-popup-overlay" id="ytPopup" onclick="if(event.target===this)this.classList.remove('open')">
@@ -1032,6 +1276,33 @@ footer a:hover{color:var(--w)}
     </div>
   </div>
 </div>
+<!-- ═══ CATEGORY VIDEO MODAL (Portfolio-style) ═══ -->
+<div class="cat-modal-overlay" id="catModal">
+  <a href="#" class="cat-back-btn" onclick="event.preventDefault();closeCatModal();document.getElementById('catOverview').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Categories
+  </a>
+  <button class="cat-modal-close" onclick="closeCatModal()">&times;</button>
+  <div class="cat-modal-top">
+    <button class="cat-nav cat-nav-prev" id="catNavPrev" onclick="catNavVid(-1)">&#8249;</button>
+    <div class="cat-feat-wrap">
+      <div class="cat-feat-player" id="catFeatPlayer">
+        <div class="cat-feat-cover" id="catFeatCover" onclick="catPlayFeatured()">
+          <div class="cat-feat-play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+        </div>
+      </div>
+    </div>
+    <button class="cat-nav cat-nav-next" id="catNavNext" onclick="catNavVid(1)">&#8250;</button>
+    <div class="cat-info-panel">
+      <h3 class="cat-info-title" id="catInfoTitle"></h3>
+      <div class="cat-info-meta" id="catInfoMeta"></div>
+      <p class="cat-info-desc" id="catInfoDesc"></p>
+      <div><span class="cat-info-client" id="catInfoClient"></span></div>
+    </div>
+  </div>
+  <div class="cat-thumb-strip" id="catThumbStrip"></div>
+</div>
+
 </div><!-- /#content -->
 
 <script>
@@ -1062,41 +1333,250 @@ footer a:hover{color:var(--w)}
   draw();
 })();
 
-/* Scroll reveal */
-const reveals=document.querySelectorAll('.reveal,[data-why]');
-const rObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rObs.unobserve(e.target)}});
-},{threshold:0.01,rootMargin:'400px 0px 400px 0px'});
-reveals.forEach(el=>rObs.observe(el));
-function forceReveal(){
-  const vh=window.innerHeight;
-  reveals.forEach(el=>{
-    const rect=el.getBoundingClientRect();
-    if(rect.top<vh*1.6&&rect.bottom>-100) el.classList.add('visible');
-  });
-}
-window.addEventListener('scroll',forceReveal,{passive:true});
-setTimeout(forceReveal,300);setTimeout(forceReveal,800);
+/* Scroll reveal — GSAP-based, initialized after GSAP loads (see window._initScrollReveal) */
+window._initScrollReveal = function() {
+  gsap.registerPlugin(ScrollTrigger);
 
-/* Counter animation */
-const counters=document.querySelectorAll('[data-count]');
-const counted=new Set();
-const cObs=new IntersectionObserver(entries=>{
+  // Smooth reveal for .reveal elements — tied to scroll position
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.closest('#hero') || el.closest('#whyMe') || el.closest('#proofSection') || el.closest('#toolsSection') || el.closest('#catOverview') || el.closest('#vertical') || el.closest('#about')) return;
+    const delay = el.classList.contains('reveal-d1') ? 0.1 : el.classList.contains('reveal-d2') ? 0.2 : el.classList.contains('reveal-d3') ? 0.3 : 0;
+    gsap.fromTo(el,
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 0.8, delay: delay, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', end: 'top 55%', scrub: 0.4 }
+      }
+    );
+  });
+
+  // Stagger reveal for child items
+  document.querySelectorAll('.stagger-reveal').forEach(wrap => {
+    if (wrap.closest('#hero')) return;
+    gsap.fromTo(wrap.children,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, stagger: 0.06, ease: 'power3.out',
+        scrollTrigger: { trigger: wrap, start: 'top 85%', end: 'top 45%', scrub: 0.5 }
+      }
+    );
+  });
+
+  // Why-me items — handled by dedicated ScrollTrigger in main GSAP block
+
+  // Tool pills + metrics — handled by dedicated ScrollTrigger in main GSAP block
+
+  // Bridge text — cinematic fade
+  const bridgeText = document.querySelector('.bridge-text');
+  if (bridgeText) {
+    gsap.fromTo(bridgeText,
+      { opacity: 0, y: 50, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, ease: 'power2.out',
+        scrollTrigger: { trigger: bridgeText, start: 'top 90%', end: 'top 50%', scrub: 0.6 }
+      }
+    );
+  }
+
+  // Category tiles — now handled by dedicated ScrollTrigger in cat-pin section
+};
+
+/* Counter animation — now handled by Proof Points ScrollTrigger */
+
+/* Lazy-load backgrounds in categories + slow to 0.75x */
+const vpIframes=document.querySelectorAll('.vp-bg iframe[data-src]');
+const vpObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
-    if(e.isIntersecting&&!counted.has(e.target)){
-      counted.add(e.target);
-      const el=e.target,target=parseInt(el.dataset.count),suffix=el.dataset.suffix||'',useSep=el.dataset.separator;
-      const dur=1800,start=performance.now();
-      const step=now=>{
-        const p=Math.min((now-start)/dur,1),eased=1-Math.pow(1-p,3);
-        let v=Math.floor(eased*target);if(useSep)v=v.toLocaleString();
-        el.textContent=v+suffix;if(p<1)requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
+    if(e.isIntersecting){
+      const iframe=e.target;
+      const src=iframe.dataset.src;
+      iframe.src=src;
+      iframe.removeAttribute('data-src');
+      iframe.addEventListener('load',()=>{
+        if(src.includes('vimeo.com')){
+          iframe.contentWindow.postMessage(JSON.stringify({method:'setPlaybackRate',value:0.75}),'*');
+        } else if(src.includes('youtube.com')){
+          setTimeout(()=>{
+            iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'setPlaybackRate',args:[0.75]}),'*');
+          },1000);
+        }
+      });
+      vpObs.unobserve(iframe);
     }
   });
-},{threshold:0.3});
-counters.forEach(el=>cObs.observe(el));
+},{threshold:0,rootMargin:'200px 0px 200px 0px'});
+vpIframes.forEach(f=>vpObs.observe(f));
+
+/* ═══ Category Video Modal (Portfolio-style) ═══ */
+const catVideos = {
+  corporate_brand: [
+    {p:'vimeo',id:'1027500811',client:'Hamilton Island',title:'20 Extraordinary Years (Full Cut)',desc:'9-minute brand awareness cinematic piece capturing two decades of Hamilton Island.'},
+    {p:'vimeo',id:'1041460991',client:'Hamilton Island',title:'20 Extraordinary Years (Short Cut)',desc:'1-minute highlight cut optimised for social and stakeholder distribution.'},
+    {p:'vimeo',id:'1028245298',client:'Hamilton Island',title:'Attraction Idea, HIE Lifestyle Video',desc:'Lifestyle brand video for Hamilton Island Enterprises. Cinematic destination marketing content.'},
+    {p:'vimeo',id:'1027506350',client:'Hamilton Island',title:"Here's to the Future",desc:'Forward-looking brand piece for Hamilton Island. Produced for stakeholder marketing and social distribution.'},
+    {p:'youtube',id:'3-wYjmU7fC0',client:'Earths Water',title:'Your Tap Water Is Full of Chemicals',desc:'Hook-driven 18-second brand awareness clip with motion graphics.'},
+    {p:'youtube',id:'3bR7HUcPZ1c',client:'Quad Lock',title:'UGC Paid Ad, Classic YouTube Style',desc:'Commissioned UGC piece for Quad Lock. Shot and edited in their brand voice for paid social.'},
+    {p:'youtube',id:'emUIKqQCwH8',client:'Scape Australia',title:'Operations Reel, Stakeholder Content',desc:'Internal stakeholder piece for the operations team. Translates day-to-day work into compelling video.'},
+    {p:'youtube',id:'seGbAGIVsMw',client:'Scape Australia',title:'Acknowledgment of Country',desc:'Co-produced with the Redfern Aboriginal community. Culturally sensitive awareness piece.'},
+  ],
+  events: [
+    {p:'youtube',id:'KWhS3k3HOZU',client:'Arise GT Racing',title:'Crowned 2024, Motorsport Event',desc:'Live motorsport event coverage capturing a championship win. Unscripted, real-time filming.'},
+    {p:'youtube',id:'W0fDzO-zibA',client:'Scape Australia',title:'Conference Day 1 and After Party',desc:'Full conference coverage filmed and edited solo across a 16-hour day. Recognised by CEO.'},
+    {p:'youtube',id:'wt0Du5e2r_4',client:'Scape Australia',title:'Scape Australia Conference 2023',desc:'Full SoulCon 2023 conference film. End-to-end event coverage capturing keynotes, culture, and team energy.'},
+    {p:'youtube',id:'39AFJmIKOa8',client:'Scape Australia',title:'Behind the Scenes, Blooper Reel',desc:'On-set BTS content created for the conference. Shows team culture and on-location direction across 43 properties.'},
+    {p:'youtube',id:'zFR0Vs3o2fs',client:'Patrolapart',title:'Melbourne 4x4 Outdoors Show, Highlights',desc:'Full event highlights from the Melbourne 4x4 Outdoors Show. Solo filming and editing.'},
+    {p:'youtube',id:'_8s_YCfoaAY',client:'Patrolapart',title:'Melbourne 4x4 Outdoors Show, Trailer',desc:'Same-day event trailer filmed and edited on location for social distribution.'},
+  ],
+  people_culture: [
+    {p:'vimeo',id:'1035948210',client:'Hamilton Island',title:'Code of Conduct, Introduction',desc:'Opening module for the Code of Conduct training series for 1,600 staff.'},
+    {p:'vimeo',id:'1016747108',client:'Hamilton Island',title:'Code of Conduct, Upholding Integrity',desc:'Workplace values training video on integrity. Part of a company-wide series.'},
+    {p:'vimeo',id:'1027242217',client:'Hamilton Island',title:'Anti-Harassment and Bullying',desc:'Workplace safety training module produced for mandatory staff compliance.'},
+    {p:'vimeo',id:'1028616139',client:'Hamilton Island',title:'Sustainability and Environmental Responsibility',desc:'Environmental awareness training for Hamilton Island staff.'},
+    {p:'vimeo',id:'1027474653',client:'Hamilton Island',title:'Rules and Regulations',desc:'Compliance training module covering workplace rules and onboarding.'},
+    {p:'vimeo',id:'1034519753',client:'Hamilton Island',title:'Welcome to Hamilton Island, Recruitment',desc:'Recruitment-focused welcome video for new staff onboarding.'},
+    {p:'vimeo',id:'1034751728',client:'Hamilton Island',title:'GM Welcome, Qualia Resort',desc:'General Manager welcome video for luxury resort onboarding.'},
+    {p:'vimeo',id:'1034751185',client:'Hamilton Island',title:'GM Welcome, Reef View Hotel',desc:'General Manager welcome video for Reef View Hotel.'},
+    {p:'vimeo',id:'1034381587',client:'Hamilton Island',title:'Welcome to Beach Club',desc:'Property-specific welcome video for Beach Club hospitality staff.'},
+    {p:'vimeo',id:'1037371098',client:'Hamilton Island',title:'Welcome to Holiday Homes',desc:'Manager welcome video for the Holiday Homes division.'},
+    {p:'vimeo',id:'1016618742',client:'Hamilton Island',title:'Food & Beverage Training, Qualia',desc:'F&B service training video for Qualia Resort staff.'},
+    {p:'vimeo',id:'1039410407',client:'Hamilton Island',title:'Barista Module, Manta Ray',desc:'Barista training module. Step-by-step instructional content.'},
+    {p:'vimeo',id:'1039404377',client:'Hamilton Island',title:'Bar Service, Manta Ray',desc:'Bar service training covering service standards and procedures.'},
+    {p:'vimeo',id:'1039401239',client:'Hamilton Island',title:'Bar Opening and Closing, Manta Ray',desc:'Operational training module covering bar opening and closing procedures.'},
+    {p:'vimeo',id:'1039394708',client:'Hamilton Island',title:'Excelling at Manta Ray',desc:'Service excellence training. Sets the standard for guest experience delivery.'},
+    {p:'vimeo',id:'1039255495',client:'Hamilton Island',title:'Lunch & Dinner Host, Manta Ray',desc:'Host role training covering guest greeting, seating, and front-of-house service.'},
+    {p:'vimeo',id:'1039246763',client:'Hamilton Island',title:'Lunch & Dinner Pass, Manta Ray',desc:'Pass (food runner) training module for lunch and dinner service.'},
+    {p:'vimeo',id:'1039233672',client:'Hamilton Island',title:'Lunch & Dinner Section, Manta Ray',desc:'Section waiter training covering table management and upselling.'},
+    {p:'vimeo',id:'1039224726',client:'Hamilton Island',title:'Menu Knowledge, Manta Ray',desc:'Menu knowledge training covering dish descriptions and allergens.'},
+    {p:'vimeo',id:'1039222664',client:'Hamilton Island',title:'F&B Standards, Manta Ray',desc:'Food and beverage service standards training.'},
+    {p:'vimeo',id:'1038446768',client:'Hamilton Island',title:'Venue Orientation, Manta Ray',desc:'New staff venue orientation covering layout, stations, and emergency exits.'},
+    {p:'vimeo',id:'1042815807',client:'Hamilton Island',title:'How to Login, Staff Onboarding',desc:'Tech onboarding module with clean screen-capture walkthrough.'},
+    {p:'vimeo',id:'1028089074',client:'Hamilton Island',title:'Load Restraint, WHS Training',desc:'Workplace health and safety training on load restraint procedures.'},
+    {p:'vimeo',id:'998030939',client:'Hamilton Island',title:'Manual Handling, WHS Training',desc:'7-minute manual handling safety training module.'},
+    {p:'vimeo',id:'979583928',client:'Hamilton Island',title:'PPE, Hamilton Island',desc:'Personal Protective Equipment training for operations staff.'},
+    {p:'vimeo',id:'987954729',client:'Hamilton Island',title:'PPE Introduction',desc:'Introductory PPE module. Short safety briefing for new staff.'},
+  ],
+  lifestyle: [
+    {p:'youtube',id:'KvzC8g-YoIY',client:'Patrolapart',title:'Brand Ad, Nissan Patrol and Navara Experts',desc:'30-second commercial scripted, directed, and edited to establish brand authority in the Nissan 4x4 aftermarket space.'},
+    {p:'youtube',id:'-2w8Q9QH2R0',client:'Patrolapart',title:'Behind the Builds, Brand Storytelling',desc:'Documentary-style piece taking the audience inside R&D. Interview segments, lifestyle B-roll, and cinematic grading.'},
+    {p:'youtube',id:'n7SDop-fo9Q',client:'Patrolapart',title:'Easy Rear Lift for Y62, Product Explainer',desc:'Product-focused explainer that drove 157% CTR lift and 15%+ monthly sales growth.'},
+    {p:'youtube',id:'zFR0Vs3o2fs',client:'Patrolapart',title:'Melbourne 4x4 Outdoors Show, Highlights',desc:'Full event highlights from the Melbourne 4x4 Outdoors Show. Solo filming and editing.'},
+    {p:'youtube',id:'_8s_YCfoaAY',client:'Patrolapart',title:'Melbourne 4x4 Outdoors Show, Trailer',desc:'Same-day event trailer filmed and edited on location for social distribution.'},
+    {p:'youtube',id:'vvThBildjfY',client:'Patrolapart',title:'GQ Y60 Window Support Brackets Install',desc:'Step-by-step install guide for Nissan Patrol GQ Y60 window support brackets.'},
+    {p:'youtube',id:'cIFhnjCons0',client:'Patrolapart',title:'What It Takes to Make a Steering Wheel',desc:'Behind-the-scenes look at the manufacturing process of a custom steering wheel.'},
+    {p:'youtube',id:'nVxXrBvUYJE',client:'Patrolapart',title:'GU Small Barn Door Extension Bracket Install',desc:'Installation walkthrough for the GU Patrol small barn door extension bracket.'},
+    {p:'youtube',id:'0e_Dt4jOUfs',client:'Patrolapart',title:'GQ Bonnet Gas Struts, Deep Dive',desc:'In-depth product deep dive on the updated GQ Patrol bonnet gas strut kit.'},
+  ],
+  my_films: [
+    {p:'youtube',id:'ga9n2rPK5tM',client:'Captured By Piyush',title:'Dolphins & Ocean Waves, Lakes Entrance Drone',desc:'Cinematic drone film over Lakes Entrance. Dolphins, ocean waves, golden hour aerial cinematography.'},
+    {p:'youtube',id:'j8dGCPuVJWk',client:'Captured By Piyush',title:'Solo Moto Camping, Rain Forest Mountain Views',desc:'32-minute cinematic solo motorcycle camping film. Rainforest mountains, nature ASMR, immersive storytelling.'},
+    {p:'youtube',id:'7nEMDVxOhvM',client:'Captured By Piyush',title:'Solo Moto Camping, Forest & Lake Views',desc:'20-minute cinematic camping film. Forest and lake views with relaxing nature soundscape.'},
+    {p:'youtube',id:'LRpAkeHw8fw',client:'Captured By Piyush',title:'Solo Camping in a Rainforest, Silent Vlog',desc:'21-minute silent vlog. Motorcycle journey into Australian rainforest. Pure visual storytelling.'},
+    {p:'youtube',id:'_JDNLW5Tp2E',client:'Captured By Piyush',title:'Motorcycle Camping on a Cliff',desc:'17-minute cinematic film. Cliffside camp with forest and mountain views. Relaxing ASMR.'},
+    {p:'youtube',id:'SkD9_DIzlw4',client:'Captured By Piyush',title:'Solo Moto Camping, Forest & River',desc:'27-minute cinematic camping film. Forest and river views with nature soundscape.'},
+    {p:'youtube',id:'IjMHbYJKITo',client:'Captured By Piyush',title:'Solo Camping, Immersive Nature ASMR',desc:'26-minute immersive silent adventure vlog. Full motorcycle camping experience.'},
+  ],
+};
+const catTitles={corporate_brand:'Corporate & Brand',events:'Events',people_culture:'People & Culture',lifestyle:'Builds & Adventure',my_films:'My Films'};
+function getThumb(v){
+  if(v.p==='youtube') return 'https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg';
+  return 'https://vumbnail.com/'+v.id+'.jpg';
+}
+function getEmbed(v){
+  if(v.p==='youtube') return 'https://www.youtube.com/embed/'+v.id+'?autoplay=1&rel=0&modestbranding=1';
+  return 'https://player.vimeo.com/video/'+v.id+'?autoplay=1&title=0&byline=0&portrait=0';
+}
+let catCurrentVids=[];
+let catCurrentIdx=0;
+function catSelectVid(idx){
+  if(idx<0||idx>=catCurrentVids.length) return;
+  catCurrentIdx=idx;
+  const v=catCurrentVids[idx];
+  // Update cover
+  const cover=document.getElementById('catFeatCover');
+  cover.style.backgroundImage="url('"+getThumb(v)+"')";
+  cover.classList.remove('hidden');
+  // Remove playing iframe
+  const player=document.getElementById('catFeatPlayer');
+  const oldIframe=player.querySelector('iframe');
+  if(oldIframe) oldIframe.remove();
+  // Update info
+  document.getElementById('catInfoTitle').textContent=v.title;
+  document.getElementById('catInfoMeta').textContent='Diwte Piyush';
+  document.getElementById('catInfoDesc').textContent=v.desc||'';
+  document.getElementById('catInfoClient').textContent=v.client;
+  // Update thumb highlights
+  document.querySelectorAll('.cat-thumb-item').forEach((t,i)=>{
+    t.classList.toggle('active',i===idx);
+  });
+  // Scroll active thumb into view
+  const activeThumb=document.querySelector('.cat-thumb-item.active');
+  if(activeThumb) activeThumb.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  // Nav button state
+  document.getElementById('catNavPrev').classList.toggle('disabled',idx===0);
+  document.getElementById('catNavNext').classList.toggle('disabled',idx===catCurrentVids.length-1);
+}
+function catPlayFeatured(){
+  const v=catCurrentVids[catCurrentIdx];if(!v) return;
+  const player=document.getElementById('catFeatPlayer');
+  const cover=document.getElementById('catFeatCover');
+  cover.classList.add('hidden');
+  const oldIframe=player.querySelector('iframe');
+  if(oldIframe) oldIframe.remove();
+  const iframe=document.createElement('iframe');
+  iframe.src=getEmbed(v);
+  iframe.allow='autoplay;fullscreen;picture-in-picture';
+  iframe.allowFullscreen=true;
+  player.insertBefore(iframe,cover);
+}
+function catNavVid(dir){catSelectVid(catCurrentIdx+dir)}
+function openCatModal(cat){
+  const vids=catVideos[cat];if(!vids) return;
+  catCurrentVids=vids;
+  // Build thumb strip
+  const strip=document.getElementById('catThumbStrip');
+  strip.innerHTML=vids.map((v,i)=>`
+    <div class="cat-thumb-item${i===0?' active':''}" onclick="catSelectVid(${i})">
+      <img src="${getThumb(v)}" alt="${v.title}" loading="lazy">
+      <div class="cat-thumb-label">${v.title}</div>
+    </div>`).join('');
+  // Select first video
+  catSelectVid(0);
+  document.getElementById('catModal').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.querySelector('nav').style.display='none';
+}
+function closeCatModal(){
+  document.getElementById('catModal').classList.remove('open');
+  document.body.style.overflow='';
+  document.querySelector('nav').style.display='';
+  // Stop any playing video
+  const player=document.getElementById('catFeatPlayer');
+  const iframe=player.querySelector('iframe');
+  if(iframe) iframe.remove();
+}
+// Bind category card clicks
+document.querySelectorAll('.vp-cat').forEach(card=>{
+  const cat=card.dataset.cat;
+  card.querySelector('.vp-allvids').addEventListener('click',e=>{e.stopPropagation();openCatModal(cat)});
+  card.querySelector('.vp-playwrap').addEventListener('click',e=>{
+    e.stopPropagation();openCatModal(cat);setTimeout(()=>catPlayFeatured(),300);
+  });
+  card.addEventListener('click',()=>openCatModal(cat));
+});
+// Bind overview tile clicks
+document.querySelectorAll('.cat-tile').forEach(tile=>{
+  tile.addEventListener('click',e=>{
+    e.preventDefault();
+    const target=tile.dataset.target;
+    const card=document.querySelector('.vp-cat[data-cat="'+target+'"]');
+    if(card){card.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>openCatModal(target),400);}
+  });
+});
+// Escape key & keyboard nav
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('catModal').classList.contains('open')) return;
+  if(e.key==='Escape') closeCatModal();
+  else if(e.key==='ArrowRight') catNavVid(1);
+  else if(e.key==='ArrowLeft') catNavVid(-1);
+  else if(e.key===' '||e.key==='Enter'){e.preventDefault();catPlayFeatured();}
+});
 
 /* Tilt effect on metric cards */
 document.querySelectorAll('.metric').forEach(card=>{
@@ -1108,26 +1588,6 @@ document.querySelectorAll('.metric').forEach(card=>{
   });
   card.addEventListener('mouseleave',()=>{card.style.transform=''});
 });
-
-/* Scroll-pinned Why Me reveal */
-(function(){
-  const items = document.querySelectorAll('.why-item-pin');
-  if (!items.length) return;
-  const wrap = document.getElementById('whyMe');
-  if (!wrap) return;
-  window.addEventListener('scroll', function() {
-    const rect = wrap.getBoundingClientRect();
-    const wrapH = wrap.offsetHeight;
-    const scrolled = -rect.top;
-    const progress = Math.max(0, Math.min(1, scrolled / (wrapH - window.innerHeight)));
-    items.forEach((item, i) => {
-      const threshold = i / items.length;
-      if (progress >= threshold) {
-        item.classList.add('active');
-      }
-    });
-  }, { passive: true });
-})();
 
 /* Stories vertical viewer */
 var storyPlayers=[];
@@ -1322,6 +1782,7 @@ if(scrollTopBtn){
 <!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>if(window._initScrollReveal) window._initScrollReveal();</script>
 
 <!-- ══ THREE.JS PARTICLE CAMERA ══ -->
 <script type="module">
@@ -1558,12 +2019,19 @@ let loadProgress = 0;
 const pctEl = document.getElementById('loadPct');
 const loadScreen = document.getElementById('loadScreen');
 
-// ── Preload hero background video alongside 3D model ──
+// ── Preload ALL assets: video, 3D model, thumbnails, fonts ──
 const heroBgVideo = document.getElementById('heroBgVideo');
-let videoReady = false, modelReady = false;
+const loadTasks = { video: false, model: false, thumbs: false, fonts: false };
+
+function updateLoadPct() {
+  const done = Object.values(loadTasks).filter(Boolean).length;
+  const total = Object.keys(loadTasks).length;
+  const pct = Math.min(99, Math.round((done / total) * 100));
+  if (pctEl) pctEl.textContent = pct;
+}
 
 function checkAllLoaded() {
-  if (videoReady && modelReady) {
+  if (Object.values(loadTasks).every(Boolean)) {
     if (pctEl) pctEl.textContent = '100';
     setTimeout(() => {
       if (loadScreen) { loadScreen.classList.add('done'); }
@@ -1573,33 +2041,62 @@ function checkAllLoaded() {
   }
 }
 
-// Video load tracking
-heroBgVideo.addEventListener('canplaythrough', () => {
-  videoReady = true;
-  checkAllLoaded();
-}, { once: true });
-// Fallback if video fails to load — don't block the page
-heroBgVideo.addEventListener('error', () => {
-  videoReady = true;
-  checkAllLoaded();
-}, { once: true });
-// If video is already cached
-if (heroBgVideo.readyState >= 4) {
-  videoReady = true;
-  checkAllLoaded();
-}
+// 1. Video load tracking
+heroBgVideo.addEventListener('canplaythrough', () => { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); }, { once: true });
+heroBgVideo.addEventListener('error', () => { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); }, { once: true });
+if (heroBgVideo.readyState >= 4) { loadTasks.video = true; updateLoadPct(); }
 
+// 2. Thumbnail preload (hero thumbs + vid covers)
+(function preloadThumbs() {
+  const thumbImgs = document.querySelectorAll('.hero-thumb img, .vid-cover');
+  const srcs = [];
+  thumbImgs.forEach(el => {
+    if (el.tagName === 'IMG' && el.src) srcs.push(el.src);
+    else if (el.style.backgroundImage) {
+      const m = el.style.backgroundImage.match(/url\(['"]?(.+?)['"]?\)/);
+      if (m) srcs.push(m[1]);
+    }
+  });
+  if (srcs.length === 0) { loadTasks.thumbs = true; updateLoadPct(); checkAllLoaded(); return; }
+  let loaded = 0;
+  srcs.forEach(src => {
+    const img = new Image();
+    img.onload = img.onerror = () => { loaded++; if (loaded >= srcs.length) { loadTasks.thumbs = true; updateLoadPct(); checkAllLoaded(); } };
+    img.src = src;
+  });
+  // Fallback timeout — don't block forever
+  setTimeout(() => { if (!loadTasks.thumbs) { loadTasks.thumbs = true; updateLoadPct(); checkAllLoaded(); } }, 8000);
+})();
+
+// 3. Font preload
+(function preloadFonts() {
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => { loadTasks.fonts = true; updateLoadPct(); checkAllLoaded(); });
+  } else {
+    loadTasks.fonts = true; updateLoadPct();
+  }
+  setTimeout(() => { if (!loadTasks.fonts) { loadTasks.fonts = true; updateLoadPct(); checkAllLoaded(); } }, 5000);
+})();
+
+// 4. 3D model (tracked via loadManager)
 loadManager.onProgress = (url, loaded, total) => {
-  // Blend model progress (70%) + video (30%)
-  const modelPct = Math.round((loaded / total) * 70);
-  const videoPct = videoReady ? 30 : Math.min(25, Math.round((heroBgVideo.buffered.length > 0 ? heroBgVideo.buffered.end(0) / (heroBgVideo.duration || 1) : 0) * 30));
-  loadProgress = modelPct + videoPct;
-  if (pctEl) pctEl.textContent = Math.min(99, loadProgress);
+  // Update pct smoothly during model load
+  const modelPct = Math.round((loaded / total) * 25);
+  const otherPct = Object.entries(loadTasks).filter(([k]) => k !== 'model').filter(([,v]) => v).length * 25;
+  if (pctEl) pctEl.textContent = Math.min(99, otherPct + modelPct);
 };
 loadManager.onLoad = () => {
-  modelReady = true;
+  loadTasks.model = true;
+  updateLoadPct();
   checkAllLoaded();
 };
+loadManager.onError = () => {
+  loadTasks.model = true;
+  updateLoadPct();
+  checkAllLoaded();
+};
+// Fallback timeout for model load
+setTimeout(() => { if (!loadTasks.model) { loadTasks.model = true; updateLoadPct(); checkAllLoaded(); } }, 10000);
 
 const gltfLoader = new GLTFLoader(loadManager);
 gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
@@ -1643,6 +2140,11 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
 
   // Create particles from the camera model vertices
   createParticlesFromModel(model);
+}, undefined, (err) => {
+  console.warn('GLTF load error:', err);
+  loadTasks.model = true;
+  updateLoadPct();
+  checkAllLoaded();
 });
 
 // ═══ HERO SCROLL HANDLER — 28 STAGES ═══
@@ -1668,7 +2170,7 @@ const thumbEls = document.querySelectorAll('.hero-thumb');
 const heroVidsEl = document.getElementById('heroVids');
 const heroVidEls = document.querySelectorAll('.hero-vid');
 window.heroVidEls = heroVidEls;
-const S = 1/34; // stage size = 2.94% (each stage = 100vh)
+const S = 1/38; // stage size — 2 empty scrolls + 2 text-hold scrolls before camera
 
 // Video showcase state
 let activeVideoIdx = -1;
@@ -1678,10 +2180,10 @@ const videoStates = [0, 0, 0, 0]; // 0=idle, 1=entering, 2=playing, 3=paused, 4=
 // Video timings: [enterStart, playStart, pauseStart, exitStart, exitEnd]
 // 5 scrolls: 1 enter+lock, 2 playing, 1 pause, 1 transition
 const videoTimings = [
-  [S*12, S*13, S*15, S*16, S*17],
   [S*16, S*17, S*19, S*20, S*21],
   [S*20, S*21, S*23, S*24, S*25],
   [S*24, S*25, S*27, S*28, S*29],
+  [S*28, S*29, S*31, S*32, S*33],
 ];
 // Enter/exit directions [enterX(vw), enterY(vh), exitX(vw), exitY(vh)]
 // Responsive: smaller offsets on mobile since video is wider relative to screen
@@ -1815,45 +2317,45 @@ window.updateHeroScroll = function(progress) {
   heroProgress = progress;
   if (!solidGroup) return;
 
-  // ── Canvas fade: in at stages 2-3, out at 11-12, back in at 28 for particles ──
+  // ── Canvas fade: in at stages 6-7, out at 15-16 ──
   let canvasOp = 0;
-  if (progress < S*1.5) {
+  if (progress < S*5.5) {
     canvasOp = 0;
-  } else if (progress < S*2.5) {
-    canvasOp = (progress - S*1.5) / S;
-  } else if (progress < S*11) {
+  } else if (progress < S*6.5) {
+    canvasOp = (progress - S*5.5) / S;
+  } else if (progress < S*15) {
     canvasOp = 1;
-  } else if (progress < S*12) {
-    canvasOp = Math.max(0, 1 - (progress - S*11) / S);
+  } else if (progress < S*16) {
+    canvasOp = Math.max(0, 1 - (progress - S*15) / S);
   } else {
     canvasOp = 0;
   }
   canvas.style.opacity = canvasOp;
   canvas.style.visibility = canvasOp < 0.01 ? 'hidden' : 'visible';
 
-  // ── Thumbnails: appear stage 2.5 (right as camera is fully visible), fade at 29 ──
+  // ── Thumbnails: appear stage 6.5 (right as camera is fully visible), fade at 33 ──
   if (thumbsEl) {
-    if (progress < S*2.5) {
+    if (progress < S*6.5) {
       thumbsEl.style.opacity = 0;
-    } else if (progress < S*3.5) {
-      thumbsEl.style.opacity = (progress - S*2.5) / S;
-    } else if (progress < S*28) {
+    } else if (progress < S*7.5) {
+      thumbsEl.style.opacity = (progress - S*6.5) / S;
+    } else if (progress < S*32) {
       // Stay visible — dimmer during video showcase
-      if (progress < S*12) {
+      if (progress < S*16) {
         thumbsEl.style.opacity = 1;
-      } else if (progress < S*13) {
-        thumbsEl.style.opacity = 1 - (progress - S*12) / S * 0.7;
+      } else if (progress < S*17) {
+        thumbsEl.style.opacity = 1 - (progress - S*16) / S * 0.7;
       } else {
         thumbsEl.style.opacity = 0.3;
       }
-    } else if (progress < S*29) {
-      thumbsEl.style.opacity = 0.3 * (1 - (progress - S*28) / S);
+    } else if (progress < S*33) {
+      thumbsEl.style.opacity = 0.3 * (1 - (progress - S*32) / S);
     } else {
       thumbsEl.style.opacity = 0;
     }
     // Per-thumbnail float + dissolve — 50 thumbnails, ~12 visible at once
     if (!window._thumbData) {
-      const _ts = S*2.5, _tr = S*25.5, _life = 0.20;
+      const _ts = S*6.5, _tr = S*29.5, _life = 0.20;
       window._thumbData = Array.from(thumbEls).map((th, i) => {
         const speed = parseFloat(th.dataset.speed) || 0.4;
         const offset = i / thumbEls.length;
@@ -1904,11 +2406,11 @@ window.updateHeroScroll = function(progress) {
   if (heroIntro) {
     const hiLines = heroIntro.querySelectorAll('.hi-line');
     const maxOpacities = [0.85, 1, 0.9, 0.25];
-    // Text appears right away on scroll, well before camera (stage 2.5)
-    const lineIn  = [S*0.3, S*0.6, S*1.2, S*1.5];
-    const linePeak = [S*0.8, S*1.1, S*1.6, S*1.9];
-    const fadeOutS = S*2.2;
-    const fadeOutE = S*2.8;
+    // Text appears right away on scroll, well before camera (stage 4.5)
+    const lineIn  = [S*2.3, S*2.6, S*3.2, S*3.5];
+    const linePeak = [S*2.8, S*3.1, S*3.6, S*3.9];
+    const fadeOutS = S*6.2;
+    const fadeOutE = S*6.8;
 
     hiLines.forEach((line, i) => {
       if (progress < lineIn[i]) {
@@ -1935,7 +2437,7 @@ window.updateHeroScroll = function(progress) {
 
     // ── Video Showcase: 4 videos, 5 scrolls each (stages 12-29) ──
   if (heroVidsEl) {
-    const inVideoZone = progress >= S*11 && progress < S*30;
+    const inVideoZone = progress >= S*15 && progress < S*34;
     heroVidsEl.style.pointerEvents = inVideoZone ? 'auto' : 'none';
 
     heroVidEls.forEach((vid, i) => {
@@ -2005,107 +2507,91 @@ window.updateHeroScroll = function(progress) {
   pivotGroup.rotation.x = targetRotX + smoothMouseY * (mouseInfluence * 0.5);
   pivotGroup.rotation.z = targetRotZ;
 
-  // ── Spotlight: sweep from right (stage 2), steady until stage 11, fade 11-12 ──
-  if (progress < S*1.5) {
+  // ── Spotlight: sweep from right (stage 6), steady until stage 15, fade 15-16 ──
+  if (progress < S*5.5) {
     spotlight.intensity = 0;
-  } else if (progress < S*2.5) {
-    const t = (progress - S*1.5) / S;
+  } else if (progress < S*6.5) {
+    const t = (progress - S*5.5) / S;
     const eased = smoothstep(t);
     spotlight.position.x = 25 - eased * 20;
     spotlight.position.z = 28 + eased * 4;
     spotlight.intensity = eased * 15;
-  } else if (progress < S*11) {
+  } else if (progress < S*15) {
     spotlight.position.x = 5;
     spotlight.position.z = 32;
     spotlight.intensity = 15;
-  } else if (progress < S*12) {
-    const t = (progress - S*11) / S;
+  } else if (progress < S*16) {
+    const t = (progress - S*15) / S;
     spotlight.intensity = 15 * (1 - Math.min(1, t));
   } else {
     spotlight.intensity = 0;
   }
 
-  // ── Studio backdrop: fade in stage 2, visible until stage 10, fade out 10-11 ──
+  // ── Studio backdrop: fade in stage 6, visible until stage 14, fade out 14-15 ──
   if (studioBg) {
-    if (progress < S*1.5) {
+    if (progress < S*5.5) {
       studioBg.style.opacity = 0;
-    } else if (progress < S*2.5) {
-      studioBg.style.opacity = (progress - S*1.5) / S;
-    } else if (progress < S*10) {
+    } else if (progress < S*6.5) {
+      studioBg.style.opacity = (progress - S*5.5) / S;
+    } else if (progress < S*14) {
       studioBg.style.opacity = 1;
-    } else if (progress < S*11) {
-      studioBg.style.opacity = 1 - (progress - S*10) / S;
+    } else if (progress < S*15) {
+      studioBg.style.opacity = 1 - (progress - S*14) / S;
     } else {
       studioBg.style.opacity = 0;
     }
   }
 
-  // ── Video backdrop: visible through hero, dim during video showcase ──
-  if (bgVid) {
-    if (progress < S*11) {
-      bgVid.style.opacity = 1;
-    } else if (progress < S*12) {
-      // Smooth transition to dim
-      bgVid.style.opacity = 1 - (progress - S*11) / S * 0.75;
-    } else if (progress < S*29) {
-      bgVid.style.opacity = 0.25;
-    } else if (progress < S*30) {
-      bgVid.style.opacity = 0.25 * (1 - (progress - S*29) / S);
-    } else {
-      bgVid.style.opacity = 0;
-      if (!bgVid.paused) bgVid.pause();
-    }
-    // Resume when scrolling back into view
-    if (progress < S*30 && bgVid.paused && progress > 0) bgVid.play().catch(()=>{});
-  }
+  // ── Video backdrop: always visible, never changes opacity ──
+  if (bgVid && bgVid.paused) bgVid.play().catch(()=>{});
 
-  // ── Camera bloom glow: visible stages 2-10, fade out 10-11 ──
+  // ── Camera bloom glow: visible stages 6-14, fade out 14-15 ──
   if (bloomEl) {
-    if (progress < S*1.5) {
+    if (progress < S*5.5) {
       bloomEl.style.opacity = 0;
-    } else if (progress < S*2.5) {
-      bloomEl.style.opacity = (progress - S*1.5) / S;
-    } else if (progress < S*10) {
+    } else if (progress < S*6.5) {
+      bloomEl.style.opacity = (progress - S*5.5) / S;
+    } else if (progress < S*14) {
       bloomEl.style.opacity = 1;
-    } else if (progress < S*11) {
-      bloomEl.style.opacity = 1 - (progress - S*10) / S;
+    } else if (progress < S*15) {
+      bloomEl.style.opacity = 1 - (progress - S*14) / S;
     } else {
       bloomEl.style.opacity = 0;
     }
   }
 
-  // ── Light motes: fade in stage 1-2, stay until stage 11, fade out 11-12 ──
+  // ── Light motes: fade in stage 5-6, stay until stage 15, fade out 15-16 ──
   if (motesEl) {
-    if (progress < S*1) {
+    if (progress < S*5) {
       motesEl.style.opacity = 0;
-    } else if (progress < S*2) {
-      motesEl.style.opacity = (progress - S*1) / S;
-    } else if (progress < S*11) {
+    } else if (progress < S*6) {
+      motesEl.style.opacity = (progress - S*5) / S;
+    } else if (progress < S*15) {
       motesEl.style.opacity = 1;
-    } else if (progress < S*12) {
-      motesEl.style.opacity = 1 - (progress - S*11) / S;
+    } else if (progress < S*16) {
+      motesEl.style.opacity = 1 - (progress - S*15) / S;
     } else {
       motesEl.style.opacity = 0;
     }
   }
 
-  // ── Scale: 1.0 → 8.0 during stages 2-6 ──
-  if (progress < S*1.5) {
+  // ── Scale: 1.0 → 8.0 during stages 6-10 ──
+  if (progress < S*5.5) {
     pivotGroup.scale.setScalar(1.0);
-  } else if (progress < S*6) {
-    const t = (progress - S*1.5) / (S*4.5);
+  } else if (progress < S*10) {
+    const t = (progress - S*5.5) / (S*4.5);
     const s = 1.0 + smoothstep(t) * 7.0;
     pivotGroup.scale.setScalar(s);
   } else {
     pivotGroup.scale.setScalar(8.0);
   }
 
-  // ── Camera model stages (solid → fade out at stage 11-12) ──
-  if (progress < S*11) {
+  // ── Camera model stages (solid → fade out at stage 15-16) ──
+  if (progress < S*15) {
     solidGroup.visible = true;
     solidGroup.traverse(c => { if (c.isMesh && c.material) { c.material.opacity = 1; c.material.transparent = false; } });
-  } else if (progress < S*12) {
-    const t = (progress - S*11) / S;
+  } else if (progress < S*16) {
+    const t = (progress - S*15) / S;
     solidGroup.visible = true;
     solidGroup.traverse(c => { if (c.isMesh && c.material) { c.material.transparent = true; c.material.opacity = 1 - smoothstep(t); } });
   } else {
@@ -2134,9 +2620,9 @@ gsap.ticker.add((t, dt) => {
   // ── Background particles (camera dissolves into these) ──
   if (bgMat && bgGeo) {
     // Skip all particle work when fully invisible (before stage 23)
-    const particleStart = S * 28; // particles appear as 4th video exits
-    const explodeStart = S * 28;  // explosion and fade-in happen together
-    if (heroProgress < S * 27.5 && explode < 0.001 && bgMat.uniforms.uFade.value < 0.01) {
+    const particleStart = S * 32; // particles appear as 4th video exits
+    const explodeStart = S * 32;  // explosion and fade-in happen together
+    if (heroProgress < S * 31.5 && explode < 0.001 && bgMat.uniforms.uFade.value < 0.01) {
       bgMat.uniforms.uFade.value = 0;
       renderer.render(scene, cam);
       return;
@@ -2229,6 +2715,546 @@ window.startHeroAnim = function() {
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
+// ══ PINNED SECTION OVERLAY COORDINATION ══
+// Each pinned section registers its overlay; when a new one enters, the previous one hides
+window._pinnedOverlays = [];
+function registerPinnedOverlay(pinInner, zIndex) {
+  pinInner.style.zIndex = String(zIndex);
+  const idx = window._pinnedOverlays.length;
+  window._pinnedOverlays.push(pinInner);
+  return {
+    show: function() {
+      // Hide all overlays with lower z-index
+      window._pinnedOverlays.forEach((el, i) => {
+        if (i < idx) el.style.opacity = '0';
+      });
+      pinInner.style.opacity = '1';
+    },
+    hide: function() {
+      pinInner.style.opacity = '0';
+      // Re-show previous overlay if it was in range
+      if (idx > 0) window._pinnedOverlays[idx - 1].style.opacity = '1';
+    }
+  };
+}
+
+// ══ WHY ME: fixed overlay (no slide-up) + title 1.8x→1x + items one by one ══
+(function(){
+  const items = document.querySelectorAll('.why-item-pin');
+  if (!items.length) return;
+  const wrap = document.getElementById('whyMe');
+  if (!wrap) return;
+  const pinInner = wrap.querySelector('.why-pin-inner');
+  const scrollBox = pinInner.parentElement; // the 400vh container
+  const titleEl = wrap.querySelector('.section-title');
+  const labelEl = wrap.querySelector('.label');
+  const grid = wrap.querySelector('.why-grid');
+  const itemCount = items.length;
+
+  // ── Fixed overlay: prevents the slide-up transition ──
+  pinInner.style.position = 'fixed';
+  pinInner.style.top = '0';
+  pinInner.style.left = '0';
+  pinInner.style.right = '0';
+  pinInner.style.opacity = '0';
+  pinInner.style.pointerEvents = 'none';
+  pinInner.style.background = 'none';
+  const whyCoord = registerPinnedOverlay(pinInner, 10);
+
+  // Title starts big — scale computed to fit viewport width
+  let startScale = 1.6;
+  if (titleEl) {
+    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'left center';
+    const titleNatW = titleEl.offsetWidth;
+    const maxScale = (window.innerWidth - 36) / titleNatW;
+    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
+    titleEl.style.transform = 'scale(' + startScale + ')';
+    titleEl.style.opacity = '1';
+    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
+    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+  }
+  const scaleRange = startScale - 1;
+  if (labelEl) labelEl.style.opacity = '0';
+  if (grid) grid.style.opacity = '0';
+  items.forEach(it => { it.style.opacity = '0'; it.style.transform = 'translateY(30px)'; });
+
+  // ── Pre-enter: smooth transition from hero ──
+  ScrollTrigger.create({
+    trigger: wrap,
+    start: 'top bottom-=50',
+    end: 'top top',
+    onEnter: () => { whyCoord.show(); },
+    onLeaveBack: () => { whyCoord.hide(); }
+  });
+
+  // ── Main: title shrink + items reveal ──
+  ScrollTrigger.create({
+    trigger: wrap,
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 0.3,
+    onLeave: () => {
+      pinInner.style.position = 'absolute';
+      pinInner.style.top = 'auto';
+      pinInner.style.bottom = '0';
+      pinInner.style.pointerEvents = '';
+    },
+    onEnterBack: () => {
+      pinInner.style.position = 'fixed';
+      pinInner.style.top = '0';
+      pinInner.style.bottom = '';
+      pinInner.style.pointerEvents = 'none';
+      whyCoord.show();
+    },
+    onUpdate: (self) => {
+      const p = self.progress;
+      pinInner.style.opacity = '1';
+      if (p > 0.3) pinInner.style.pointerEvents = '';
+      const TITLE_END = 0.25;
+      if (titleEl) {
+        const tp = Math.min(1, p / TITLE_END);
+        const e = tp * tp * (3 - 2 * tp);
+        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
+        titleEl.style.opacity = 1;
+        const sh = 1 - e;
+        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
+      }
+      if (labelEl) {
+        const lp = Math.max(0, Math.min(1, (p - 0.20) / 0.05));
+        labelEl.style.opacity = lp;
+      }
+      if (grid) {
+        grid.style.opacity = p >= 0.25 ? '1' : '0';
+      }
+      const ITEMS_START = 0.25;
+      const ITEMS_END = 0.85;
+      items.forEach((item, i) => {
+        const itemStart = ITEMS_START + (i / itemCount) * (ITEMS_END - ITEMS_START);
+        const itemEnd = itemStart + 0.08;
+        if (p < itemStart) {
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(30px)';
+        } else if (p < itemEnd) {
+          const ip = (p - itemStart) / (itemEnd - itemStart);
+          const ie = ip * ip * (3 - 2 * ip);
+          item.style.opacity = ie;
+          item.style.transform = 'translateY(' + (30 * (1 - ie)) + 'px)';
+        } else {
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }
+      });
+    }
+  });
+})();
+
+// ══ PROOF POINTS: fixed overlay + title shrink + metrics one by one ══
+(function(){
+  const metrics = document.querySelectorAll('.metric-pin');
+  if (!metrics.length) return;
+  const wrap = document.getElementById('proofSection');
+  if (!wrap) return;
+  const pinInner = wrap.querySelector('.proof-pin-inner');
+  const titleEl = wrap.querySelector('.section-title');
+  const labelEl = wrap.querySelector('.label');
+  const grid = wrap.querySelector('.metrics-grid');
+  const metricCount = metrics.length;
+
+  pinInner.style.position = 'fixed';
+  pinInner.style.top = '0';
+  pinInner.style.left = '0';
+  pinInner.style.right = '0';
+  pinInner.style.opacity = '0';
+  pinInner.style.pointerEvents = 'none';
+  pinInner.style.background = 'none';
+  const proofCoord = registerPinnedOverlay(pinInner, 11);
+
+  let startScale = 1.6;
+  if (titleEl) {
+    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'left center';
+    const titleNatW = titleEl.offsetWidth;
+    const maxScale = (window.innerWidth - 36) / titleNatW;
+    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
+    titleEl.style.transform = 'scale(' + startScale + ')';
+    titleEl.style.opacity = '1';
+    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
+    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+  }
+  const scaleRange = startScale - 1;
+  if (labelEl) labelEl.style.opacity = '0';
+  if (grid) grid.style.opacity = '0';
+  metrics.forEach(m => { m.style.opacity = '0'; m.style.transform = 'translateY(40px) scale(0.9)'; });
+
+  const counted = new Set();
+  function countUp(el) {
+    if (counted.has(el)) return;
+    counted.add(el);
+    const valEl = el.querySelector('.metric-val');
+    if (!valEl) return;
+    const target = parseInt(valEl.dataset.count), suffix = valEl.dataset.suffix || '', useSep = valEl.dataset.separator;
+    const dur = 1400, start = performance.now();
+    const step = now => {
+      const p = Math.min((now - start) / dur, 1), eased = 1 - Math.pow(1 - p, 3);
+      let v = Math.floor(eased * target); if (useSep) v = v.toLocaleString();
+      valEl.textContent = v + suffix; if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  // ── Pre-enter: smooth transition from Why Me ──
+  ScrollTrigger.create({
+    trigger: wrap, start: 'top bottom-=50', end: 'top top',
+    onEnter: () => { proofCoord.show(); },
+    onLeaveBack: () => { proofCoord.hide(); }
+  });
+
+  ScrollTrigger.create({
+    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = ''; },
+    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.pointerEvents = 'none'; proofCoord.show(); },
+    onUpdate: (self) => {
+      const p = self.progress;
+      if (p > 0.25) pinInner.style.pointerEvents = '';
+
+      const TITLE_END = 0.2;
+      if (titleEl) {
+        const tp = Math.min(1, p / TITLE_END);
+        const e = tp * tp * (3 - 2 * tp);
+        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
+        const sh = 1 - e;
+        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
+      }
+      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.15) / 0.05)); labelEl.style.opacity = lp; }
+      if (grid) { grid.style.opacity = p >= 0.2 ? '1' : '0'; }
+
+      const ITEMS_START = 0.2;
+      const ITEMS_END = 0.7;
+      metrics.forEach((m, i) => {
+        const itemStart = ITEMS_START + (i / metricCount) * (ITEMS_END - ITEMS_START);
+        const itemEnd = itemStart + 0.1;
+        if (p < itemStart) {
+          m.style.opacity = '0'; m.style.transform = 'translateY(40px) scale(0.9)';
+        } else if (p < itemEnd) {
+          const ip = (p - itemStart) / (itemEnd - itemStart);
+          const ie = ip * ip * (3 - 2 * ip);
+          m.style.opacity = ie; m.style.transform = 'translateY(' + (40*(1-ie)) + 'px) scale(' + (0.9+0.1*ie) + ')';
+          if (ie > 0.5) countUp(m);
+        } else {
+          m.style.opacity = '1'; m.style.transform = 'translateY(0) scale(1)';
+          countUp(m);
+        }
+      });
+    }
+  });
+})();
+
+// ══ TOOLS: fixed overlay + title shrink + pills fly in from all directions ══
+(function(){
+  const pills = document.querySelectorAll('.tool-fly');
+  if (!pills.length) return;
+  const wrap = document.getElementById('toolsSection');
+  if (!wrap) return;
+  const pinInner = wrap.querySelector('.tools-pin-inner');
+  const titleEl = wrap.querySelector('.section-title');
+  const labelEl = wrap.querySelector('.label');
+  const grid = wrap.querySelector('.tools-grid');
+  const pillCount = pills.length;
+
+  pinInner.style.position = 'fixed';
+  pinInner.style.top = '0';
+  pinInner.style.left = '0';
+  pinInner.style.right = '0';
+  pinInner.style.opacity = '0';
+  pinInner.style.pointerEvents = 'none';
+  pinInner.style.background = 'none';
+
+  // Register with overlay coordination system (z-index 12, after Proof at 11)
+  const toolsCoord = registerPinnedOverlay(pinInner, 12);
+
+  let startScale = 1.6;
+  if (titleEl) {
+    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'left center';
+    const titleNatW = titleEl.offsetWidth;
+    const maxScale = (window.innerWidth - 36) / titleNatW;
+    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
+    titleEl.style.transform = 'scale(' + startScale + ')';
+    titleEl.style.opacity = '1';
+    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
+    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+  }
+  const scaleRange = startScale - 1;
+  if (labelEl) labelEl.style.opacity = '0';
+  if (grid) grid.style.opacity = '0';
+
+  // Assign random fly-in directions for each pill
+  const flyData = Array.from(pills).map(() => {
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 300 + Math.random() * 400;
+    return { x: Math.cos(angle) * dist, y: Math.sin(angle) * dist, r: (Math.random() - 0.5) * 60 };
+  });
+  pills.forEach((pill, i) => {
+    pill.style.opacity = '0';
+    pill.style.transform = 'translate(' + flyData[i].x + 'px,' + flyData[i].y + 'px) rotate(' + flyData[i].r + 'deg)';
+  });
+
+  // Pre-enter trigger: show tools overlay early for smooth transition from Proof section
+  ScrollTrigger.create({
+    trigger: wrap, start: 'top bottom-=50', end: 'top top',
+    onEnter: () => { toolsCoord.show(); },
+    onLeaveBack: () => { toolsCoord.hide(); }
+  });
+
+  ScrollTrigger.create({
+    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
+    onEnter: () => { toolsCoord.show(); },
+    onLeaveBack: () => { toolsCoord.show(); },
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = ''; },
+    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; toolsCoord.show(); pinInner.style.pointerEvents = 'none'; },
+    onUpdate: (self) => {
+      const p = self.progress;
+      if (p > 0.25) pinInner.style.pointerEvents = '';
+
+      const TITLE_END = 0.15;
+      if (titleEl) {
+        const tp = Math.min(1, p / TITLE_END);
+        const e = tp * tp * (3 - 2 * tp);
+        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
+        const sh = 1 - e;
+        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
+      }
+      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.12) / 0.05)); labelEl.style.opacity = lp; }
+      if (grid) { grid.style.opacity = p >= 0.15 ? '1' : '0'; }
+
+      // Pills fly in from all directions and settle
+      const PILLS_START = 0.15;
+      const PILLS_END = 0.75;
+      pills.forEach((pill, i) => {
+        const pillStart = PILLS_START + (i / pillCount) * (PILLS_END - PILLS_START);
+        const pillEnd = pillStart + 0.08;
+        if (p < pillStart) {
+          pill.style.opacity = '0';
+          pill.style.transform = 'translate(' + flyData[i].x + 'px,' + flyData[i].y + 'px) rotate(' + flyData[i].r + 'deg)';
+        } else if (p < pillEnd) {
+          const ip = (p - pillStart) / (pillEnd - pillStart);
+          const ie = ip * ip * (3 - 2 * ip);
+          const x = flyData[i].x * (1 - ie);
+          const y = flyData[i].y * (1 - ie);
+          const r = flyData[i].r * (1 - ie);
+          pill.style.opacity = ie;
+          pill.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + r + 'deg)';
+        } else {
+          pill.style.opacity = '1';
+          pill.style.transform = 'translate(0,0) rotate(0)';
+        }
+      });
+    }
+  });
+})();
+
+// ══ CATEGORY OVERVIEW: fixed overlay + title shrink + brief + tiles fly in ══
+(function(){
+  const wrap = document.getElementById('catOverview');
+  if (!wrap) return;
+  const pinInner = wrap.querySelector('.cat-pin-inner');
+  const titleEl = wrap.querySelector('.section-title');
+  const labelEl = wrap.querySelector('.label');
+  const briefEl = wrap.querySelector('.cat-brief');
+
+  pinInner.style.position = 'fixed';
+  pinInner.style.top = '0';
+  pinInner.style.left = '0';
+  pinInner.style.right = '0';
+  pinInner.style.opacity = '0';
+  pinInner.style.pointerEvents = 'none';
+  pinInner.style.background = 'none';
+  pinInner.style.zIndex = '8';
+
+  let startScale = 1.6;
+  if (titleEl) {
+    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'center center';
+    const titleNatW = titleEl.offsetWidth;
+    const maxScale = (window.innerWidth - 72) / titleNatW;
+    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
+    titleEl.style.transform = 'scale(' + startScale + ')';
+    titleEl.style.opacity = '1';
+    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
+    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+  }
+  const scaleRange = startScale - 1;
+  if (labelEl) labelEl.style.opacity = '0';
+  if (briefEl) briefEl.style.opacity = '0';
+
+  ScrollTrigger.create({
+    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
+    onEnter: () => { pinInner.style.opacity = '1'; },
+    onLeaveBack: () => { pinInner.style.opacity = '0'; },
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = ''; },
+    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
+    onUpdate: (self) => {
+      const p = self.progress;
+      if (p > 0.2) pinInner.style.pointerEvents = '';
+
+      // Title shrink: 0-20%
+      const TITLE_END = 0.2;
+      if (titleEl) {
+        const tp = Math.min(1, p / TITLE_END);
+        const e = tp * tp * (3 - 2 * tp);
+        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
+        const sh = 1 - e;
+        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
+      }
+      // Label fade in: 15-20%
+      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.15) / 0.05)); labelEl.style.opacity = lp; }
+      // Brief paragraph: 25-40%
+      if (briefEl) { const bp = Math.max(0, Math.min(1, (p - 0.25) / 0.15)); briefEl.style.opacity = bp; briefEl.style.transform = 'translateY(' + (20*(1-bp)) + 'px)'; }
+    }
+  });
+})();
+
+// ══ VERTICAL: fixed overlay + title shrink + phone appears ══
+(function(){
+  const wrap = document.getElementById('vertical');
+  if (!wrap) return;
+  const pinInner = wrap.querySelector('.vert-pin-inner');
+  if (!pinInner) return;
+  const titleEl = wrap.querySelector('.section-title');
+  const labelEl = wrap.querySelector('.label');
+  const layout = wrap.querySelector('.stories-layout');
+  const phone = wrap.querySelector('.stories-phone');
+  const navVert = wrap.querySelector('.stories-nav-vertical');
+  const right = wrap.querySelector('.stories-right');
+
+  pinInner.style.position = 'fixed';
+  pinInner.style.top = '0';
+  pinInner.style.left = '0';
+  pinInner.style.right = '0';
+  pinInner.style.opacity = '0';
+  pinInner.style.pointerEvents = 'none';
+  pinInner.style.background = 'none';
+  pinInner.style.zIndex = '6';
+
+  let startScale = 1.6;
+  if (titleEl) {
+    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'center center';
+    const titleNatW = titleEl.offsetWidth;
+    const maxScale = (window.innerWidth - 72) / titleNatW;
+    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
+    titleEl.style.transform = 'scale(' + startScale + ')';
+    titleEl.style.opacity = '1';
+    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
+    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+  }
+  const scaleRange = startScale - 1;
+  if (labelEl) labelEl.style.opacity = '0';
+  if (layout) layout.style.opacity = '0';
+
+  ScrollTrigger.create({
+    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
+    onEnter: () => { pinInner.style.opacity = '1'; },
+    onLeaveBack: () => { pinInner.style.opacity = '0'; },
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = ''; },
+    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
+    onUpdate: (self) => {
+      const p = self.progress;
+      if (p > 0.2) pinInner.style.pointerEvents = '';
+
+      // Title shrink: 0-15%
+      if (titleEl) {
+        const tp = Math.min(1, p / 0.15);
+        const e = tp * tp * (3 - 2 * tp);
+        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
+        const sh = 1 - e;
+        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
+      }
+      // Label: 10-15%
+      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.1) / 0.05)); labelEl.style.opacity = lp; }
+      // Layout (phone + right content): 15-25%
+      if (layout) {
+        const lp = Math.max(0, Math.min(1, (p - 0.15) / 0.1));
+        const le = lp * lp * (3 - 2 * lp);
+        layout.style.opacity = le;
+        layout.style.transform = 'translateY(' + (40*(1-le)) + 'px)';
+      }
+    }
+  });
+})();
+
+// ══ ABOUT ME: fixed overlay + title shrink + items one by one ══
+(function(){
+  const wrap = document.getElementById('about');
+  if (!wrap) return;
+  const pinInner = wrap.querySelector('.about-pin-inner');
+  if (!pinInner) return;
+  const titleEl = wrap.querySelector('.section-title');
+  const labelEl = wrap.querySelector('.label');
+  const items = wrap.querySelectorAll('.about-item');
+  const itemCount = items.length;
+
+  pinInner.style.position = 'fixed';
+  pinInner.style.top = '0';
+  pinInner.style.left = '0';
+  pinInner.style.right = '0';
+  pinInner.style.opacity = '0';
+  pinInner.style.pointerEvents = 'none';
+  pinInner.style.background = 'none';
+  pinInner.style.zIndex = '7';
+
+  let startScale = 1.6;
+  if (titleEl) {
+    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'center center';
+    const titleNatW = titleEl.offsetWidth;
+    const maxScale = (window.innerWidth - 72) / titleNatW;
+    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
+    titleEl.style.transform = 'scale(' + startScale + ')';
+    titleEl.style.opacity = '1';
+    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
+    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
+  }
+  const scaleRange = startScale - 1;
+  if (labelEl) labelEl.style.opacity = '0';
+  items.forEach(item => { item.style.opacity = '0'; item.style.transform = 'translateY(30px)'; });
+
+  ScrollTrigger.create({
+    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
+    onEnter: () => { pinInner.style.opacity = '1'; },
+    onLeaveBack: () => { pinInner.style.opacity = '0'; },
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = ''; },
+    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
+    onUpdate: (self) => {
+      const p = self.progress;
+      if (p > 0.25) pinInner.style.pointerEvents = '';
+
+      // Title shrink: 0-20%
+      if (titleEl) {
+        const tp = Math.min(1, p / 0.2);
+        const e = tp * tp * (3 - 2 * tp);
+        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
+        const sh = 1 - e;
+        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
+      }
+      // Label: 15-20%
+      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.15) / 0.05)); labelEl.style.opacity = lp; }
+      // Items one by one: 25-75%
+      items.forEach((item, i) => {
+        const iStart = 0.25 + (i / itemCount) * 0.5;
+        const iEnd = iStart + 0.12;
+        if (p < iStart) {
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(30px)';
+        } else if (p < iEnd) {
+          const ip = (p - iStart) / (iEnd - iStart);
+          const ie = ip * ip * (3 - 2 * ip);
+          item.style.opacity = ie;
+          item.style.transform = 'translateY(' + (30*(1-ie)) + 'px)';
+        } else {
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }
+      });
+    }
+  });
+})();
+
 // ══ WHEEL VELOCITY BOOST FOR STANDARD MICE ══
 // Standard notched mice send small deltaY (~100px). The hero is 3400vh with snap.
 // Multiply small deltas so one notch advances one stage.
@@ -2274,43 +3300,37 @@ ScrollTrigger.create({
     onComplete: () => { window._heroSnapping = false; }
   },
   onLeave: () => {
-    // Force-pause all hero videos when scrolling past the hero
+    // Pause hero campaign videos but keep bg drone video playing
     if (window.heroVidEls) window.heroVidEls.forEach((v,i) => { if (window.setVideoState) window.setVideoState(i, 0); });
-    const bgv = document.getElementById('heroBgVideo');
-    if (bgv) bgv.pause();
-  },
-  onLeaveBack: () => {
-    const bgv = document.getElementById('heroBgVideo');
-    if (bgv) bgv.pause();
   },
   onUpdate: (self) => {
     const p = self.progress;
-    const S = 1/34;
+    const S = 1/38;
     // Drive the Three.js camera transitions
     if (window.updateHeroScroll) window.updateHeroScroll(p);
 
-    // ── CTA text (stage 29-33: appears right as 4th video exits) ──
+    // ── CTA text (stage 33-37: appears right as 4th video exits) ──
     if (heroTextEl) {
-      if (p < S*29) {
+      if (p < S*33) {
         heroTextEl.style.opacity = 0;
         heroTextEl.style.transform = 'translateY(30px)';
-      } else if (p < S*30) {
-        const t = (p - S*29) / S;
+      } else if (p < S*34) {
+        const t = (p - S*33) / S;
         const e = t * t * (3 - 2 * t);
         heroTextEl.style.opacity = e;
         heroTextEl.style.transform = `translateY(${30 * (1 - e)}px)`;
-      } else if (p < S*33) {
+      } else if (p < S*37) {
         heroTextEl.style.opacity = 1;
         heroTextEl.style.transform = 'translateY(0)';
       } else {
-        const t = (p - S*33) / S;
+        const t = (p - S*37) / S;
         heroTextEl.style.opacity = 1 - Math.min(1, t);
         heroTextEl.style.transform = `translateY(${-30 * Math.min(1, t)}px)`;
       }
     }
 
     // Scroll indicator
-    if (heroScrollEl) heroScrollEl.style.opacity = p < S*0.5 ? 1 : p < S*1.5 ? Math.max(0, 1 - (p - S*0.5) / S) : 0;
+    if (heroScrollEl) heroScrollEl.style.opacity = p < S*2.5 ? 1 : p < S*3.5 ? Math.max(0, 1 - (p - S*2.5) / S) : 0;
   }
 });
 
@@ -2324,10 +3344,142 @@ window.addEventListener('scroll', () => {
 
 // cursor glow removed
 
+// Video bg stays visible throughout the page — no fade out needed
 
-// Old GSAP animations for removed sections (statements, metrics, video moment, work grid, reels, toolkit, why me, CTA) have been replaced by BHA-style interactions script above.
+</script>
 
-// Old video portfolio lightbox removed — replaced by BHA video showcase
+<!-- ══ PREMIUM POLISH: Lenis, Splitting, Cursor, Magnetic ══ -->
+<script>
+(function(){
+  // ── Lenis smooth scroll ──
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+    });
+    // Connect Lenis to GSAP ScrollTrigger
+    if (typeof ScrollTrigger !== 'undefined') {
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    }
+    window._lenis = lenis;
+  }
+
+  // ── Splitting.js init ──
+  if (typeof Splitting !== 'undefined') {
+    Splitting();
+    // Animate split titles on scroll
+    const splitTitles = document.querySelectorAll('[data-splitting]');
+    if (typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
+      splitTitles.forEach(el => {
+        const chars = el.querySelectorAll('.char');
+        if (!chars.length) return;
+        gsap.fromTo(chars,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1, y: 0,
+            duration: 0.6,
+            stagger: 0.03,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+              once: true
+            }
+          }
+        );
+      });
+    } else {
+      // Fallback: just show them
+      splitTitles.forEach(el => el.classList.add('split-visible'));
+    }
+  }
+
+  // ── Custom cursor ──
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (dot && ring && window.matchMedia('(pointer:fine)').matches) {
+    let mx = 0, my = 0, dx = 0, dy = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+    document.addEventListener('mousedown', () => { dot.classList.add('clicking'); ring.classList.add('clicking'); });
+    document.addEventListener('mouseup', () => { dot.classList.remove('clicking'); ring.classList.remove('clicking'); });
+
+    // Hover detection on interactive elements
+    const hoverTargets = 'a, button, .btn, .cat-tile, .tool-pill, .nav-link, .vp-play, .magnetic';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(hoverTargets)) { dot.classList.add('hovering'); ring.classList.add('hovering'); }
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest(hoverTargets)) { dot.classList.remove('hovering'); ring.classList.remove('hovering'); }
+    });
+
+    function animateCursor() {
+      // Dot follows immediately
+      dx += (mx - dx) * 0.35;
+      dy += (my - dy) * 0.35;
+      dot.style.left = dx + 'px';
+      dot.style.top = dy + 'px';
+      // Ring follows with lag
+      rx += (mx - rx) * 0.15;
+      ry += (my - ry) * 0.15;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+  }
+
+  // ── Magnetic buttons ──
+  document.querySelectorAll('.magnetic').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0, 0)';
+    });
+  });
+
+  // ── Nav scroll spy ──
+  const navLinksAll = document.querySelectorAll('#navLinks .nav-link');
+  const spySections = ['hero','catOverview','vertical','about'];
+  function updateActiveNav() {
+    let currentId = 'hero';
+    const scrollY = window.scrollY + window.innerHeight * 0.35;
+    spySections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) currentId = id;
+    });
+    navLinksAll.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('data-section') === currentId);
+    });
+  }
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  // Smooth scroll for nav links
+  navLinksAll.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.getElementById(link.getAttribute('data-section'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
 </script>
 </body>
 </html>
