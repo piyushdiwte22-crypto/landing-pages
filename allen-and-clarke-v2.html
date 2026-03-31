@@ -570,6 +570,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .hero-thumb{display:none}
 }
 
+/* ── Touch device performance optimizations (iPad + iPhone) ── */
+@media(pointer:coarse){
+  /* Kill heavy GPU layers on all touch devices */
+  .grain{display:none}
+  .light-motes{display:none}
+  #cam3d{display:none}
+  .section-mesh{display:none}
+  /* Remove all backdrop-filters — very expensive on mobile GPU */
+  nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,10,15,.92)}
+  .cta-footer{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,10,15,.92)}
+  .stories-nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(7,7,13,.9)}
+  .btn-outline{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .scroll-top{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,10,15,.9)}
+  .cat-tile{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .cat-back-btn{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .cat-modal-close{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .cat-nav{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .cat-feat-play-btn{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .yt-popup-overlay{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .stories-fs-close{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .fs-nav-btn{backdrop-filter:none;-webkit-backdrop-filter:none}
+  /* Remove all will-change to free GPU memory */
+  .hero-thumb,.hero-vid,.reveal,.why-item-pin,.metric,.mesh-orb,.tool-pill,.hi-line{will-change:auto}
+  /* Simpler bg video */
+  #heroBgVideo{filter:brightness(.3) saturate(.4)}
+  /* Kill infinite CSS animations that aren't visible */
+  .btn-primary{animation:none}
+  .h-gd{animation:none}
+}
+/* ── iPad-specific tweaks ── */
+@media(pointer:coarse) and (min-width:768px) and (max-width:1366px){
+  .hero-thumb{transform:scale(.65)!important;opacity:.5!important}
+}
+
 /* ── Mobile responsive for new sections ── */
 @media(max-width:767px){
   .vert-pin-inner{padding:20px 16px}
@@ -1061,59 +1095,59 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
             <div class="stories-info-inner"><span class="stories-tag">Paid Ad</span><div class="stories-title-sm">Quad Lock, IG Style</div></div>
           </div>
           <div class="stories-slide" data-idx="3" data-dur="30" data-tag="Sales" data-title="GQ Bonnet Gas Strut Kits" data-desc="Product reel for the updated GQ Patrol bonnet gas strut kits. 1,108 likes, 17 comments. Generated 2,000+ clicks across platforms and $165K in sales over a single long weekend." data-client="Patrolapart">
-            <iframe src="https://www.instagram.com/reel/DMThlAvTx6o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DMThlAvTx6o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Sales</span><div class="stories-title-sm">GQ Bonnet Gas Strut Kits</div></div>
           </div>
           <div class="stories-slide" data-idx="4" data-dur="30" data-tag="Product" data-title="TD42T Long Engines GU Patrol" data-desc="Product reel for the TD42T long engine GU Patrol build. 1,546 likes, 77 comments — highest engagement reel on the account." data-client="Patrolapart">
-            <iframe src="https://www.instagram.com/reel/DNXiYOygJ83/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DNXiYOygJ83/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">TD42T Long Engines GU Patrol</div></div>
           </div>
           <div class="stories-slide" data-idx="5" data-dur="30" data-tag="Lifestyle" data-title="Lifestyle Reel" data-desc="Lifestyle vertical content. Hooks, pacing, and native editing built to stop the scroll." data-client="Piyush Diwte">
-            <iframe src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Lifestyle</span><div class="stories-title-sm">Lifestyle Reel</div></div>
           </div>
           <div class="stories-slide" data-idx="6" data-dur="30" data-tag="Reel" data-title="Brand Reel" data-desc="Brand-focused vertical content that balances product storytelling with platform-native editing." data-client="Piyush Diwte">
-            <iframe src="https://www.instagram.com/reel/DGGvLdeJlNL/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DGGvLdeJlNL/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Reel</span><div class="stories-title-sm">Brand Reel</div></div>
           </div>
           <div class="stories-slide" data-idx="7" data-dur="30" data-tag="Product" data-title="GU Shifter Surround" data-desc="Non-gen Y61 product showcase. 622 likes, 6 comments — highest engagement product reel on the account." data-client="Patrolapart">
-            <iframe src="https://www.instagram.com/reel/DM3ZUYVSqM4/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DM3ZUYVSqM4/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">GU Shifter Surround</div></div>
           </div>
           <div class="stories-slide" data-idx="8" data-dur="30" data-tag="Event" data-title="4x4 Show, Coolest Cars 2025" data-desc="Event coverage highlight reel from the Melbourne 4x4 Outdoors Show. Same-day fast-cut content for social reach." data-client="Patrolapart">
-            <iframe src="https://www.instagram.com/reel/DNz41YiXH9o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DNz41YiXH9o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Event</span><div class="stories-title-sm">4x4 Show, Coolest Cars</div></div>
           </div>
           <div class="stories-slide" data-idx="9" data-dur="30" data-tag="Freelance" data-title="Every Gap = Money Lost" data-desc="Freelance client work for Affordable Insulation. Problem-awareness reel showing why gaps in insulation cost homeowners money. Built account from scratch." data-client="Affordable Insulation">
-            <iframe src="https://www.instagram.com/reel/DOp-AOiguQQ/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DOp-AOiguQQ/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Every Gap = Money Lost</div></div>
           </div>
           <div class="stories-slide" data-idx="10" data-dur="30" data-tag="Product" data-title="GU Patrol Rear Step" data-desc="Problem-solution product format. 380 likes. Shows the before/after of a bolt-on rear step upgrade for GU Patrols." data-client="Patrolapart">
-            <iframe src="https://www.instagram.com/reel/DNtdY0Rg1tf/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DNtdY0Rg1tf/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">GU Patrol Rear Step</div></div>
           </div>
           <div class="stories-slide" data-idx="11" data-dur="30" data-tag="Freelance" data-title="Trade Insulation" data-desc="Freelance client work for Budget Insulation. Trade-focused content targeting contractors. Built social presence from zero." data-client="Budget Insulation">
-            <iframe src="https://www.instagram.com/reel/DN4LcNRkSo7/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DN4LcNRkSo7/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Trade Insulation</div></div>
           </div>
           <div class="stories-slide" data-idx="12" data-dur="30" data-tag="Brand" data-title="Merch Launch" data-desc="Brand lifestyle reel for Patrolapart merch launch. Campfire setting, community vibe. 117 likes." data-client="Patrolapart">
-            <iframe src="https://www.instagram.com/reel/DMuUeWkSHDp/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DMuUeWkSHDp/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Brand</span><div class="stories-title-sm">Merch Launch</div></div>
           </div>
           <div class="stories-slide" data-idx="13" data-dur="30" data-tag="Product" data-title="Y62 K-Frame Lift Kit" data-desc="Technical product explainer for Y62 K-Frame lift kit. 172 likes. Shows engineering detail and install process." data-client="Patrolapart">
-            <iframe src="https://www.instagram.com/reel/DNJXb7Pyi5W/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DNJXb7Pyi5W/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">Y62 K-Frame Lift Kit</div></div>
           </div>
           <div class="stories-slide" data-idx="14" data-dur="30" data-tag="Freelance" data-title="Cut Your Bills in Half" data-desc="Freelance client work for Affordable Insulation. Hook-driven CTA reel with value proposition. Built account and content from scratch." data-client="Affordable Insulation">
-            <iframe src="https://www.instagram.com/reel/DOvIQZXDh1K/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DOvIQZXDh1K/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Cut Your Bills in Half</div></div>
           </div>
           <div class="stories-slide" data-idx="15" data-dur="30" data-tag="Product" data-title="NP300 Wheel Arch Flares" data-desc="Side-by-side product comparison reel for NP300 Navara flares. Music-driven edit showing before/after fitment." data-client="Patrolapart">
-            <iframe src="https://www.instagram.com/reel/DNfSav7B91Z/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DNfSav7B91Z/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">NP300 Wheel Arch Flares</div></div>
           </div>
           <div class="stories-slide" data-idx="16" data-dur="30" data-tag="Event" data-title="4x4 Show, First Look" data-desc="Same-day event teaser from the Melbourne 4x4 Outdoors Show. Fast turnaround social content to build buzz while the event was still running." data-client="Patrolapart">
-            <iframe src="https://www.instagram.com/reel/DNxSRKb5O61/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DNxSRKb5O61/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Event</span><div class="stories-title-sm">4x4 Show, First Look</div></div>
           </div>
         </div>
@@ -1814,6 +1848,37 @@ if(scrollTopBtn){
   },{passive:true});
   scrollTopBtn.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});
 }
+
+// ── Touch device: fast-dismiss loading screen (3D module won't load) ──
+if (window.matchMedia('(pointer:coarse)').matches) {
+  const _ls = document.getElementById('loadScreen');
+  const _pct = document.getElementById('loadPct');
+  const _bgv = document.getElementById('heroBgVideo');
+  // Wait for video + fonts only, skip 3D model
+  let _ready = { video: false, fonts: false };
+  function _checkTouch() {
+    if (_ready.video && _ready.fonts) {
+      if (_pct) _pct.textContent = '100';
+      setTimeout(() => {
+        if (_ls) _ls.classList.add('done');
+        if (_bgv) _bgv.play().catch(() => {});
+      }, 400);
+    }
+  }
+  if (_bgv) {
+    if (_bgv.readyState >= 4) { _ready.video = true; }
+    else {
+      _bgv.addEventListener('canplaythrough', () => { _ready.video = true; if (_pct) _pct.textContent = '60'; _checkTouch(); }, { once: true });
+      _bgv.addEventListener('error', () => { _ready.video = true; _checkTouch(); }, { once: true });
+    }
+  } else { _ready.video = true; }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => { _ready.fonts = true; if (_pct) _pct.textContent = '80'; _checkTouch(); });
+  } else { _ready.fonts = true; }
+  // Absolute fallback — never block more than 4s on touch
+  setTimeout(() => { if (_ls && !_ls.classList.contains('done')) { if (_pct) _pct.textContent = '100'; _ls.classList.add('done'); if (_bgv) _bgv.play().catch(() => {}); } }, 4000);
+  _checkTouch();
+}
 </script>
 
 <!-- GSAP -->
@@ -1825,6 +1890,16 @@ if(scrollTopBtn){
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+// Skip 3D on touch devices (iPad/iPhone) — too heavy
+if (window.matchMedia('(pointer:coarse)').matches) {
+  window._3dSkipped = true;
+  const _fakeResolve = () => {};
+  if (window._3dReady) window._3dReady();
+  // Signal loading system that 3D is done
+  document.dispatchEvent(new Event('3d-skipped'));
+  throw new Error('3D skipped on touch device'); // exits module cleanly
+}
 
 const canvas = document.getElementById('cam3d');
 
@@ -2115,7 +2190,12 @@ if (heroBgVideo.readyState >= 4) { loadTasks.video = true; updateLoadPct(); }
   setTimeout(() => { if (!loadTasks.fonts) { loadTasks.fonts = true; updateLoadPct(); checkAllLoaded(); } }, 5000);
 })();
 
-// 4. 3D model (tracked via loadManager)
+// 4. 3D model — skip on touch devices (3D module won't load)
+if (window.matchMedia('(pointer:coarse)').matches) {
+  loadTasks.model = true;
+  updateLoadPct();
+  checkAllLoaded();
+}
 loadManager.onProgress = (url, loaded, total) => {
   // Update pct smoothly during model load
   const modelPct = Math.round((loaded / total) * 25);
@@ -3388,8 +3468,9 @@ window.addEventListener('scroll', () => {
 <!-- ══ PREMIUM POLISH: Lenis, Splitting, Cursor, Magnetic ══ -->
 <script>
 (function(){
-  // ── Lenis smooth scroll ──
-  if (typeof Lenis !== 'undefined') {
+  // ── Lenis smooth scroll (desktop only — causes lag on touch devices) ──
+  const isTouch = window.matchMedia('(pointer:coarse)').matches;
+  if (typeof Lenis !== 'undefined' && !isTouch) {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
