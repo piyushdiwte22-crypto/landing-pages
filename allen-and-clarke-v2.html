@@ -230,10 +230,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 /* Tool pill animations handled by GSAP ScrollTrigger */
 
 /* About */
-.vert-pin-wrap{position:relative;z-index:2}
+.vert-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
 .vert-pin-inner{position:fixed;top:0;left:0;right:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible;opacity:0;pointer-events:none;background:none}
 .stories-nav-vertical{display:flex;flex-direction:column;gap:12px;margin-right:16px}
-.about-pin-wrap{position:relative;z-index:2}
+.about-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
 .about-pin-inner{position:fixed;top:0;left:0;right:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible;opacity:0;pointer-events:none;background:none}
 .about-section{overflow:hidden;min-height:auto;display:flex;flex-direction:column;justify-content:center;padding:clamp(80px,12vh,140px) 0 clamp(40px,6vh,60px);position:relative;z-index:5}
 .about-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.15;filter:blur(2px);z-index:0}
@@ -261,7 +261,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 /* ── Video Categories (immersive full-height) ── */
 /* Category overview tiles */
-.cat-pin-wrap{position:relative;z-index:2}
+.cat-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
 .cat-pin-inner{position:fixed;top:0;left:0;right:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible;opacity:0;pointer-events:none;background:none}
 .cat-overview{position:relative;z-index:2;padding:80px 24px;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always}
 .cat-tiles{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
@@ -475,14 +475,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 /* Merged Metrics+Tools section */
 /* ── Scroll-pinned Proof Points ── */
-.proof-pin-wrap{position:relative;z-index:2}
+.proof-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
 .proof-pin-inner{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible}
 .metrics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,3vw,32px);margin-top:44px;max-width:900px;margin-left:auto;margin-right:auto}
 .metrics-grid .metric{background:rgba(14,14,22,0.85);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:clamp(32px,5vw,64px) clamp(24px,4vw,48px);text-align:center;position:relative;overflow:hidden;will-change:opacity,transform}
 .metrics-grid .metric-val{font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,7vw,84px);font-weight:700;background:linear-gradient(135deg,var(--a),#f0b060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
 .metrics-grid .metric-lbl{font-size:clamp(12px,1.3vw,16px);letter-spacing:2.5px;text-transform:uppercase;color:rgba(245,239,232,.5)}
 /* ── Scroll-pinned Tools ── */
-.tools-pin-wrap{position:relative;z-index:2}
+.tools-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
 .tools-pin-inner{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible}
 .tools-grid{display:flex;flex-wrap:wrap;gap:16px;margin-top:36px;justify-content:center}
 .tools-grid .tool-pill{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-size:clamp(14px,1.1vw,17px);font-weight:500;color:var(--w);background:rgba(14,14,22,0.85);border:1px solid rgba(255,255,255,0.06);transition:border-color .3s,background .3s;letter-spacing:.3px;will-change:opacity,transform}
@@ -3252,37 +3252,35 @@ function registerPinnedOverlay(pinInner, zIndex) {
     onUpdate: (self) => {
       const p = self.progress;
       if (p > 0) pinInner.style.opacity = '1';
-      if (p > 0.1) pinInner.style.pointerEvents = 'auto';
+      if (p > 0.05) pinInner.style.pointerEvents = 'auto';
 
-      // Title shrink: 0-15%
+      // Title shrink: 0-10%
       if (titleEl) {
-        const tp = Math.min(1, p / 0.15);
+        const tp = Math.min(1, p / 0.1);
         const e = tp * tp * (3 - 2 * tp);
         titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
         const sh = 1 - e;
         titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
       }
-      // Label: 10-15%
-      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.1) / 0.05)); labelEl.style.opacity = lp; }
-      // Layout: 15-25%
+      // Label: 8-12%
+      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.08) / 0.04)); labelEl.style.opacity = lp; }
+      // Layout + phone + right all appear together: 12-20%
       if (layout) {
-        const lp = Math.max(0, Math.min(1, (p - 0.15) / 0.1));
+        const lp = Math.max(0, Math.min(1, (p - 0.12) / 0.08));
         const le = lp * lp * (3 - 2 * lp);
         layout.style.opacity = le;
       }
-      // Phone slides in from left: 15-30%
       if (phone) {
-        const pp = Math.max(0, Math.min(1, (p - 0.15) / 0.15));
+        const pp = Math.max(0, Math.min(1, (p - 0.12) / 0.1));
         const pe = pp * pp * (3 - 2 * pp);
-        phone.style.transform = 'translateX(' + (-120*(1-pe)) + 'px)';
+        phone.style.transform = 'translateX(' + (-80*(1-pe)) + 'px)';
         phone.style.opacity = pe;
       }
-      // Right content fades in: 20-30%
       if (right) {
-        const rp = Math.max(0, Math.min(1, (p - 0.2) / 0.1));
+        const rp = Math.max(0, Math.min(1, (p - 0.14) / 0.08));
         const re = rp * rp * (3 - 2 * rp);
         right.style.opacity = re;
-        right.style.transform = 'translateX(' + (30*(1-re)) + 'px)';
+        right.style.transform = 'translateX(' + (20*(1-re)) + 'px)';
       }
     }
   });
