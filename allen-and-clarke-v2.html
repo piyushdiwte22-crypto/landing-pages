@@ -1322,7 +1322,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
       <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
     </a>
   </div>
-  <p class="cta-footer-text">Piyush Diwte &middot; Melbourne, VIC &middot; <a href="mailto:piyushdiwte22@gmail.com">piyushdiwte22@gmail.com</a> &middot; <a href="https://www.capturedbypiyush.com" target="_blank">CapturedByPiyush.com</a></p>
+  <p class="cta-footer-text">Piyush Diwte &middot; Melbourne, VIC &middot; <a href="mailto:piyushdiwte22@gmail.com">piyushdiwte22@gmail.com</a></p>
 </footer>
 
 <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
@@ -1518,10 +1518,7 @@ const vpCatObs = new IntersectionObserver(entries => {
     const iframe = cat.querySelector('.vp-bg iframe');
     if (!iframe || !iframe.src) return;
     const src = iframe.src;
-    const pauseBtn = cat.querySelector('.vp-pause-btn');
     if (e.isIntersecting) {
-      // Resume if not manually paused
-      if (pauseBtn && pauseBtn.dataset.paused === '1') return;
       if (src.includes('vimeo.com')) {
         try { iframe.contentWindow.postMessage(JSON.stringify({method:'play'}), '*'); } catch(ex){}
       } else if (src.includes('youtube.com')) {
@@ -2637,9 +2634,13 @@ window.updateHeroScroll = function(progress) {
   }
 
   // ── Hero Intro Text: scroll-animated stagger-in stages 4→9, fade out 10→11 ──
-  const heroIntro = document.getElementById('heroIntro');
+  if (!window._heroIntroCache) {
+    const _hi = document.getElementById('heroIntro');
+    window._heroIntroCache = _hi ? { el: _hi, lines: _hi.querySelectorAll('.hi-line') } : null;
+  }
+  const heroIntro = window._heroIntroCache ? window._heroIntroCache.el : null;
   if (heroIntro) {
-    const hiLines = heroIntro.querySelectorAll('.hi-line');
+    const hiLines = window._heroIntroCache.lines;
     const maxOpacities = [0.85, 1, 0.9, 0.25];
     // Text appears right away on scroll, well before camera (stage 4.5)
     const lineIn  = [S*2.3, S*2.6, S*3.2, S*3.5];
@@ -2671,7 +2672,8 @@ window.updateHeroScroll = function(progress) {
   }
 
     // ── Video Showcase: 4 videos, 5 scrolls each (stages 12-29) ──
-  const heroVidsTitleEl = document.getElementById('heroVidsTitle');
+  if (!window._hvtCache) window._hvtCache = document.getElementById('heroVidsTitle');
+  const heroVidsTitleEl = window._hvtCache;
   if (heroVidsEl) {
     const inVideoZone = progress >= S*15 && progress < S*34;
     heroVidsEl.style.pointerEvents = inVideoZone ? 'auto' : 'none';
@@ -2832,14 +2834,19 @@ window.updateHeroScroll = function(progress) {
 
   // ── Camera model stages (solid → fade out at stage 15-16) ──
   if (progress < S*15) {
-    solidGroup.visible = true;
-    solidGroup.traverse(c => { if (c.isMesh && c.material) { c.material.opacity = 1; c.material.transparent = false; } });
+    if (!solidGroup.visible || window._camState !== 'solid') {
+      solidGroup.visible = true;
+      solidGroup.traverse(c => { if (c.isMesh && c.material) { c.material.opacity = 1; c.material.transparent = false; } });
+      window._camState = 'solid';
+    }
   } else if (progress < S*16) {
     const t = (progress - S*15) / S;
     solidGroup.visible = true;
     solidGroup.traverse(c => { if (c.isMesh && c.material) { c.material.transparent = true; c.material.opacity = 1 - smoothstep(t); } });
+    window._camState = 'fading';
   } else {
     solidGroup.visible = false;
+    window._camState = 'hidden';
   }
 };
 
