@@ -317,13 +317,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .stories-right{flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:center;padding-bottom:0}
 .stories-right-content{opacity:0;transform:translateX(20px);transition:all .5s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column}
 .stories-right-content.active{opacity:1;transform:translateX(0)}
-.sr-nav{/* positioned absolutely — see below */}
 .sr-counter{font-size:11px;color:rgba(122,122,142,1);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
-.sr-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--a);background:rgba(196,117,43,0.1);padding:5px 14px;border-radius:50px;margin-bottom:16px;border:1px solid rgba(196,117,43,0.2)}
+.sr-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--a);background:rgba(196,117,43,0.1);padding:5px 14px;border-radius:50px;margin-bottom:20px;border:1px solid rgba(196,117,43,0.2);align-self:flex-start}
 .sr-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:var(--w);margin-bottom:10px}
-.sr-desc{font-size:17px;color:rgba(122,122,142,1);line-height:1.7;margin-bottom:28px}
-.sr-nav{display:flex;gap:12px;position:absolute;bottom:40px;left:0;z-index:10}
+.sr-desc{font-size:17px;color:rgba(122,122,142,1);line-height:1.7;margin-bottom:16px}
+.sr-nav-inline{display:flex;gap:14px;margin-top:8px}
 .stories-nav{width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:rgba(7,7,13,0.8);backdrop-filter:blur(8px);color:rgba(122,122,142,1);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;flex-shrink:0}
+.stories-nav-lg{width:68px;height:68px}
+.stories-nav-lg svg{width:32px;height:32px}
 .stories-nav:hover{color:var(--w);border-color:var(--a);background:rgba(196,117,43,0.15);box-shadow:0 0 20px rgba(196,117,43,0.35)}
 .stories-nav svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2.5}
 .stories-nav.disabled{opacity:0.2;pointer-events:none}
@@ -603,7 +604,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .stories-layout{justify-content:center;flex-direction:column;align-items:center}
   .stories-left{display:none}
   .stories-right{display:none}
-  .stories-nav-vertical{display:none}
+  .sr-nav-inline{display:none}
   .stories-fs-prompt{display:block}
   .stories-fs-prompt p{font-size:14px;line-height:1.6;max-width:280px;margin:0 auto 20px}
   .stories-fs-btn{padding:16px 36px;font-size:14px}
@@ -1052,7 +1053,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 <!-- ═══ VERTICAL SHOWCASE ═══ -->
 <section class="vert-pin-wrap" id="vertical" style="position:relative">
-  <div style="height:500vh;position:relative;pointer-events:none">
+  <div style="height:400vh;position:relative;pointer-events:none">
     <div class="vert-pin-inner">
       <div class="container" style="max-width:1260px">
         <div class="reveal">
@@ -1061,10 +1062,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
         </div>
         <div class="stories-layout">
       <div class="stories-left">
-        <div class="stories-nav-vertical">
-          <button class="stories-nav" id="storiesPrev"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
-          <button class="stories-nav" id="storiesNext"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
-        </div>
         <div class="stories-phone" id="storiesPhone">
           <div class="stories-progress" id="storiesProgress"></div>
           <div class="stories-tap stories-tap-left" id="storyTapL"></div>
@@ -1142,9 +1139,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
       <div class="stories-right" id="storiesRight">
         <div class="stories-right-content active" id="srContent">
           <div class="sr-counter" id="srCounter">1 of 17</div>
-          <div class="sr-tag" id="srTag">UGC</div>
           <h3 class="sr-title" id="srTitle">Product UGC</h3>
           <p class="sr-desc" id="srDesc">Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced.</p>
+          <div class="sr-tag" id="srTag">UGC</div>
+          <div class="sr-nav-inline">
+            <button class="stories-nav stories-nav-lg" id="storiesPrev2"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
+            <button class="stories-nav stories-nav-lg" id="storiesNext2"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+          </div>
         </div>
       </div>
     </div>
@@ -1649,8 +1650,8 @@ var storyGoTo;
   const slides=document.querySelectorAll('.stories-slide');
   if(!slides.length) return;
   const progressWrap=document.getElementById('storiesProgress');
-  const prevBtn=document.getElementById('storiesPrev');
-  const nextBtn=document.getElementById('storiesNext');
+  const prevBtn=document.getElementById('storiesPrev2');
+  const nextBtn=document.getElementById('storiesNext2');
   const tapL=document.getElementById('storyTapL');
   const tapR=document.getElementById('storyTapR');
   const srContent=document.getElementById('srContent');
@@ -2866,7 +2867,7 @@ function registerPinnedOverlay(pinInner, zIndex) {
     trigger: wrap,
     start: 'top top',
     end: 'bottom bottom',
-    scrub: 0.3,
+    scrub: 0.1,
     onLeave: () => {
       pinInner.style.position = 'absolute';
       pinInner.style.top = 'auto';
@@ -2983,7 +2984,7 @@ function registerPinnedOverlay(pinInner, zIndex) {
   });
 
   ScrollTrigger.create({
-    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
+    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
     onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
     onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.pointerEvents = 'none'; proofCoord.show(); },
     onUpdate: (self) => {
@@ -3079,7 +3080,7 @@ function registerPinnedOverlay(pinInner, zIndex) {
   });
 
   ScrollTrigger.create({
-    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
+    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
     onEnter: () => { toolsCoord.show(); },
     onLeaveBack: () => { toolsCoord.show(); },
     onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
@@ -3159,7 +3160,7 @@ function registerPinnedOverlay(pinInner, zIndex) {
   if (briefEl) briefEl.style.opacity = '0';
 
   ScrollTrigger.create({
-    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
+    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
     onEnter: () => { pinInner.style.opacity = '1'; },
     onLeaveBack: () => { pinInner.style.opacity = '0'; },
     onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
@@ -3224,7 +3225,7 @@ function registerPinnedOverlay(pinInner, zIndex) {
   if (layout) layout.style.opacity = '0';
 
   ScrollTrigger.create({
-    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
+    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
     onEnter: () => { pinInner.style.opacity = '1'; },
     onLeaveBack: () => { pinInner.style.opacity = '0'; },
     onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
@@ -3244,12 +3245,25 @@ function registerPinnedOverlay(pinInner, zIndex) {
       }
       // Label: 10-15%
       if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.1) / 0.05)); labelEl.style.opacity = lp; }
-      // Layout (phone + right content): 15-25%
+      // Layout: 15-25%
       if (layout) {
         const lp = Math.max(0, Math.min(1, (p - 0.15) / 0.1));
         const le = lp * lp * (3 - 2 * lp);
         layout.style.opacity = le;
-        layout.style.transform = 'translateY(' + (40*(1-le)) + 'px)';
+      }
+      // Phone slides in from left: 15-30%
+      if (phone) {
+        const pp = Math.max(0, Math.min(1, (p - 0.15) / 0.15));
+        const pe = pp * pp * (3 - 2 * pp);
+        phone.style.transform = 'translateX(' + (-120*(1-pe)) + 'px)';
+        phone.style.opacity = pe;
+      }
+      // Right content fades in: 20-30%
+      if (right) {
+        const rp = Math.max(0, Math.min(1, (p - 0.2) / 0.1));
+        const re = rp * rp * (3 - 2 * rp);
+        right.style.opacity = re;
+        right.style.transform = 'translateX(' + (30*(1-re)) + 'px)';
       }
     }
   });
@@ -3291,7 +3305,7 @@ function registerPinnedOverlay(pinInner, zIndex) {
   items.forEach(item => { item.style.opacity = '0'; item.style.transform = 'translateY(30px)'; });
 
   ScrollTrigger.create({
-    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3,
+    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
     onEnter: () => { pinInner.style.opacity = '1'; },
     onLeaveBack: () => { pinInner.style.opacity = '0'; },
     onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
