@@ -314,17 +314,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .stories-info-inner{position:absolute;bottom:0;left:0;right:0;z-index:5;padding:40px 14px 14px;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%)}
 .stories-tag{display:inline-block;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--w);background:rgba(196,117,43,0.85);padding:3px 10px;border-radius:50px;margin-bottom:6px}
 .stories-title-sm{font-size:12px;font-weight:600;color:var(--w)}
-.stories-right{flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:center;padding-bottom:0}
-.stories-right-content{opacity:0;transform:translateX(20px);transition:all .5s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column}
+.stories-right{flex:1;min-width:0;position:relative;display:flex;flex-direction:row;align-items:center;gap:32px}
+.stories-right-content{opacity:0;transform:translateX(20px);transition:all .5s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;flex:1;min-width:0}
 .stories-right-content.active{opacity:1;transform:translateX(0)}
 .sr-counter{font-size:11px;color:rgba(122,122,142,1);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
 .sr-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--a);background:rgba(196,117,43,0.1);padding:5px 14px;border-radius:50px;margin-bottom:20px;border:1px solid rgba(196,117,43,0.2);align-self:flex-start}
 .sr-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:var(--w);margin-bottom:10px}
 .sr-desc{font-size:17px;color:rgba(122,122,142,1);line-height:1.7;margin-bottom:16px}
-.sr-nav-inline{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.sr-nav-inline{display:flex;flex-direction:column;gap:16px;flex-shrink:0}
 .stories-nav{width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:rgba(7,7,13,0.8);backdrop-filter:blur(8px);color:rgba(122,122,142,1);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;flex-shrink:0}
-.stories-nav-lg{width:68px;height:68px}
-.stories-nav-lg svg{width:32px;height:32px}
+.stories-nav-lg{width:80px;height:80px}
+.stories-nav-lg svg{width:36px;height:36px}
 .stories-nav:hover{color:var(--w);border-color:var(--a);background:rgba(196,117,43,0.15);box-shadow:0 0 20px rgba(196,117,43,0.35)}
 .stories-nav svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2.5}
 .stories-nav.disabled{opacity:0.2;pointer-events:none}
@@ -678,6 +678,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 <script defer src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
+
+<!-- Mobile block overlay -->
+<div id="mobileBlock" style="display:none;position:fixed;inset:0;z-index:99999;background:#050505;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 28px;gap:24px">
+  <img src="Capturedbypiyush.gif" alt="Captured by Piyush" style="width:60px;height:60px;border-radius:50%;margin-bottom:8px">
+  <h2 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:#f5efe8;margin:0;line-height:1.3">Desktop Only</h2>
+  <p style="font-family:'Inter',sans-serif;font-size:15px;color:rgba(245,239,232,0.5);line-height:1.7;max-width:320px;margin:0">This portfolio experience has been optimised for desktop browsers. A mobile version is coming soon.</p>
+  <div style="width:48px;height:2px;background:linear-gradient(90deg,#c4752b,#e8943a);border-radius:2px;margin:8px 0"></div>
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(245,239,232,0.3);margin:0;letter-spacing:1px;text-transform:uppercase">Captured by Piyush</p>
+</div>
+<style>
+@media(max-width:767px){#mobileBlock{display:flex!important}}
+@media(pointer:coarse) and (max-width:1024px){#mobileBlock{display:flex!important}}
+</style>
 
 <!-- Custom cursor -->
 <!-- custom cursor removed -->
@@ -1137,15 +1150,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
         </div>
       </div>
       <div class="stories-right" id="storiesRight">
+        <div class="sr-nav-inline">
+          <button class="stories-nav stories-nav-lg" id="storiesPrev2"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
+          <button class="stories-nav stories-nav-lg" id="storiesNext2"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+        </div>
         <div class="stories-right-content active" id="srContent">
           <div class="sr-counter" id="srCounter">1 of 17</div>
           <h3 class="sr-title" id="srTitle">Product UGC</h3>
           <p class="sr-desc" id="srDesc">Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced.</p>
           <div class="sr-tag" id="srTag">UGC</div>
-          <div class="sr-nav-inline">
-            <button class="stories-nav stories-nav-lg" id="storiesPrev2"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
-            <button class="stories-nav stories-nav-lg" id="storiesNext2"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
-          </div>
         </div>
       </div>
     </div>
