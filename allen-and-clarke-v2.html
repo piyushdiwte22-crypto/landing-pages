@@ -3482,9 +3482,9 @@ function registerPinnedOverlay(pinInner, zIndex) {
       const p = self.progress;
       if (p > 0) pinInner.style.opacity = '1';
       if (p > 0.1) pinInner.style.pointerEvents = 'auto';
-      // Show footer when near end of about section
+      // Show footer as soon as about section content is visible
       if (footerEl) {
-        if (p > 0.85) footerEl.classList.add('visible');
+        if (p > 0.15) footerEl.classList.add('visible');
         else footerEl.classList.remove('visible');
       }
 
