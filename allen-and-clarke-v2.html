@@ -1570,7 +1570,7 @@ const vpCatObs = new IntersectionObserver(entries => {
       }
     }
   });
-}, {threshold: 0.3});
+}, {threshold: 0.05});
 document.querySelectorAll('.vp-cat').forEach(cat => vpCatObs.observe(cat));
 
 /* VP Mute/Unmute buttons */
@@ -2385,23 +2385,30 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
           m.envMapIntensity = 0.5;
           m.roughness = Math.max(m.roughness, 0.3);
         }
-        // Fix lens front element — detect and darken aperture/glass/anchor meshes
-        if (m.color) {
-          const r = m.color.r, g = m.color.g, b = m.color.b;
-          const brightness = (r + g + b) / 3;
-          // Bright white/grey parts (aperture blades, lens glass)
-          if (brightness > 0.7) {
-            m.color.setHex(0x0a0a10);
-            m.map = null; // remove any white texture
-            m.roughness = 0.05;
-            m.metalness = 0.95;
-            m.transparent = false;
-            m.needsUpdate = true;
+        // Hide teal/cyan anchor dot and any tiny marker meshes
+        if (child.geometry) {
+          child.geometry.computeBoundingBox();
+          const bs = child.geometry.boundingBox.getSize(new THREE.Vector3());
+          const vol = bs.x * bs.y * bs.z;
+          // Hide tiny meshes (marker points, anchor dots)
+          if (vol < 0.005) { child.visible = false; }
+          // Darken thin flat discs that are bright (aperture blades, lens glass)
+          const minDim = Math.min(bs.x, bs.y, bs.z);
+          const maxDim = Math.max(bs.x, bs.y, bs.z);
+          if (minDim < maxDim * 0.1 && minDim > 0.001 && m.color) {
+            const brightness = (m.color.r + m.color.g + m.color.b) / 3;
+            if (brightness > 0.6 && !m.map) {
+              // Untextured bright flat disc = lens glass/aperture
+              m.color.setHex(0x0a0a12);
+              m.roughness = 0.08;
+              m.metalness = 0.9;
+              m.needsUpdate = true;
+            }
           }
-          // Teal/cyan anchor point dot
-          if (g > 0.4 && g > r * 1.5 && b > r * 1.2) {
-            child.visible = false;
-          }
+        }
+        // Also hide by color if teal/cyan (in case geometry check misses it)
+        if (m.color && m.color.g > 0.35 && m.color.g > m.color.r * 1.3 && m.color.b > m.color.r) {
+          child.visible = false;
         }
       }
     }
