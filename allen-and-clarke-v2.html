@@ -154,11 +154,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .hero-vid .vid-play svg{width:20px;height:20px;fill:var(--a);margin-left:3px}
 .hero-vid.entering .vid-play{opacity:1}
 .hero-vid.playing .vid-play{opacity:0;transform:translate(-50%,-50%) scale(1.5)}
-.hero-vid .vid-controls{position:absolute;bottom:20px;left:20px;z-index:5;display:flex;gap:8px;opacity:0;transition:opacity .4s;pointer-events:auto}
-.hero-vid.playing .vid-controls{opacity:1}
-.hero-vid .vid-ctrl{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease;pointer-events:auto}
-.hero-vid .vid-ctrl:hover{border-color:rgba(255,255,255,.5);background:rgba(0,0,0,.7)}
-.hero-vid .vid-ctrl svg{width:14px;height:14px;fill:#f5efe8}
 
 /* ══ HERO STORY TEXT ══ */
 .hs{position:absolute;z-index:3;opacity:0;pointer-events:none;max-width:800px;padding:24px 48px;text-align:center}
@@ -569,9 +564,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .hero-vid .vid-info{padding:14px 16px}
   .hero-vid .vid-play{width:48px;height:48px}
   .hero-vid .vid-play svg{width:16px;height:16px}
-  .hero-vid .vid-controls{bottom:14px;left:14px}
-  .hero-vid .vid-ctrl{width:32px;height:32px}
-  .hero-vid .vid-ctrl svg{width:12px;height:12px}
   /* Thumbnails: smaller on mobile */
   .hero-thumb{transform:scale(.7)!important}
   .hero-thumb.visible{transform:scale(.8)!important}
@@ -583,9 +575,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .hero-vid .vid-info{padding:10px 12px}
   .hero-vid .vid-play{width:40px;height:40px}
   .hero-vid .vid-play svg{width:14px;height:14px}
-  .hero-vid .vid-controls{bottom:10px;left:10px}
-  .hero-vid .vid-ctrl{width:28px;height:28px}
-  .hero-vid .vid-ctrl svg{width:11px;height:11px}
   .hero-thumb{display:none}
 }
 
@@ -865,28 +854,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
         <iframe data-src="https://player.vimeo.com/video/1016747108?autoplay=1&muted=0&controls=0&quality=1080p" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Hamilton Island</div><div class="vid-title">Code of Conduct</div></div>
-        <div class="vid-controls"><button class="vid-ctrl vid-mute-btn" data-idx="0" data-muted="1" title="Unmute"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#f5efe8" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#f5efe8" stroke-width="2"/></svg></button><button class="vid-ctrl vid-pause-btn" data-idx="0" data-paused="0" title="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button></div>
       </div>
       <div class="hero-vid" id="hv2">
         <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/KWhS3k3HOZU/maxresdefault.jpg')"></div>
         <iframe data-src="https://www.youtube.com/embed/KWhS3k3HOZU?enablejsapi=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Motorsport</div><div class="vid-title">Arise GT Racing</div></div>
-        <div class="vid-controls"><button class="vid-ctrl vid-mute-btn" data-idx="1" data-muted="1" title="Unmute"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#f5efe8" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#f5efe8" stroke-width="2"/></svg></button><button class="vid-ctrl vid-pause-btn" data-idx="1" data-paused="0" title="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button></div>
       </div>
       <div class="hero-vid" id="hv3">
         <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/wt0Du5e2r_4/hqdefault.jpg')"></div>
         <iframe data-src="https://www.youtube.com/embed/wt0Du5e2r_4?enablejsapi=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Conference</div><div class="vid-title">Soul Con</div></div>
-        <div class="vid-controls"><button class="vid-ctrl vid-mute-btn" data-idx="2" data-muted="1" title="Unmute"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#f5efe8" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#f5efe8" stroke-width="2"/></svg></button><button class="vid-ctrl vid-pause-btn" data-idx="2" data-paused="0" title="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button></div>
       </div>
       <div class="hero-vid" id="hv4">
         <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/zFR0Vs3o2fs/maxresdefault.jpg')"></div>
         <iframe data-src="https://www.youtube.com/embed/zFR0Vs3o2fs?enablejsapi=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Patrolapart</div><div class="vid-title">Melbourne 4x4 Show</div></div>
-        <div class="vid-controls"><button class="vid-ctrl vid-mute-btn" data-idx="3" data-muted="1" title="Unmute"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#f5efe8" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#f5efe8" stroke-width="2"/></svg></button><button class="vid-ctrl vid-pause-btn" data-idx="3" data-paused="0" title="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button></div>
       </div>
     </div>
     <!-- Story text removed -->
@@ -2537,65 +2522,6 @@ function setVideoState(idx, newState) {
   }
 }
 
-// Hero video mute/unmute buttons
-document.querySelectorAll('.vid-mute-btn').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const idx = parseInt(btn.dataset.idx);
-    const iframe = heroVidEls[idx].querySelector('iframe');
-    if (!iframe || !iframe.src) return;
-    const isMuted = btn.dataset.muted === '1';
-    if (isMuted) {
-      if (idx === 0) {
-        try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:1}), '*'); } catch(ex){}
-      } else {
-        postYTCommand(iframe, 'unMute');
-      }
-      btn.dataset.muted = '0';
-      btn.title = 'Mute';
-      btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="#f5efe8"/><path d="M15.54 8.46a5 5 0 010 7.07" stroke="#f5efe8" stroke-width="2" fill="none"/><path d="M19.07 4.93a10 10 0 010 14.14" stroke="#f5efe8" stroke-width="2" fill="none"/></svg>';
-    } else {
-      if (idx === 0) {
-        try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*'); } catch(ex){}
-      } else {
-        postYTCommand(iframe, 'mute');
-      }
-      btn.dataset.muted = '1';
-      btn.title = 'Unmute';
-      btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="#f5efe8"/><line x1="23" y1="9" x2="17" y2="15" stroke="#f5efe8" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#f5efe8" stroke-width="2"/></svg>';
-    }
-  });
-});
-
-// Hero video pause/play buttons
-document.querySelectorAll('.vid-pause-btn').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const idx = parseInt(btn.dataset.idx);
-    const iframe = heroVidEls[idx].querySelector('iframe');
-    if (!iframe || !iframe.src) return;
-    const isPaused = btn.dataset.paused === '1';
-    if (isPaused) {
-      if (idx === 0) {
-        try { iframe.contentWindow.postMessage(JSON.stringify({method:'play'}), '*'); } catch(ex){}
-      } else {
-        postYTCommand(iframe, 'playVideo');
-      }
-      btn.dataset.paused = '0';
-      btn.title = 'Pause';
-      btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" fill="#f5efe8"/><rect x="14" y="4" width="4" height="16" fill="#f5efe8"/></svg>';
-    } else {
-      if (idx === 0) {
-        try { iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*'); } catch(ex){}
-      } else {
-        postYTCommand(iframe, 'pauseVideo');
-      }
-      btn.dataset.paused = '1';
-      btn.title = 'Play';
-      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19" fill="#f5efe8"/></svg>';
-    }
-  });
-});
 
 // Cinematic camera angle keyframes [rotY, rotX, rotZ] per stage (34 entries)
 const NUM_STAGES = 34;
