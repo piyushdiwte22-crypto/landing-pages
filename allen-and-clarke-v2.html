@@ -2385,17 +2385,22 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
           m.envMapIntensity = 0.5;
           m.roughness = Math.max(m.roughness, 0.3);
         }
-        // Fix lens front element — darken bright white/grey interior parts
-        // Detect by color: if the base color is very light (lens glass, aperture)
+        // Fix lens front element — detect and darken aperture/glass/anchor meshes
         if (m.color) {
           const r = m.color.r, g = m.color.g, b = m.color.b;
           const brightness = (r + g + b) / 3;
-          if (brightness > 0.75 && !m.map) {
-            // This is likely the lens glass/aperture — make it dark and glossy
-            m.color.setHex(0x111118);
+          // Bright white/grey parts (aperture blades, lens glass)
+          if (brightness > 0.7) {
+            m.color.setHex(0x0a0a10);
+            m.map = null; // remove any white texture
             m.roughness = 0.05;
-            m.metalness = 0.9;
+            m.metalness = 0.95;
             m.transparent = false;
+            m.needsUpdate = true;
+          }
+          // Teal/cyan anchor point dot
+          if (g > 0.4 && g > r * 1.5 && b > r * 1.2) {
+            child.visible = false;
           }
         }
       }
