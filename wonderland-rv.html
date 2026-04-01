@@ -46,6 +46,23 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;overflow
 /* Grain */
 .grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.04;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") repeat;background-size:256px}
 
+/* ══ WELCOME MODAL ══ */
+.modal-overlay{position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s cubic-bezier(.16,1,.3,1)}
+.modal-overlay.show{opacity:1;pointer-events:auto}
+.modal{background:linear-gradient(145deg,rgba(22,22,35,0.85),rgba(14,14,22,0.75));backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border:1px solid rgba(255,255,255,0.12);border-top-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.15);border-radius:16px;padding:36px 32px 28px;max-width:400px;width:90%;text-align:center;position:relative;transform:scale(0.9) translateY(20px);transition:transform .4s cubic-bezier(.16,1,.3,1);box-shadow:0 24px 80px rgba(0,0,0,0.6),0 0 60px rgba(219,118,39,0.1),inset 0 1px 0 rgba(255,255,255,0.08)}
+.modal-overlay.show .modal{transform:scale(1) translateY(0)}
+.modal-icon{width:48px;height:48px;border-radius:12px;margin:0 auto 16px;background:linear-gradient(135deg,var(--a),var(--a2));display:flex;align-items:center;justify-content:center;font-size:22px}
+.modal-icon-logo{background:rgba(255,255,255,0.1);padding:6px;overflow:hidden}
+.modal-icon-logo img{width:100%;height:100%;object-fit:contain;border-radius:6px}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--w);margin-bottom:10px}
+.modal-text{font-size:14px;color:rgba(245,239,232,.4);line-height:1.7;margin-bottom:24px}
+.modal-text strong{color:var(--w)}
+.modal-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 32px;border-radius:50px;font-size:13px;font-weight:600;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;border:none;cursor:pointer;transition:all .3s;letter-spacing:.3px}
+.modal-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(219,118,39,.3)}
+.modal-close{position:absolute;top:12px;right:14px;background:none;border:none;color:rgba(245,239,232,.4);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1;transition:color .2s}
+.modal-close:hover{color:var(--w)}
+@media(max-width:640px){.modal{padding:28px 20px 22px}.modal-title{font-size:18px}}
+
 /* Nav */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,48px);display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(10,10,15,.8) 0%,rgba(10,10,15,.4) 60%,transparent 100%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .nl{display:flex;align-items:center;gap:10px;text-decoration:none}
@@ -173,7 +190,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .snap-section{position:relative;z-index:2;min-height:100vh;min-height:100svh;padding:clamp(60px,8vh,100px) clamp(24px,4vw,48px);box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start}
 .cat-overview{scroll-snap-align:start}
 
-/* Reveal animations — GSAP handles opacity/transform via ScrollTrigger */
+/* Reveal animations -GSAP handles opacity/transform via ScrollTrigger */
 .reveal{will-change:opacity,transform}
 .reveal-d1,.reveal-d2,.reveal-d3{/* delays handled by GSAP */}
 
@@ -747,7 +764,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   <div class="nav-links" id="navLinks">
     <a href="#catOverview" class="nav-link active" data-section="catOverview">Portfolio</a>
     <a href="#vertical" class="nav-link" data-section="vertical">Verticals</a>
-    <a href="#videoPortfolio" class="nav-link" data-section="videoPortfolio">Gallery</a>
+    <a href="gallery.html" class="nav-link" target="_blank">Photo Gallery</a>
     <a href="#about" class="nav-link" data-section="about">About Me</a>
   </div>
 </nav>
@@ -787,6 +804,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 <div id="content">
 <!-- ══ HERO ══ -->
+<!-- Welcome Modal -->
+<div class="modal-overlay" id="welcomeModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div class="modal-icon modal-icon-logo">
+      <img src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/logo.svg" alt="Wonderland RV logo" onerror="this.parentElement.innerHTML='&#9889;';this.parentElement.classList.remove('modal-icon-logo')">
+    </div>
+    <h3 class="modal-title">Hey Wonderland RV!</h3>
+    <p class="modal-text">This page was built specifically for <strong>Wonderland RV</strong> as part of my application for Marketing Coordinator. Have a look around, hope you like it.</p>
+    <button class="modal-btn" id="modalExplore">Explore &rarr;</button>
+  </div>
+</div>
+
 <section id="hero">
   <div class="hero-sticky">
     <!-- Floating work thumbnails -->
@@ -851,28 +881,28 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
     </div>
     <div class="hero-vids" id="heroVids">
       <div class="hero-vid" id="hv1">
-        <div class="vid-cover" style="background-image:url('https://vumbnail.com/1016747108.jpg')"></div>
-        <iframe data-src="https://player.vimeo.com/video/1016747108?autoplay=1&muted=1&controls=0&quality=1080p" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/KvzC8g-YoIY/maxresdefault.jpg')"></div>
+        <iframe data-src="https://www.youtube.com/embed/KvzC8g-YoIY?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="vid-info"><div class="vid-sub">Hamilton Island</div><div class="vid-title">Code of Conduct</div></div>
+        <div class="vid-info"><div class="vid-sub">Patrolapart</div><div class="vid-title">Brand Ad, Nissan Patrol</div></div>
       </div>
       <div class="hero-vid" id="hv2">
+        <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/zFR0Vs3o2fs/maxresdefault.jpg')"></div>
+        <iframe data-src="https://www.youtube.com/embed/zFR0Vs3o2fs?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="vid-info"><div class="vid-sub">Patrolapart</div><div class="vid-title">Melbourne 4x4 Show</div></div>
+      </div>
+      <div class="hero-vid" id="hv3">
         <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/KWhS3k3HOZU/maxresdefault.jpg')"></div>
         <iframe data-src="https://www.youtube.com/embed/KWhS3k3HOZU?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Motorsport</div><div class="vid-title">Arise GT Racing</div></div>
       </div>
-      <div class="hero-vid" id="hv3">
-        <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/wt0Du5e2r_4/hqdefault.jpg')"></div>
-        <iframe data-src="https://www.youtube.com/embed/wt0Du5e2r_4?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
-        <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="vid-info"><div class="vid-sub">Conference</div><div class="vid-title">Soul Con</div></div>
-      </div>
       <div class="hero-vid" id="hv4">
-        <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/zFR0Vs3o2fs/maxresdefault.jpg')"></div>
-        <iframe data-src="https://www.youtube.com/embed/zFR0Vs3o2fs?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <div class="vid-cover" style="background-image:url('https://vumbnail.com/1016747108.jpg')"></div>
+        <iframe data-src="https://player.vimeo.com/video/1016747108?autoplay=1&muted=1&controls=0&quality=1080p" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="vid-info"><div class="vid-sub">Patrolapart</div><div class="vid-title">Melbourne 4x4 Show</div></div>
+        <div class="vid-info"><div class="vid-sub">Hamilton Island</div><div class="vid-title">Code of Conduct</div></div>
       </div>
     </div>
     <!-- Story text removed -->
@@ -883,7 +913,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
         <span class="h-thin">Adventure starts</span>
         <span class="h-gd">with the right story.</span>
       </h1>
-      <p class="h-sub">6+ years creating content that drives engagement. From luxury resorts to automotive lifestyle brands. Strategy, camera, edit, publish — end to end.</p>
+      <p class="h-sub">6+ years creating content that drives engagement. From luxury resorts to automotive lifestyle brands. Strategy, camera, edit, publish -end to end.</p>
       <div class="h-cta"><a href="#vertical">View my work <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></a></div>
     </div>
     <!-- Hero intro text (scroll-animated during camera section) -->
@@ -912,28 +942,28 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
             <div class="why-num">1</div>
             <div class="why-text">
               <h3>Full-Funnel Content Creation</h3>
-              <p>From concept to publish — I handle photo, video, graphic design, and copywriting. At Hamilton Island I produced cinematic brand films; at Patrolapart and Navarapart I create daily social content, product shoots, and campaign assets across every platform.</p>
+              <p>From concept to publish -I handle photo, video, graphic design, and copywriting. At Hamilton Island I produced cinematic brand films; at Patrolapart and Navarapart I create daily social content, product shoots, and campaign assets across every platform.</p>
             </div>
           </div>
           <div class="why-item why-item-pin" data-why="1">
             <div class="why-num">2</div>
             <div class="why-text">
               <h3>Social Media That Actually Converts</h3>
-              <p>I don't just post — I plan content calendars, analyse performance, and optimise. 157% CTR lift in 3 months. 50M+ views across channels. Meta, Instagram, TikTok, YouTube, Pinterest — I know what works on each platform.</p>
+              <p>I don't just post -I plan content calendars, analyse performance, and optimise. 157% CTR lift in 3 months. 50M+ views across channels. Meta, Instagram, TikTok, YouTube, Pinterest -I know what works on each platform.</p>
             </div>
           </div>
           <div class="why-item why-item-pin" data-why="2">
             <div class="why-num">3</div>
             <div class="why-text">
               <h3>Automotive & Lifestyle Industry Experience</h3>
-              <p>I currently run content for two automotive aftermarket brands. Before that, luxury hospitality and national property portfolios. I understand the caravan and 4x4 lifestyle audience — because I'm part of it.</p>
+              <p>I currently run content for two automotive aftermarket brands. Before that, luxury hospitality and national property portfolios. I understand the caravan and 4x4 lifestyle audience -because I'm part of it.</p>
             </div>
           </div>
           <div class="why-item why-item-pin" data-why="3">
             <div class="why-num">4</div>
             <div class="why-text">
               <h3>Systems & Campaign Management</h3>
-              <p>Content calendars, CRM workflows, analytics dashboards, stakeholder coordination — I build repeatable systems that scale. Website updates, email campaigns, event coordination — the full marketing mix.</p>
+              <p>Content calendars, CRM workflows, analytics dashboards, stakeholder coordination -I build repeatable systems that scale. Website updates, email campaigns, event coordination -the full marketing mix.</p>
             </div>
           </div>
         </div>
@@ -1002,7 +1032,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
           <p class="label" style="text-align:center">Video Portfolio</p>
           <h2 class="section-title" data-splitting style="text-align:center">Projects I have worked on.</h2>
         </div>
-        <p class="cat-brief" style="text-align:center;max-width:640px;margin:0 auto;opacity:0;font-size:clamp(15px,1.2vw,18px);color:rgba(245,239,232,.5);line-height:1.7;letter-spacing:.3px">End-to-end production — scripting, filming, direction, post-production, and content scheduling across brands, government, and lifestyle. Every project built around a clear brief, delivered on time, and optimised for the platform it lives on.</p>
+        <p class="cat-brief" style="text-align:center;max-width:640px;margin:0 auto;opacity:0;font-size:clamp(15px,1.2vw,18px);color:rgba(245,239,232,.5);line-height:1.7;letter-spacing:.3px">End-to-end production -scripting, filming, direction, post-production, and content scheduling across brands, government, and lifestyle. Every project built around a clear brief, delivered on time, and optimised for the platform it lives on.</p>
       </div>
     </div>
   </div>
@@ -1011,13 +1041,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 <!-- ═══ VIDEO CATEGORIES (immersive) ═══ -->
 <section class="vp-section" id="videoPortfolio">
   <div class="vp-section-header" id="vpHeader"><span class="vp-section-label">Video Portfolio</span><span class="vp-scroll-guide">Keep scrolling <svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></div>
-  <div class="vp-cat" data-cat="corporate_brand">
-    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1041460991.jpg')"><iframe data-src="https://player.vimeo.com/video/1027500811?background=1&loop=1" allow="autoplay"></iframe></div>
+  <div class="vp-cat" data-cat="lifestyle">
+    <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/KvzC8g-YoIY/maxresdefault.jpg')"><iframe data-src="https://www.youtube.com/embed/KvzC8g-YoIY?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&enablejsapi=1&playlist=KvzC8g-YoIY" allow="autoplay"></iframe></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
-      <div class="vp-count">8 Videos</div>
-      <div class="vp-title">Corporate &amp; Brand</div>
-      <div class="vp-subtitle">Brand films, stakeholder content, and cinematic storytelling</div>
+      <div class="vp-count">9 Videos</div>
+      <div class="vp-title">Builds &amp; Adventure</div>
+      <div class="vp-subtitle">4x4 installs, product deep dives, and hands-on workshop content</div>
       <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
     </div>
     <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
@@ -1035,25 +1065,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
     <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
     <div class="vp-arrow">&#8250;</div>
   </div>
-  <div class="vp-cat" data-cat="people_culture">
-    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1016747108.jpg')"><iframe data-src="https://player.vimeo.com/video/1034519753?background=1&loop=1" allow="autoplay"></iframe></div>
+  <div class="vp-cat" data-cat="corporate_brand">
+    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1041460991.jpg')"><iframe data-src="https://player.vimeo.com/video/1027500811?background=1&loop=1" allow="autoplay"></iframe></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
-      <div class="vp-count">26 Videos</div>
-      <div class="vp-title">People &amp; Culture</div>
-      <div class="vp-subtitle">WHS compliance, F&amp;B modules, onboarding, and hospitality training</div>
-      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
-    </div>
-    <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
-    <div class="vp-arrow">&#8250;</div>
-  </div>
-  <div class="vp-cat" data-cat="lifestyle">
-    <div class="vp-bg" style="background-image:url('https://i.ytimg.com/vi/KvzC8g-YoIY/maxresdefault.jpg')"><iframe data-src="https://www.youtube.com/embed/KvzC8g-YoIY?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&enablejsapi=1&playlist=KvzC8g-YoIY" allow="autoplay"></iframe></div>
-    <div class="vp-overlay"></div>
-    <div class="vp-content">
-      <div class="vp-count">9 Videos</div>
-      <div class="vp-title">Builds &amp; Adventure</div>
-      <div class="vp-subtitle">4x4 installs, product deep dives, and hands-on workshop content</div>
+      <div class="vp-count">8 Videos</div>
+      <div class="vp-title">Corporate &amp; Brand</div>
+      <div class="vp-subtitle">Brand films, stakeholder content, and cinematic storytelling</div>
       <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
     </div>
     <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
@@ -1066,6 +1084,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
       <div class="vp-count">7 Videos</div>
       <div class="vp-title">My Films</div>
       <div class="vp-subtitle">Solo cinematic camping, drone aerials, and nature filmmaking</div>
+      <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
+    </div>
+    <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-arrow">&#8250;</div>
+  </div>
+  <div class="vp-cat" data-cat="people_culture">
+    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1016747108.jpg')"><iframe data-src="https://player.vimeo.com/video/1034519753?background=1&loop=1" allow="autoplay"></iframe></div>
+    <div class="vp-overlay"></div>
+    <div class="vp-content">
+      <div class="vp-count">26 Videos</div>
+      <div class="vp-title">People &amp; Culture</div>
+      <div class="vp-subtitle">WHS compliance, F&amp;B modules, onboarding, and hospitality training</div>
       <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
     </div>
     <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
@@ -1088,57 +1118,57 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
           <div class="stories-progress" id="storiesProgress"></div>
           <div class="stories-tap stories-tap-left" id="storyTapL"></div>
           <div class="stories-tap stories-tap-right" id="storyTapR"></div>
-          <div class="stories-slide active" data-idx="0" data-vid="5rvyNZ2bbtU" data-dur="30" data-tag="UGC" data-title="Product UGC" data-desc="Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced." data-client="Patrolapart">
-            <div id="ytPlayer0"></div>
-            <div class="stories-info-inner"><span class="stories-tag">UGC</span><div class="stories-title-sm">Product UGC</div></div>
-          </div>
-          <div class="stories-slide" data-idx="1" data-vid="aSMBKRUaT_4" data-dur="30" data-tag="Brand" data-title="Earths Water, Unboxing" data-desc="Satisfying UGC-style product reveal shot in a lifestyle setting. A native short that fits TikTok and Reels without feeling like an ad." data-client="Earths Water">
-            <div id="ytPlayer1"></div>
-            <div class="stories-info-inner"><span class="stories-tag">Brand</span><div class="stories-title-sm">Earths Water, Unboxing</div></div>
-          </div>
-          <div class="stories-slide" data-idx="2" data-vid="dy3M-BUDIac" data-dur="25" data-tag="Paid Ad" data-title="Quad Lock, IG Style" data-desc="Commissioned UGC piece produced for Quad Lock. Vertical edit for Instagram distribution." data-client="Quad Lock">
-            <div id="ytPlayer2"></div>
-            <div class="stories-info-inner"><span class="stories-tag">Paid Ad</span><div class="stories-title-sm">Quad Lock, IG Style</div></div>
-          </div>
-          <div class="stories-slide" data-idx="3" data-dur="30" data-tag="Sales" data-title="GQ Bonnet Gas Strut Kits" data-desc="Product reel for the updated GQ Patrol bonnet gas strut kits. 1,108 likes, 17 comments. Generated 2,000+ clicks across platforms and $165K in sales over a single long weekend." data-client="Patrolapart">
+          <div class="stories-slide active" data-idx="0" data-dur="30" data-tag="Sales" data-title="GQ Bonnet Gas Strut Kits" data-desc="Product reel for the updated GQ Patrol bonnet gas strut kits. 1,108 likes, 17 comments. Generated 2,000+ clicks across platforms and $165K in sales over a single long weekend." data-client="Patrolapart">
             <iframe loading="lazy" src="https://www.instagram.com/reel/DMThlAvTx6o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Sales</span><div class="stories-title-sm">GQ Bonnet Gas Strut Kits</div></div>
           </div>
-          <div class="stories-slide" data-idx="4" data-dur="30" data-tag="Product" data-title="TD42T Long Engines GU Patrol" data-desc="Product reel for the TD42T long engine GU Patrol build. 1,546 likes, 77 comments — highest engagement reel on the account." data-client="Patrolapart">
+          <div class="stories-slide" data-idx="1" data-dur="30" data-tag="Product" data-title="TD42T Long Engines GU Patrol" data-desc="Product reel for the TD42T long engine GU Patrol build. 1,546 likes, 77 comments - highest engagement reel on the account." data-client="Patrolapart">
             <iframe loading="lazy" src="https://www.instagram.com/reel/DNXiYOygJ83/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">TD42T Long Engines GU Patrol</div></div>
+          </div>
+          <div class="stories-slide" data-idx="2" data-vid="5rvyNZ2bbtU" data-dur="30" data-tag="UGC" data-title="Product UGC" data-desc="Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced." data-client="Patrolapart">
+            <div id="ytPlayer0"></div>
+            <div class="stories-info-inner"><span class="stories-tag">UGC</span><div class="stories-title-sm">Product UGC</div></div>
+          </div>
+          <div class="stories-slide" data-idx="3" data-dur="30" data-tag="Event" data-title="4x4 Show, Coolest Cars 2025" data-desc="Event coverage highlight reel from the Melbourne 4x4 Outdoors Show. Same-day fast-cut content for social reach." data-client="Patrolapart">
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DNz41YiXH9o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Event</span><div class="stories-title-sm">4x4 Show, Coolest Cars</div></div>
+          </div>
+          <div class="stories-slide" data-idx="4" data-dur="30" data-tag="Brand" data-title="Merch Launch" data-desc="Brand lifestyle reel for Patrolapart merch launch. Campfire setting, community vibe. 117 likes." data-client="Patrolapart">
+            <iframe loading="lazy" src="https://www.instagram.com/reel/DMuUeWkSHDp/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Brand</span><div class="stories-title-sm">Merch Launch</div></div>
           </div>
           <div class="stories-slide" data-idx="5" data-dur="30" data-tag="Lifestyle" data-title="Lifestyle Reel" data-desc="Lifestyle vertical content. Hooks, pacing, and native editing built to stop the scroll." data-client="Piyush Diwte">
             <iframe loading="lazy" src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Lifestyle</span><div class="stories-title-sm">Lifestyle Reel</div></div>
           </div>
-          <div class="stories-slide" data-idx="6" data-dur="30" data-tag="Reel" data-title="Brand Reel" data-desc="Brand-focused vertical content that balances product storytelling with platform-native editing." data-client="Piyush Diwte">
+          <div class="stories-slide" data-idx="6" data-vid="aSMBKRUaT_4" data-dur="30" data-tag="Brand" data-title="Earths Water, Unboxing" data-desc="Satisfying UGC-style product reveal shot in a lifestyle setting. A native short that fits TikTok and Reels without feeling like an ad." data-client="Earths Water">
+            <div id="ytPlayer1"></div>
+            <div class="stories-info-inner"><span class="stories-tag">Brand</span><div class="stories-title-sm">Earths Water, Unboxing</div></div>
+          </div>
+          <div class="stories-slide" data-idx="7" data-vid="dy3M-BUDIac" data-dur="25" data-tag="Paid Ad" data-title="Quad Lock, IG Style" data-desc="Commissioned UGC piece produced for Quad Lock. Vertical edit for Instagram distribution." data-client="Quad Lock">
+            <div id="ytPlayer2"></div>
+            <div class="stories-info-inner"><span class="stories-tag">Paid Ad</span><div class="stories-title-sm">Quad Lock, IG Style</div></div>
+          </div>
+          <div class="stories-slide" data-idx="8" data-dur="30" data-tag="Reel" data-title="Brand Reel" data-desc="Brand-focused vertical content that balances product storytelling with platform-native editing." data-client="Piyush Diwte">
             <iframe loading="lazy" src="https://www.instagram.com/reel/DGGvLdeJlNL/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Reel</span><div class="stories-title-sm">Brand Reel</div></div>
           </div>
-          <div class="stories-slide" data-idx="7" data-dur="30" data-tag="Product" data-title="GU Shifter Surround" data-desc="Non-gen Y61 product showcase. 622 likes, 6 comments — highest engagement product reel on the account." data-client="Patrolapart">
+          <div class="stories-slide" data-idx="9" data-dur="30" data-tag="Product" data-title="GU Shifter Surround" data-desc="Non-gen Y61 product showcase. 622 likes, 6 comments - highest engagement product reel on the account." data-client="Patrolapart">
             <iframe loading="lazy" src="https://www.instagram.com/reel/DM3ZUYVSqM4/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">GU Shifter Surround</div></div>
           </div>
-          <div class="stories-slide" data-idx="8" data-dur="30" data-tag="Event" data-title="4x4 Show, Coolest Cars 2025" data-desc="Event coverage highlight reel from the Melbourne 4x4 Outdoors Show. Same-day fast-cut content for social reach." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DNz41YiXH9o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-            <div class="stories-info-inner"><span class="stories-tag">Event</span><div class="stories-title-sm">4x4 Show, Coolest Cars</div></div>
-          </div>
-          <div class="stories-slide" data-idx="9" data-dur="30" data-tag="Freelance" data-title="Every Gap = Money Lost" data-desc="Freelance client work for Affordable Insulation. Problem-awareness reel showing why gaps in insulation cost homeowners money. Built account from scratch." data-client="Affordable Insulation">
+          <div class="stories-slide" data-idx="10" data-dur="30" data-tag="Freelance" data-title="Every Gap = Money Lost" data-desc="Freelance client work for Affordable Insulation. Problem-awareness reel showing why gaps in insulation cost homeowners money. Built account from scratch." data-client="Affordable Insulation">
             <iframe loading="lazy" src="https://www.instagram.com/reel/DOp-AOiguQQ/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Every Gap = Money Lost</div></div>
           </div>
-          <div class="stories-slide" data-idx="10" data-dur="30" data-tag="Product" data-title="GU Patrol Rear Step" data-desc="Problem-solution product format. 380 likes. Shows the before/after of a bolt-on rear step upgrade for GU Patrols." data-client="Patrolapart">
+          <div class="stories-slide" data-idx="11" data-dur="30" data-tag="Product" data-title="GU Patrol Rear Step" data-desc="Problem-solution product format. 380 likes. Shows the before/after of a bolt-on rear step upgrade for GU Patrols." data-client="Patrolapart">
             <iframe loading="lazy" src="https://www.instagram.com/reel/DNtdY0Rg1tf/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">GU Patrol Rear Step</div></div>
           </div>
-          <div class="stories-slide" data-idx="11" data-dur="30" data-tag="Freelance" data-title="Trade Insulation" data-desc="Freelance client work for Budget Insulation. Trade-focused content targeting contractors. Built social presence from zero." data-client="Budget Insulation">
+          <div class="stories-slide" data-idx="12" data-dur="30" data-tag="Freelance" data-title="Trade Insulation" data-desc="Freelance client work for Budget Insulation. Trade-focused content targeting contractors. Built social presence from zero." data-client="Budget Insulation">
             <iframe loading="lazy" src="https://www.instagram.com/reel/DN4LcNRkSo7/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Trade Insulation</div></div>
-          </div>
-          <div class="stories-slide" data-idx="12" data-dur="30" data-tag="Brand" data-title="Merch Launch" data-desc="Brand lifestyle reel for Patrolapart merch launch. Campfire setting, community vibe. 117 likes." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DMuUeWkSHDp/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-            <div class="stories-info-inner"><span class="stories-tag">Brand</span><div class="stories-title-sm">Merch Launch</div></div>
           </div>
           <div class="stories-slide" data-idx="13" data-dur="30" data-tag="Product" data-title="Y62 K-Frame Lift Kit" data-desc="Technical product explainer for Y62 K-Frame lift kit. 172 likes. Shows engineering detail and install process." data-client="Patrolapart">
             <iframe loading="lazy" src="https://www.instagram.com/reel/DNJXb7Pyi5W/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -1165,9 +1195,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
         </div>
         <div class="stories-right-content active" id="srContent">
           <div class="sr-counter" id="srCounter">1 of 17</div>
-          <h3 class="sr-title" id="srTitle">Product UGC</h3>
-          <p class="sr-desc" id="srDesc">Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced.</p>
-          <div class="sr-tag" id="srTag">UGC</div>
+          <h3 class="sr-title" id="srTitle">GQ Bonnet Gas Strut Kits</h3>
+          <p class="sr-desc" id="srDesc">Product reel for the updated GQ Patrol bonnet gas strut kits. 1,108 likes, 17 comments. Generated 2,000+ clicks across platforms and $165K in sales over a single long weekend.</p>
+          <div class="sr-tag" id="srTag">Sales</div>
         </div>
       </div>
     </div>
@@ -1285,7 +1315,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
           I'm a digital content creator and marketing professional based in Melbourne. Right now I run content and social media across two automotive lifestyle brands, <strong>Patrolapart</strong> and <strong>Navarapart</strong>. Before that I shot cinematic and social content for <strong>Hamilton Island</strong> and coordinated digital content across <strong>43 Scape Australia properties</strong> nationally.
         </p>
         <p class="about-text about-item" style="margin-top:16px;text-align:center">
-          I create strategic content that builds brand love and drives results. Campaign videos, social media management, graphic design, website content, event marketing — I bring the full toolkit to every role.
+          I create strategic content that builds brand love and drives results. Campaign videos, social media management, graphic design, website content, event marketing -I bring the full toolkit to every role.
         </p>
         <div class="cta-buttons about-item" style="margin-top:32px;justify-content:center">
           <a href="mailto:piyushdiwte22@gmail.com" class="btn btn-primary magnetic">
@@ -1409,11 +1439,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   draw();
 })();
 
-/* Scroll reveal — GSAP-based, initialized after GSAP loads (see window._initScrollReveal) */
+/* Scroll reveal -GSAP-based, initialized after GSAP loads (see window._initScrollReveal) */
 window._initScrollReveal = function() {
   gsap.registerPlugin(ScrollTrigger);
 
-  // Smooth reveal for .reveal elements — tied to scroll position
+  // Smooth reveal for .reveal elements -tied to scroll position
   document.querySelectorAll('.reveal').forEach(el => {
     if (el.closest('#hero') || el.closest('#whyMe') || el.closest('#proofSection') || el.closest('#toolsSection') || el.closest('#catOverview') || el.closest('#vertical') || el.closest('#about')) return;
     const delay = el.classList.contains('reveal-d1') ? 0.1 : el.classList.contains('reveal-d2') ? 0.2 : el.classList.contains('reveal-d3') ? 0.3 : 0;
@@ -1436,11 +1466,11 @@ window._initScrollReveal = function() {
     );
   });
 
-  // Why-me items — handled by dedicated ScrollTrigger in main GSAP block
+  // Why-me items -handled by dedicated ScrollTrigger in main GSAP block
 
-  // Tool pills + metrics — handled by dedicated ScrollTrigger in main GSAP block
+  // Tool pills + metrics -handled by dedicated ScrollTrigger in main GSAP block
 
-  // Bridge text — cinematic fade
+  // Bridge text -cinematic fade
   const bridgeText = document.querySelector('.bridge-text');
   if (bridgeText) {
     gsap.fromTo(bridgeText,
@@ -1451,10 +1481,10 @@ window._initScrollReveal = function() {
     );
   }
 
-  // Category tiles — now handled by dedicated ScrollTrigger in cat-pin section
+  // Category tiles -now handled by dedicated ScrollTrigger in cat-pin section
 };
 
-/* Counter animation — now handled by Proof Points ScrollTrigger */
+/* Counter animation -now handled by Proof Points ScrollTrigger */
 
 /* Preload VP iframes when Tools section is reached + mute/pause/loop controls */
 let vpPreloaded = false;
@@ -1499,7 +1529,7 @@ const toolsPreloadObs = new IntersectionObserver(entries => {
 const toolsSec = document.getElementById('toolsSection');
 if (toolsSec) toolsPreloadObs.observe(toolsSec);
 
-/* VP Section header — show/hide when inside video portfolio */
+/* VP Section header -show/hide when inside video portfolio */
 const vpHeader = document.getElementById('vpHeader');
 const vpSection = document.getElementById('videoPortfolio');
 if (vpHeader && vpSection) {
@@ -1525,7 +1555,7 @@ const vpCatObs = new IntersectionObserver(entries => {
         try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:''}), '*'); } catch(ex){}
       }
     } else {
-      // Pause AND mute when scrolled away (both sent — mute as fallback if pause fails silently)
+      // Pause AND mute when scrolled away (both sent -mute as fallback if pause fails silently)
       if (src.includes('vimeo.com')) {
         try { iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*'); } catch(ex){}
         try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*'); } catch(ex){}
@@ -1915,7 +1945,7 @@ if(scrollTopBtn){
   scrollTopBtn.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});
 }
 
-// ── Touch device: safety net — never block loading more than 8s ──
+// ── Touch device: safety net -never block loading more than 8s ──
 if (window.matchMedia('(pointer:coarse)').matches) {
   setTimeout(() => {
     const _ls = document.getElementById('loadScreen');
@@ -1965,10 +1995,10 @@ rimLight.position.set(-3, 3, -5);
 scene.add(rimLight);
 scene.add(new THREE.DirectionalLight(0xf0ebe4, 1.0).translateX(0).translateY(-2).translateZ(5)); // front fill
 scene.add(new THREE.AmbientLight(0x1a1a1a, 1.5));
-// Hemisphere light for consistent fill — prevents dark patches on PBR materials
+// Hemisphere light for consistent fill -prevents dark patches on PBR materials
 const hemiLight = new THREE.HemisphereLight(0xf5efe8, 0x1a1a2e, 0.8);
 scene.add(hemiLight);
-// Spotlight — starts from far right, sweeps in on scroll
+// Spotlight -starts from far right, sweeps in on scroll
 const spotlight = new THREE.SpotLight(0xffffff, 0, 100, Math.PI * 0.3, 0.3, 0.3);
 spotlight.position.set(40, 8, 28); // starts off to the right
 spotlight.target.position.set(0, 0, 0);
@@ -1996,8 +2026,8 @@ let pageScrollY = 0, heroProgress = 0;
 window.addEventListener('scroll', () => { pageScrollY = window.pageYOffset; }, { passive: true });
 
 // ═══════════════════════════════════════════════
-// SYSTEM A: Camera model (solid) — lives in pivotGroup
-// SYSTEM B: Background particles (lp-test style) — lives in scene directly
+// SYSTEM A: Camera model (solid) -lives in pivotGroup
+// SYSTEM B: Background particles (lp-test style) -lives in scene directly
 // ═══════════════════════════════════════════════
 
 const pivotGroup = new THREE.Group();
@@ -2007,7 +2037,7 @@ let solidGroup = null;
 let modelReady = false; // true after shaders compiled + pre-render warmup
 let bgParticles = null, bgMat = null; // lp-test style background
 
-// ═══ BACKGROUND PARTICLES — created from camera model vertices after GLTF loads ═══
+// ═══ BACKGROUND PARTICLES -created from camera model vertices after GLTF loads ═══
 let bgGeo = null, bgLinesMesh = null, bgLinesGeo = null, bgLinesMat = null;
 const bgModelOrig = [], bgScatterDest = [];
 let BG_MODEL = 0, BG_FIELD = 800, BG_TOTAL = 0;
@@ -2025,7 +2055,7 @@ bgMat = new THREE.ShaderMaterial({
     void main() {
       vC = color;
       vec3 p = position;
-      // Mouse interaction — gentle push with smooth falloff
+      // Mouse interaction -gentle push with smooth falloff
       vec4 mv = modelViewMatrix * vec4(p, 1.0);
       vec4 pr = projectionMatrix * mv;
       vec2 s = pr.xy / pr.w;
@@ -2127,7 +2157,7 @@ function createParticlesFromModel(model) {
     sizes[i] = Math.random() * 2.0 + 0.8;
   }
 
-  // Random field particles — distributed within camera frustum for full-screen coverage
+  // Random field particles -distributed within camera frustum for full-screen coverage
   // Camera at z=32, fov=60. At depth d from camera: halfH = d * tan(30°)
   const camZ = 32;
   const tanHalf = Math.tan(30 * Math.PI / 180); // tan(30°) ≈ 0.577
@@ -2203,7 +2233,7 @@ function checkAllLoaded() {
 heroBgVideo.addEventListener('canplaythrough', () => { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); }, { once: true });
 heroBgVideo.addEventListener('error', () => { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); }, { once: true });
 if (heroBgVideo.readyState >= 4) { loadTasks.video = true; updateLoadPct(); }
-// Desktop video timeout — don't block loading if CDN is slow
+// Desktop video timeout -don't block loading if CDN is slow
 setTimeout(() => { if (!loadTasks.video) { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); } }, 6000);
 
 // 2. Thumbnail preload (hero thumbs + vid covers)
@@ -2224,7 +2254,7 @@ setTimeout(() => { if (!loadTasks.video) { loadTasks.video = true; updateLoadPct
     img.onload = img.onerror = () => { loaded++; if (loaded >= srcs.length) { loadTasks.thumbs = true; updateLoadPct(); checkAllLoaded(); } };
     img.src = src;
   });
-  // Fallback timeout — don't block forever
+  // Fallback timeout -don't block forever
   setTimeout(() => { if (!loadTasks.thumbs) { loadTasks.thumbs = true; updateLoadPct(); checkAllLoaded(); } }, 8000);
 })();
 
@@ -2390,7 +2420,7 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
   checkAllLoaded();
 });
 
-// ═══ HERO SCROLL HANDLER — 28 STAGES ═══
+// ═══ HERO SCROLL HANDLER -28 STAGES ═══
 // Stages 1-2: Intro, video bg, text
 // Stages 2-3: Camera fades in
 // Stages 3-5: Camera orbiting + text
@@ -2413,7 +2443,7 @@ const thumbEls = document.querySelectorAll('.hero-thumb');
 const heroVidsEl = document.getElementById('heroVids');
 const heroVidEls = document.querySelectorAll('.hero-vid');
 window.heroVidEls = heroVidEls;
-const S = 1/38; // stage size — 2 empty scrolls + 2 text-hold scrolls before camera
+const S = 1/38; // stage size -2 empty scrolls + 2 text-hold scrolls before camera
 
 // Video showcase state
 let activeVideoIdx = -1;
@@ -2462,7 +2492,7 @@ function postYTCommand(iframe, cmd) {
 function playVid(idx) {
   const iframe = heroVidEls[idx].querySelector('iframe');
   if (!iframe || !iframe.src) return;
-  if (idx === 0) {
+  if (idx === 3) {
     iframe.contentWindow.postMessage(JSON.stringify({method:'play'}), '*');
     iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:1}), '*');
   } else {
@@ -2474,7 +2504,7 @@ function playVid(idx) {
 function pauseVid(idx) {
   const iframe = heroVidEls[idx].querySelector('iframe');
   if (!iframe || !iframe.src) return;
-  if (idx === 0) {
+  if (idx === 3) {
     try { iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*'); } catch(ex){}
     try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*'); } catch(ex){}
   } else {
@@ -2572,7 +2602,7 @@ window.updateHeroScroll = function(progress) {
     } else if (progress < S*7.5) {
       thumbsEl.style.opacity = (progress - S*6.5) / S;
     } else if (progress < S*32) {
-      // Stay visible — dimmer during video showcase
+      // Stay visible -dimmer during video showcase
       if (progress < S*16) {
         thumbsEl.style.opacity = 1;
       } else if (progress < S*17) {
@@ -2585,7 +2615,7 @@ window.updateHeroScroll = function(progress) {
     } else {
       thumbsEl.style.opacity = 0;
     }
-    // Per-thumbnail float + dissolve — 50 thumbnails, ~12 visible at once
+    // Per-thumbnail float + dissolve -50 thumbnails, ~12 visible at once
     if (!window._thumbData) {
       const _ts = S*6.5, _tr = S*29.5, _life = 0.20;
       window._thumbData = Array.from(thumbEls).map((th, i) => {
@@ -2697,7 +2727,7 @@ window.updateHeroScroll = function(progress) {
         vid.classList.remove('entering', 'playing');
         setVideoState(i, 0);
       } else if (progress < play) {
-        // Phase 1: Entering — animate to center
+        // Phase 1: Entering -animate to center
         const t = (progress - enter) / (play - enter);
         const e = smoothstep(t);
         const x = eX * (1 - e);
@@ -2709,21 +2739,21 @@ window.updateHeroScroll = function(progress) {
         if (t > 0.3) loadVideoIframe(i);
         setVideoState(i, 1);
       } else if (progress < pause) {
-        // Phase 2-3: Playing — locked center, video plays unmuted
+        // Phase 2-3: Playing -locked center, video plays unmuted
         vid.style.opacity = 1;
         vid.style.transform = 'translate(-50%, -50%) scale(1)';
         vid.classList.remove('entering');
         vid.classList.add('playing');
         setVideoState(i, 2);
       } else if (progress < exitS) {
-        // Phase 4: Paused — still centered but video pauses
+        // Phase 4: Paused -still centered but video pauses
         vid.style.opacity = 1;
         vid.style.transform = 'translate(-50%, -50%) scale(1)';
         vid.classList.remove('playing');
         vid.classList.add('entering'); // keep visible but not "playing"
         setVideoState(i, 3);
       } else if (progress < exitE) {
-        // Phase 5: Exit — slide out
+        // Phase 5: Exit -slide out
         const t = (progress - exitS) / (exitE - exitS);
         const e = smoothstep(t);
         vid.style.opacity = 1 - e;
@@ -2738,7 +2768,7 @@ window.updateHeroScroll = function(progress) {
     });
   }
 
-  // ── Cinematic rotation — interpolate between angle keyframes ──
+  // ── Cinematic rotation -interpolate between angle keyframes ──
   const stageFloat = progress * NUM_STAGES;
   const stageIdx = Math.min(NUM_STAGES - 1, Math.floor(stageFloat));
   const stageFrac = stageFloat - stageIdx;
@@ -2862,7 +2892,7 @@ gsap.ticker.add((t, dt) => {
   smoothMouseX += (mouseX - smoothMouseX) * 0.04;
   smoothMouseY += (mouseY - smoothMouseY) * 0.04;
 
-  // Before scroll — subtle mouse parallax (only after model fully ready)
+  // Before scroll -subtle mouse parallax (only after model fully ready)
   if (solidGroup && modelReady && heroProgress === 0) {
     pivotGroup.rotation.y = -0.3 + smoothMouseX * 0.04;
     pivotGroup.rotation.x = 0.1 + smoothMouseY * 0.02;
@@ -2939,7 +2969,7 @@ gsap.ticker.add((t, dt) => {
       // Full brightness through rest of hero
       targetFade = 1.0;
     } else {
-      // Rest of page — subtle ambient
+      // Rest of page -subtle ambient
       targetFade = 0.6;
     }
     if (heroProgress >= particleStart) {
@@ -2955,7 +2985,7 @@ gsap.ticker.add((t, dt) => {
   renderer.render(scene, cam);
 });
 
-// ── Entrance (camera fades in via scroll — no initial animation) ──
+// ── Entrance (camera fades in via scroll -no initial animation) ──
 window.startHeroAnim = function() {
   if (!solidGroup) { window._heroAnimRequested = true; return; }
   // Hero intro text is now scroll-animated, not load-triggered
@@ -2965,6 +2995,15 @@ window.startHeroAnim = function() {
 <!-- ══ MAIN GSAP ANIMATIONS ══ -->
 <script>
 gsap.registerPlugin(ScrollTrigger);
+
+// Welcome Modal
+const welcomeModal = document.getElementById('welcomeModal');
+const modalCloseBtn = document.getElementById('modalClose');
+const modalExploreBtn = document.getElementById('modalExplore');
+setTimeout(() => { welcomeModal.classList.add('show'); }, 800);
+function dismissModal() { welcomeModal.classList.remove('show'); }
+modalCloseBtn.addEventListener('click', dismissModal);
+modalExploreBtn.addEventListener('click', dismissModal);
 
 // ══ PINNED SECTION OVERLAY COORDINATION ══
 // Each pinned section registers its overlay; when a new one enters, the previous one hides
@@ -3012,7 +3051,7 @@ function registerPinnedOverlay(pinInner, zIndex) {
   pinInner.style.background = 'none';
   const whyCoord = registerPinnedOverlay(pinInner, 10);
 
-  // Title starts big — scale computed to fit viewport width
+  // Title starts big -scale computed to fit viewport width
   let startScale = 1.6;
   if (titleEl) {
     titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'center center';
@@ -3635,14 +3674,14 @@ window.addEventListener('scroll', () => {
 
 // cursor glow removed
 
-// Video bg stays visible throughout the page — no fade out needed
+// Video bg stays visible throughout the page -no fade out needed
 
 </script>
 
 <!-- ══ PREMIUM POLISH: Lenis, Splitting, Cursor, Magnetic ══ -->
 <script>
 (function(){
-  // ── Lenis smooth scroll (desktop only — causes lag on touch devices) ──
+  // ── Lenis smooth scroll (desktop only -causes lag on touch devices) ──
   const isTouch = window.matchMedia('(pointer:coarse)').matches;
   if (typeof Lenis !== 'undefined' && !isTouch) {
     const lenis = new Lenis({
