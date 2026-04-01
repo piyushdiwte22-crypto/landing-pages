@@ -2101,6 +2101,7 @@ const pivotGroup = new THREE.Group();
 scene.add(pivotGroup);
 
 let solidGroup = null;
+let modelReady = false; // true after shaders compiled + pre-render warmup
 let bgParticles = null, bgMat = null; // lp-test style background
 
 // ═══ BACKGROUND PARTICLES — created from camera model vertices after GLTF loads ═══
@@ -2394,6 +2395,27 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
   pivotGroup.rotation.y = -0.3;
   pivotGroup.rotation.x = 0.1;
 
+  // ── Pre-render warmup: compile shaders & warm GPU before showing ──
+  // Hide canvas, render a few frames to force shader compilation, then mark ready
+  canvas.style.opacity = '0';
+  canvas.style.visibility = 'hidden';
+  solidGroup.visible = true;
+  // Force material compilation
+  renderer.compile(scene, cam);
+  // Do 3 warmup renders to ensure GPU pipeline is ready
+  let warmupFrames = 0;
+  function warmupRender() {
+    renderer.render(scene, cam);
+    warmupFrames++;
+    if (warmupFrames < 3) {
+      requestAnimationFrame(warmupRender);
+    } else {
+      modelReady = true;
+      // Canvas visibility will be controlled by updateHeroScroll from here
+    }
+  }
+  requestAnimationFrame(warmupRender);
+
   // Create particles from the camera model vertices
   createParticlesFromModel(model);
 }, undefined, (err) => {
@@ -2574,8 +2596,11 @@ window.updateHeroScroll = function(progress) {
   if (!solidGroup) return;
 
   // ── Canvas fade: in at stages 6-7, out at 15-16 ──
+  // Don't show until model is fully warmed up (shaders compiled, lighting correct)
   let canvasOp = 0;
-  if (progress < S*5.5) {
+  if (!modelReady) {
+    canvasOp = 0;
+  } else if (progress < S*5.5) {
     canvasOp = 0;
   } else if (progress < S*6.5) {
     canvasOp = (progress - S*5.5) / S;
@@ -2867,8 +2892,8 @@ gsap.ticker.add((t, dt) => {
   smoothMouseX += (mouseX - smoothMouseX) * 0.04;
   smoothMouseY += (mouseY - smoothMouseY) * 0.04;
 
-  // Before scroll — subtle mouse parallax
-  if (solidGroup && heroProgress === 0) {
+  // Before scroll — subtle mouse parallax (only after model fully ready)
+  if (solidGroup && modelReady && heroProgress === 0) {
     pivotGroup.rotation.y = -0.3 + smoothMouseX * 0.04;
     pivotGroup.rotation.x = 0.1 + smoothMouseY * 0.02;
   }
