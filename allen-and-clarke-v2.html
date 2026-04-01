@@ -852,25 +852,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
     <div class="hero-vids" id="heroVids">
       <div class="hero-vid" id="hv1">
         <div class="vid-cover" style="background-image:url('https://vumbnail.com/1016747108.jpg')"></div>
-        <iframe data-src="https://player.vimeo.com/video/1016747108?autoplay=1&muted=0&controls=0&quality=1080p" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <iframe data-src="https://player.vimeo.com/video/1016747108?autoplay=1&muted=1&controls=0&quality=1080p" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Hamilton Island</div><div class="vid-title">Code of Conduct</div></div>
       </div>
       <div class="hero-vid" id="hv2">
         <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/KWhS3k3HOZU/maxresdefault.jpg')"></div>
-        <iframe data-src="https://www.youtube.com/embed/KWhS3k3HOZU?enablejsapi=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <iframe data-src="https://www.youtube.com/embed/KWhS3k3HOZU?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Motorsport</div><div class="vid-title">Arise GT Racing</div></div>
       </div>
       <div class="hero-vid" id="hv3">
         <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/wt0Du5e2r_4/hqdefault.jpg')"></div>
-        <iframe data-src="https://www.youtube.com/embed/wt0Du5e2r_4?enablejsapi=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <iframe data-src="https://www.youtube.com/embed/wt0Du5e2r_4?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Conference</div><div class="vid-title">Soul Con</div></div>
       </div>
       <div class="hero-vid" id="hv4">
         <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/zFR0Vs3o2fs/maxresdefault.jpg')"></div>
-        <iframe data-src="https://www.youtube.com/embed/zFR0Vs3o2fs?enablejsapi=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <iframe data-src="https://www.youtube.com/embed/zFR0Vs3o2fs?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Patrolapart</div><div class="vid-title">Melbourne 4x4 Show</div></div>
       </div>
@@ -3564,8 +3564,23 @@ ScrollTrigger.create({
     onComplete: () => { window._heroSnapping = false; }
   },
   onLeave: () => {
-    // Pause hero campaign videos but keep bg drone video playing
-    if (window.heroVidEls) window.heroVidEls.forEach((v,i) => { if (window.setVideoState) window.setVideoState(i, 0); });
+    // Pause + mute ALL hero videos when leaving hero section
+    if (window.heroVidEls) {
+      window.heroVidEls.forEach((v,i) => {
+        if (window.setVideoState) window.setVideoState(i, 0);
+        // Also directly mute each iframe as nuclear fallback
+        const iframe = v.querySelector('iframe');
+        if (iframe && iframe.src) {
+          if (iframe.src.includes('vimeo')) {
+            try { iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*'); } catch(e){}
+            try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*'); } catch(e){}
+          } else {
+            try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:''}), '*'); } catch(e){}
+            try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'mute',args:''}), '*'); } catch(e){}
+          }
+        }
+      });
+    }
   },
   onUpdate: (self) => {
     const p = self.progress;
