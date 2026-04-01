@@ -449,7 +449,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .cta-inner h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,6vw,66px);font-weight:700;color:var(--w);margin-bottom:20px;letter-spacing:-1.5px}
 .cta-inner p{color:rgba(122,122,142,1);font-size:clamp(17px,1.3vw,20px);margin-bottom:44px}
 .cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.cta-footer{width:100%;padding:18px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,5,.95);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);position:relative;z-index:100}
+.cta-footer{width:100%;padding:18px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,5,.95);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);position:fixed;bottom:0;left:0;right:0;z-index:100;opacity:0;pointer-events:none;transform:translateY(100%);transition:opacity .4s ease,transform .4s ease}
+.cta-footer.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .cta-footer .footer-socials{display:flex;gap:14px;margin-bottom:0}
 .cta-footer .footer-social{width:36px;height:36px}
 .cta-footer .footer-social svg{width:15px;height:15px}
@@ -3470,16 +3471,22 @@ function registerPinnedOverlay(pinInner, zIndex) {
   if (labelEl) labelEl.style.opacity = '0';
   items.forEach(item => { item.style.opacity = '0'; item.style.transform = 'translateY(30px)'; });
 
+  const footerEl = document.querySelector('.cta-footer');
   ScrollTrigger.create({
     trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
     onEnter: () => { pinInner.style.opacity = '1'; },
-    onLeaveBack: () => { pinInner.style.opacity = '0'; },
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
-    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
+    onLeaveBack: () => { pinInner.style.opacity = '0'; if (footerEl) footerEl.classList.remove('visible'); },
+    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; if (footerEl) footerEl.classList.add('visible'); },
+    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; if (footerEl) footerEl.classList.remove('visible'); },
     onUpdate: (self) => {
       const p = self.progress;
       if (p > 0) pinInner.style.opacity = '1';
       if (p > 0.1) pinInner.style.pointerEvents = 'auto';
+      // Show footer when near end of about section
+      if (footerEl) {
+        if (p > 0.85) footerEl.classList.add('visible');
+        else footerEl.classList.remove('visible');
+      }
 
       // Title shrink: 0-20%
       if (titleEl) {
