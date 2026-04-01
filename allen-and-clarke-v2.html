@@ -2492,9 +2492,11 @@ function pauseVid(idx) {
   const iframe = heroVidEls[idx].querySelector('iframe');
   if (!iframe || !iframe.src) return;
   if (idx === 0) {
-    iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*');
+    try { iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*'); } catch(ex){}
+    try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*'); } catch(ex){}
   } else {
     postYTCommand(iframe, 'pauseVideo');
+    postYTCommand(iframe, 'mute');
   }
 }
 
@@ -2749,6 +2751,10 @@ window.updateHeroScroll = function(progress) {
     // Show "Featured Work" title during video showcase
     if (heroVidsTitleEl) {
       heroVidsTitleEl.style.opacity = inVideoZone ? '1' : '0';
+    }
+    // Force pause ALL hero videos when outside video zone
+    if (!inVideoZone) {
+      for (let i = 0; i < 4; i++) { pauseVid(i); }
     }
 
     heroVidEls.forEach((vid, i) => {
