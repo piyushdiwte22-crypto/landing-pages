@@ -306,9 +306,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .stories-progress-bar.done .fill{width:100%}
 .stories-progress-bar.active .fill{width:100%;transition:none;animation:storyFill var(--story-dur,15s) linear forwards}
 @keyframes storyFill{from{width:0%}to{width:100%}}
-.stories-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s ease;display:flex;flex-direction:column}
+.stories-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s ease;overflow:hidden}
 .stories-slide.active{opacity:1;pointer-events:auto}
-.stories-slide iframe,.stories-slide>div:first-child{width:100%;flex:1;border:0;display:block;background:#000}
+.stories-slide iframe,.stories-slide>div:first-child{width:100%;height:100%;border:0;display:block;background:#000}
+.stories-slide iframe[src*="instagram"]{transform:scale(1.6);transform-origin:center top}
+.stories-slide>div:first-child[id^="ytPlayer"]{height:100%}
 .stories-info-inner{position:absolute;bottom:0;left:0;right:0;z-index:5;padding:40px 14px 14px;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%)}
 .stories-tag{display:inline-block;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--w);background:rgba(196,117,43,0.85);padding:3px 10px;border-radius:50px;margin-bottom:6px}
 .stories-title-sm{font-size:12px;font-weight:600;color:var(--w)}
@@ -327,7 +329,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .stories-nav.disabled{opacity:0.2;pointer-events:none}
 .stories-tap{position:absolute;top:30px;bottom:60px;z-index:8;width:35%}
 .stories-tap-left{left:0}.stories-tap-right{right:0}
-.stories-fs-prompt{display:none;margin-top:24px;text-align:center}
+.stories-fs-prompt{display:none;margin-top:24px;text-align:center;position:relative;z-index:50;pointer-events:auto}
 .stories-fs-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-size:13px;font-weight:600;background:linear-gradient(135deg,var(--a2),var(--a));color:var(--w);border:none;cursor:pointer;transition:all .3s cubic-bezier(.16,1,.3,1);letter-spacing:.3px;animation:btnPulse 3s ease-in-out infinite}
 .stories-fs-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
 .stories-fs-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(196,117,43,0.35)}
@@ -342,7 +344,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .stories-fs-progress .fs-bar.active .fs-fill{width:100%;transition:none;animation:storyFill var(--story-dur,15s) linear forwards}
 .stories-fs-slide{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;pointer-events:none;transition:opacity .4s ease;display:flex;flex-direction:column;background:#000;overflow:hidden}
 .stories-fs-slide.active{opacity:1;pointer-events:auto}
-.stories-fs-slide iframe{width:100%;flex:1;border:0;background:#000;min-height:0}
+.stories-fs-slide iframe{width:100%;height:100%;border:0;background:#000}
+.stories-fs-slide iframe[src*="instagram"]{transform:scale(1.6);transform-origin:center top}
 .stories-fs-info{position:absolute;bottom:0;left:0;right:0;z-index:5;padding:60px 20px calc(env(safe-area-inset-bottom,0px) + 24px);background:linear-gradient(to top,#000 0%,#000 40%,transparent 100%);text-align:center}
 .stories-fs-title{font-size:16px;font-weight:700;color:var(--w);margin-bottom:4px}
 .stories-fs-sub{font-size:12px;color:rgba(255,255,255,0.5)}
@@ -976,7 +979,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
           <p class="label" style="text-align:center">Video Portfolio</p>
           <h2 class="section-title" data-splitting style="text-align:center">Projects I have worked on.</h2>
         </div>
-        <p class="cat-brief" style="text-align:center;max-width:640px;margin:0 auto;opacity:0;font-size:clamp(15px,1.2vw,18px);color:rgba(245,239,232,.5);line-height:1.7;letter-spacing:.3px">End-to-end production — scripting, filming, direction, post-production, and content scheduling across brands, government, and lifestyle.</p>
+        <p class="cat-brief" style="text-align:center;max-width:640px;margin:0 auto;opacity:0;font-size:clamp(15px,1.2vw,18px);color:rgba(245,239,232,.5);line-height:1.7;letter-spacing:.3px">End-to-end production — scripting, filming, direction, post-production, and content scheduling across brands, government, and lifestyle. Every project built around a clear brief, delivered on time, and optimised for the platform it lives on.</p>
       </div>
     </div>
   </div>
@@ -1142,11 +1145,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
           <div class="sr-tag" id="srTag">UGC</div>
           <h3 class="sr-title" id="srTitle">Product UGC</h3>
           <p class="sr-desc" id="srDesc">Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced.</p>
-          <!-- nav arrows moved to vertical beside phone -->
-          <a href="https://linktr.ee/Piyush_Diwte" target="_blank" class="btn btn-outline magnetic" style="font-size:12px;padding:10px 22px">
-            <svg viewBox="0 0 24 24" style="width:14px;height:14px"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            View All Vertical Work
-          </a>
         </div>
       </div>
     </div>
@@ -1807,6 +1805,7 @@ var storyGoTo;
 
   tutDismiss.addEventListener('click',()=>{tutSeen=true;tutorial.classList.remove('show');fsGoTo(0)});
   openBtn.addEventListener('click',openFS);
+  openBtn.addEventListener('touchend',function(e){e.preventDefault();openFS();});
   closeBtn.addEventListener('click',closeFS);
   doneBtn.addEventListener('click',closeFS);
   navUp.addEventListener('click',()=>fsGoTo(current-1));
