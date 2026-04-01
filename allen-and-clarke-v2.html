@@ -2065,6 +2065,9 @@ rimLight.position.set(-3, 3, -5);
 scene.add(rimLight);
 scene.add(new THREE.DirectionalLight(0xf0ebe4, 1.0).translateX(0).translateY(-2).translateZ(5)); // front fill
 scene.add(new THREE.AmbientLight(0x1a1a1a, 1.5));
+// Hemisphere light for consistent fill — prevents dark patches on PBR materials
+const hemiLight = new THREE.HemisphereLight(0xf5efe8, 0x1a1a2e, 0.8);
+scene.add(hemiLight);
 // Spotlight — starts from far right, sweeps in on scroll
 const spotlight = new THREE.SpotLight(0xffffff, 0, 100, Math.PI * 0.3, 0.3, 0.3);
 spotlight.position.set(40, 8, 28); // starts off to the right
@@ -2382,6 +2385,19 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
           m.envMapIntensity = 0.5;
           m.roughness = Math.max(m.roughness, 0.3);
         }
+        // Fix lens front element — darken bright white/grey interior parts
+        // Detect by color: if the base color is very light (lens glass, aperture)
+        if (m.color) {
+          const r = m.color.r, g = m.color.g, b = m.color.b;
+          const brightness = (r + g + b) / 3;
+          if (brightness > 0.75 && !m.map) {
+            // This is likely the lens glass/aperture — make it dark and glossy
+            m.color.setHex(0x111118);
+            m.roughness = 0.05;
+            m.metalness = 0.9;
+            m.transparent = false;
+          }
+        }
       }
     }
   });
@@ -2395,26 +2411,63 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
   pivotGroup.rotation.y = -0.3;
   pivotGroup.rotation.x = 0.1;
 
-  // ── Pre-render warmup: compile shaders & warm GPU before showing ──
-  // Hide canvas, render a few frames to force shader compilation, then mark ready
+  // ── Pre-render warmup: wait for ALL textures, compile shaders, warm GPU ──
   canvas.style.opacity = '0';
   canvas.style.visibility = 'hidden';
   solidGroup.visible = true;
-  // Force material compilation
-  renderer.compile(scene, cam);
-  // Do 3 warmup renders to ensure GPU pipeline is ready
-  let warmupFrames = 0;
-  function warmupRender() {
-    renderer.render(scene, cam);
-    warmupFrames++;
-    if (warmupFrames < 3) {
-      requestAnimationFrame(warmupRender);
+
+  // Collect all textures from the model materials
+  const pendingTextures = [];
+  model.traverse(child => {
+    if (child.isMesh && child.material) {
+      const mat = child.material;
+      const texProps = ['map','normalMap','roughnessMap','metalnessMap','aoMap','emissiveMap','bumpMap','displacementMap','alphaMap','envMap'];
+      texProps.forEach(prop => {
+        if (mat[prop] && mat[prop].isTexture) {
+          pendingTextures.push(mat[prop]);
+        }
+      });
+    }
+  });
+
+  // Wait for all textures to have their image data loaded
+  function allTexturesReady() {
+    return pendingTextures.every(tex => tex.image && (tex.image.complete !== false));
+  }
+
+  function doWarmup() {
+    // Force material compilation with all textures present
+    renderer.compile(scene, cam);
+    // Do 6 warmup renders to fully prime GPU pipeline
+    let warmupFrames = 0;
+    function warmupRender() {
+      renderer.render(scene, cam);
+      warmupFrames++;
+      if (warmupFrames < 6) {
+        requestAnimationFrame(warmupRender);
+      } else {
+        modelReady = true;
+      }
+    }
+    requestAnimationFrame(warmupRender);
+  }
+
+  // Poll for texture readiness (max 5s timeout)
+  let texCheckCount = 0;
+  function waitForTextures() {
+    texCheckCount++;
+    if (allTexturesReady() || texCheckCount > 100) {
+      doWarmup();
     } else {
-      modelReady = true;
-      // Canvas visibility will be controlled by updateHeroScroll from here
+      setTimeout(waitForTextures, 50);
     }
   }
-  requestAnimationFrame(warmupRender);
+
+  if (pendingTextures.length === 0) {
+    doWarmup();
+  } else {
+    waitForTextures();
+  }
 
   // Create particles from the camera model vertices
   createParticlesFromModel(model);
