@@ -294,6 +294,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .vp-cat:hover .vp-allvids{border-color:rgba(255,255,255,.6);color:#fff;background:rgba(255,255,255,.05)}
 .vp-arrow{position:absolute;right:36px;top:50%;transform:translateY(-50%);z-index:3;color:rgba(245,239,232,.25);font-size:52px;font-weight:200;transition:all .4s ease}
 .vp-cat:hover .vp-arrow{color:rgba(245,239,232,.7);transform:translateY(-50%) translateX(6px)}
+/* ── VP Section Title + Scroll Guide ── */
+.vp-section-header{position:fixed;top:0;left:0;right:0;z-index:10;padding:28px 40px 18px;display:flex;align-items:center;justify-content:space-between;pointer-events:none;opacity:0;transition:opacity .5s ease}
+.vp-section-header.visible{opacity:1}
+.vp-section-label{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(245,239,232,.5)}
+.vp-scroll-guide{display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,239,232,.35)}
+.vp-scroll-guide svg{width:14px;height:14px;fill:none;stroke:rgba(245,239,232,.35);stroke-width:2;animation:vpBounce 1.8s ease-in-out infinite}
+@keyframes vpBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+/* ── VP Mute + Pause Buttons ── */
+.vp-controls{position:absolute;bottom:48px;right:36px;z-index:4;display:flex;gap:10px;opacity:0;transition:opacity .4s ease}
+.vp-cat.vp-loaded .vp-controls{opacity:1}
+.vp-ctrl-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease;pointer-events:auto}
+.vp-ctrl-btn:hover{border-color:rgba(255,255,255,.5);background:rgba(0,0,0,.7)}
+.vp-ctrl-btn svg{width:16px;height:16px;fill:#fff}
 
 /* ── Vertical Stories Viewer ── */
 .stories-layout{display:flex;align-items:center;gap:52px;margin-top:44px}
@@ -1007,8 +1020,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 <!-- ═══ VIDEO CATEGORIES (immersive) ═══ -->
 <section class="vp-section" id="videoPortfolio">
+  <div class="vp-section-header" id="vpHeader"><span class="vp-section-label">Video Portfolio</span><span class="vp-scroll-guide">Keep scrolling <svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></div>
   <div class="vp-cat" data-cat="corporate_brand">
-    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1041460991.jpg')"><iframe data-src="https://player.vimeo.com/video/1027500811?background=1" allow="autoplay"></iframe></div>
+    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1041460991.jpg')"><iframe data-src="https://player.vimeo.com/video/1027500811?background=1&loop=1" allow="autoplay"></iframe></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
       <div class="vp-count">8 Videos</div>
@@ -1017,6 +1031,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
       <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
     </div>
     <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-controls">
+      <button class="vp-ctrl-btn vp-mute-btn" data-muted="1" title="Unmute"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#fff" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#fff" stroke-width="2"/></svg></button>
+      <button class="vp-ctrl-btn vp-pause-btn" data-paused="0" title="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+    </div>
     <div class="vp-arrow">&#8250;</div>
   </div>
   <div class="vp-cat" data-cat="events">
@@ -1025,15 +1043,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
     <div class="vp-content">
       <div class="vp-count">6 Videos</div>
       <div class="vp-title">Events</div>
-
       <div class="vp-subtitle">Conferences, motorsport, and trade shows captured in real time</div>
       <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
     </div>
     <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-controls">
+      <button class="vp-ctrl-btn vp-mute-btn" data-muted="1" title="Unmute"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#fff" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#fff" stroke-width="2"/></svg></button>
+      <button class="vp-ctrl-btn vp-pause-btn" data-paused="0" title="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+    </div>
     <div class="vp-arrow">&#8250;</div>
   </div>
   <div class="vp-cat" data-cat="people_culture">
-    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1016747108.jpg')"><iframe data-src="https://player.vimeo.com/video/1034519753?background=1" allow="autoplay"></iframe></div>
+    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1016747108.jpg')"><iframe data-src="https://player.vimeo.com/video/1034519753?background=1&loop=1" allow="autoplay"></iframe></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
       <div class="vp-count">26 Videos</div>
@@ -1042,6 +1063,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
       <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
     </div>
     <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-controls">
+      <button class="vp-ctrl-btn vp-mute-btn" data-muted="1" title="Unmute"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#fff" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#fff" stroke-width="2"/></svg></button>
+      <button class="vp-ctrl-btn vp-pause-btn" data-paused="0" title="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+    </div>
     <div class="vp-arrow">&#8250;</div>
   </div>
   <div class="vp-cat" data-cat="lifestyle">
@@ -1054,6 +1079,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
       <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
     </div>
     <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-controls">
+      <button class="vp-ctrl-btn vp-mute-btn" data-muted="1" title="Unmute"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#fff" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#fff" stroke-width="2"/></svg></button>
+      <button class="vp-ctrl-btn vp-pause-btn" data-paused="0" title="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+    </div>
     <div class="vp-arrow">&#8250;</div>
   </div>
   <div class="vp-cat" data-cat="my_films">
@@ -1066,6 +1095,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
       <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
     </div>
     <div class="vp-allvids-wrap"><div class="vp-allvids">All Videos <span>+</span></div></div>
+    <div class="vp-controls">
+      <button class="vp-ctrl-btn vp-mute-btn" data-muted="1" title="Unmute"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#fff" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#fff" stroke-width="2"/></svg></button>
+      <button class="vp-ctrl-btn vp-pause-btn" data-paused="0" title="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+    </div>
     <div class="vp-arrow">&#8250;</div>
   </div>
 </section>
@@ -1453,29 +1486,158 @@ window._initScrollReveal = function() {
 
 /* Counter animation — now handled by Proof Points ScrollTrigger */
 
-/* Lazy-load backgrounds in categories + slow to 0.75x */
-const vpIframes=document.querySelectorAll('.vp-bg iframe[data-src]');
-const vpObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const iframe=e.target;
-      const src=iframe.dataset.src;
-      iframe.src=src;
-      iframe.removeAttribute('data-src');
-      iframe.addEventListener('load',()=>{
-        if(src.includes('vimeo.com')){
-          iframe.contentWindow.postMessage(JSON.stringify({method:'setPlaybackRate',value:0.75}),'*');
-        } else if(src.includes('youtube.com')){
-          setTimeout(()=>{
-            iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'setPlaybackRate',args:[0.75]}),'*');
-          },1000);
-        }
-      });
-      vpObs.unobserve(iframe);
+/* Preload VP iframes when Tools section is reached + mute/pause/loop controls */
+let vpPreloaded = false;
+function preloadVPIframes() {
+  if (vpPreloaded) return;
+  vpPreloaded = true;
+  document.querySelectorAll('.vp-bg iframe[data-src]').forEach(iframe => {
+    const src = iframe.dataset.src;
+    iframe.src = src;
+    iframe.removeAttribute('data-src');
+    iframe.addEventListener('load', () => {
+      iframe.closest('.vp-cat').classList.add('vp-loaded');
+      if (src.includes('vimeo.com')) {
+        iframe.contentWindow.postMessage(JSON.stringify({method:'setPlaybackRate',value:0.75}), '*');
+        iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*');
+        iframe.contentWindow.postMessage(JSON.stringify({method:'setLoop',value:true}), '*');
+      } else if (src.includes('youtube.com')) {
+        setTimeout(() => {
+          iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'setPlaybackRate',args:[0.75]}), '*');
+        }, 1000);
+      }
+    });
+  });
+  // Also preload thumbnail images that might fail
+  document.querySelectorAll('.vp-bg').forEach(bg => {
+    const url = bg.style.backgroundImage.replace(/url\(['"]?|['"]?\)/g, '');
+    if (url) {
+      const img = new Image();
+      img.src = url;
     }
   });
-},{threshold:0,rootMargin:'200px 0px 200px 0px'});
-vpIframes.forEach(f=>vpObs.observe(f));
+}
+// Trigger preload when Tools section enters viewport
+const toolsPreloadObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      preloadVPIframes();
+      toolsPreloadObs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0, rootMargin: '0px 0px 400px 0px'});
+const toolsSec = document.getElementById('toolsSection');
+if (toolsSec) toolsPreloadObs.observe(toolsSec);
+
+/* VP Section header — show/hide when inside video portfolio */
+const vpHeader = document.getElementById('vpHeader');
+const vpSection = document.getElementById('videoPortfolio');
+if (vpHeader && vpSection) {
+  const vpHeaderObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      vpHeader.classList.toggle('visible', e.isIntersecting);
+    });
+  }, {threshold: 0.05});
+  vpHeaderObs.observe(vpSection);
+}
+
+/* VP Pause when scrolled away, resume when scrolled into view */
+const vpCatObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    const cat = e.target;
+    const iframe = cat.querySelector('.vp-bg iframe');
+    if (!iframe || !iframe.src) return;
+    const src = iframe.src;
+    const pauseBtn = cat.querySelector('.vp-pause-btn');
+    if (e.isIntersecting) {
+      // Resume if not manually paused
+      if (pauseBtn && pauseBtn.dataset.paused === '1') return;
+      if (src.includes('vimeo.com')) {
+        try { iframe.contentWindow.postMessage(JSON.stringify({method:'play'}), '*'); } catch(ex){}
+      } else if (src.includes('youtube.com')) {
+        try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:''}), '*'); } catch(ex){}
+      }
+    } else {
+      // Pause when scrolled away (mute as fallback)
+      if (src.includes('vimeo.com')) {
+        try { iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*'); } catch(ex){
+          try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*'); } catch(ex2){}
+        }
+      } else if (src.includes('youtube.com')) {
+        try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:''}), '*'); } catch(ex){
+          try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'mute',args:''}), '*'); } catch(ex2){}
+        }
+      }
+    }
+  });
+}, {threshold: 0.3});
+document.querySelectorAll('.vp-cat').forEach(cat => vpCatObs.observe(cat));
+
+/* VP Mute/Unmute buttons */
+document.querySelectorAll('.vp-mute-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const cat = btn.closest('.vp-cat');
+    const iframe = cat.querySelector('.vp-bg iframe');
+    if (!iframe || !iframe.src) return;
+    const src = iframe.src;
+    const isMuted = btn.dataset.muted === '1';
+    if (isMuted) {
+      // Unmute
+      if (src.includes('vimeo.com')) {
+        try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:1}), '*'); } catch(ex){}
+      } else {
+        try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'unMute',args:''}), '*'); } catch(ex){}
+      }
+      btn.dataset.muted = '0';
+      btn.title = 'Mute';
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="#fff"/><path d="M15.54 8.46a5 5 0 010 7.07" stroke="#fff" stroke-width="2" fill="none"/><path d="M19.07 4.93a10 10 0 010 14.14" stroke="#fff" stroke-width="2" fill="none"/></svg>';
+    } else {
+      // Mute
+      if (src.includes('vimeo.com')) {
+        try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*'); } catch(ex){}
+      } else {
+        try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'mute',args:''}), '*'); } catch(ex){}
+      }
+      btn.dataset.muted = '1';
+      btn.title = 'Unmute';
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="#fff"/><line x1="23" y1="9" x2="17" y2="15" stroke="#fff" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#fff" stroke-width="2"/></svg>';
+    }
+  });
+});
+
+/* VP Pause/Play buttons */
+document.querySelectorAll('.vp-pause-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const cat = btn.closest('.vp-cat');
+    const iframe = cat.querySelector('.vp-bg iframe');
+    if (!iframe || !iframe.src) return;
+    const src = iframe.src;
+    const isPaused = btn.dataset.paused === '1';
+    if (isPaused) {
+      // Play
+      if (src.includes('vimeo.com')) {
+        try { iframe.contentWindow.postMessage(JSON.stringify({method:'play'}), '*'); } catch(ex){}
+      } else {
+        try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:''}), '*'); } catch(ex){}
+      }
+      btn.dataset.paused = '0';
+      btn.title = 'Pause';
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" fill="#fff"/><rect x="14" y="4" width="4" height="16" fill="#fff"/></svg>';
+    } else {
+      // Pause
+      if (src.includes('vimeo.com')) {
+        try { iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*'); } catch(ex){}
+      } else {
+        try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:''}), '*'); } catch(ex){}
+      }
+      btn.dataset.paused = '1';
+      btn.title = 'Play';
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19" fill="#fff"/></svg>';
+    }
+  });
+});
 
 /* ═══ Category Video Modal (Portfolio-style) ═══ */
 const catVideos = {
