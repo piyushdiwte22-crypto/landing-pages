@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piyush Diwte — Content Creator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#e8943a;--bg:#050505}
+body{background:var(--bg);color:#f5efe8;font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* ═══ GRAIN + VIGNETTE ═══ */
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.03;mix-blend-mode:overlay;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") repeat;background-size:256px}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:28px 48px;display:flex;justify-content:space-between;align-items:center;
+  mix-blend-mode:difference;
+}
+.n-l{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:#fff}
+.n-r{display:flex;gap:32px}
+.n-r a{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);text-decoration:none;transition:color .4s}
+.n-r a:hover{color:#fff}
+
+/* ═══════════════════════════
+   SECTION 1: HERO
+   ═══════════════════════════ */
+#hero{
+  height:100vh;position:relative;
+  display:flex;align-items:center;overflow:hidden;
+}
+
+/* Background video layer */
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg iframe{
+  position:absolute;top:50%;left:50%;
+  width:177.78vh;height:100vh;min-width:100%;min-height:56.25vw;
+  transform:translate(-50%,-50%);border:none;opacity:.3;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(5,5,5,.88) 0%,rgba(5,5,5,.5) 50%,rgba(5,5,5,.88) 100%);
+}
+
+/* Layout — text left, camera right */
+.hero-inner{
+  position:relative;z-index:2;
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;max-width:1400px;margin:0 auto;padding:0 64px;
+}
+
+/* Hero text block */
+.hero-text{max-width:620px}
+.h-pre{
+  font-size:9px;letter-spacing:10px;text-transform:uppercase;
+  color:rgba(232,148,58,.4);margin-bottom:40px;
+  opacity:0;transform:translateY(20px);
+}
+.h-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(44px,6.5vw,96px);font-weight:900;
+  line-height:.92;letter-spacing:-2px;margin-bottom:36px;
+}
+.h-title .line{display:block;overflow:hidden;padding:4px 0}
+.h-title .line span{display:inline-block;transform:translateY(110%)}
+.h-title .thin{font-weight:400;font-style:italic;color:rgba(245,239,232,.6)}
+.h-title .gd{
+  background:linear-gradient(135deg,#8B5E2B,#c4752b,#e8943a,#f0a848);
+  background-size:200% auto;animation:shim 5s linear infinite;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+@keyframes shim{to{background-position:200% center}}
+
+.h-sub{
+  font-size:13px;font-weight:300;color:rgba(245,239,232,.25);
+  line-height:2;letter-spacing:.5px;max-width:420px;
+  opacity:0;transform:translateY(20px);
+}
+.h-cta{
+  margin-top:40px;display:inline-flex;align-items:center;gap:16px;
+  opacity:0;transform:translateY(15px);
+}
+.h-cta a{
+  padding:14px 40px;border:1px solid rgba(232,148,58,.2);border-radius:100px;
+  text-decoration:none;color:#f5efe8;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  transition:all .5s cubic-bezier(.16,1,.3,1);
+}
+.h-cta a:hover{border-color:var(--a);box-shadow:0 0 60px rgba(232,148,58,.1)}
+
+/* SVG Camera — draws itself on load */
+.hero-cam{
+  position:relative;width:clamp(260px,26vw,400px);flex-shrink:0;
+  opacity:0;transform:scale(.92);
+}
+.hero-cam svg{width:100%;height:auto;filter:drop-shadow(0 0 30px rgba(232,148,58,.12))}
+.hero-cam svg .draw{
+  stroke:var(--a);stroke-width:1.2;fill:none;
+  stroke-dasharray:1500;stroke-dashoffset:1500;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.hero-cam svg .glow{stroke:var(--a);stroke-width:.5;fill:none;opacity:.2;stroke-dasharray:1500;stroke-dashoffset:1500}
+.hero-cam svg .fill-glow{fill:rgba(232,148,58,.03);opacity:0}
+.hero-cam svg .lens-ring{stroke:var(--a);stroke-width:.8;fill:none;stroke-dasharray:600;stroke-dashoffset:600;opacity:.4}
+.hero-cam svg .lens-glass{fill:rgba(232,148,58,.04);opacity:0}
+.hero-cam svg .detail{stroke:rgba(232,148,58,.2);stroke-width:.5;fill:none;stroke-dasharray:200;stroke-dashoffset:200}
+.hero-cam .cam-label{
+  position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);
+  font-size:7px;letter-spacing:6px;text-transform:uppercase;
+  color:rgba(232,148,58,.18);opacity:0;white-space:nowrap;
+}
+
+/* Scroll indicator */
+.scroll-cue{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;
+}
+.scroll-cue span{font-size:7px;letter-spacing:7px;text-transform:uppercase;color:rgba(255,255,255,.1)}
+.scroll-cue .ln{width:1px;height:40px;position:relative;overflow:hidden}
+.scroll-cue .ln::after{
+  content:'';position:absolute;left:0;width:100%;height:100%;
+  background:linear-gradient(180deg,transparent,var(--a));
+  animation:drp 2.4s ease-in-out infinite;
+}
+@keyframes drp{0%{top:-100%}50%{top:0}100%{top:100%}}
+
+/* ═══ PLACEHOLDER — rest of page ═══ */
+.placeholder{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:rgba(255,255,255,.06);letter-spacing:4px;text-transform:uppercase;
+  border-top:1px solid rgba(255,255,255,.03);
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  .hero-inner{flex-direction:column-reverse;gap:32px;padding:0 24px;text-align:center}
+  .hero-cam{width:180px}
+  .h-sub{margin-left:auto;margin-right:auto}
+  nav{padding:20px 20px}
+  .n-r{gap:20px}
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav>
+  <div class="n-l">Piyush Diwte</div>
+  <div class="n-r">
+    <a href="#work">Work</a>
+    <a href="#kit">Tools</a>
+    <a href="#why">About</a>
+    <a href="mailto:piyushdiwte22@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════
+     SECTION 1: HERO
+     ═══════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg">
+    <iframe src="https://player.vimeo.com/video/1028245298?background=1&autoplay=1&loop=1&muted=1&quality=1080p" allow="autoplay;fullscreen" loading="eager"></iframe>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="h-pre">Digital Content Creator</div>
+      <h1 class="h-title">
+        <span class="line"><span class="thin">Every frame</span></span>
+        <span class="line"><span class="gd">tells a story.</span></span>
+      </h1>
+      <p class="h-sub">6+ years turning brands into stories people actually watch. From luxury resorts to 4x4 adventures — strategy, camera, edit, publish.</p>
+      <div class="h-cta"><a href="#work">View my work</a></div>
+    </div>
+
+    <div class="hero-cam">
+      <svg viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Camera body -->
+        <rect class="draw" x="40" y="80" width="260" height="180" rx="12"/>
+        <rect class="fill-glow" x="40" y="80" width="260" height="180" rx="12"/>
+        <!-- Viewfinder -->
+        <rect class="draw" x="180" y="40" width="80" height="50" rx="6"/>
+        <rect class="fill-glow" x="180" y="40" width="80" height="50" rx="6"/>
+        <!-- Lens outer -->
+        <circle class="draw" cx="170" cy="175" r="65"/>
+        <!-- Lens rings -->
+        <circle class="lens-ring" cx="170" cy="175" r="52"/>
+        <circle class="lens-ring" cx="170" cy="175" r="38"/>
+        <circle class="lens-ring" cx="170" cy="175" r="22"/>
+        <!-- Lens glass -->
+        <circle class="lens-glass" cx="170" cy="175" r="65"/>
+        <!-- Lens centre dot -->
+        <circle class="detail" cx="170" cy="175" r="8"/>
+        <!-- Flash hotshoe -->
+        <rect class="detail" x="100" y="75" width="40" height="8" rx="2"/>
+        <!-- Grip lines -->
+        <line class="detail" x1="310" y1="120" x2="310" y2="240"/>
+        <line class="detail" x1="320" y1="115" x2="320" y2="245"/>
+        <!-- Mode dial -->
+        <circle class="detail" cx="110" cy="60" r="15"/>
+        <line class="detail" x1="110" y1="45" x2="110" y2="52"/>
+        <!-- Shutter button -->
+        <rect class="detail" x="135" y="68" width="20" height="7" rx="3"/>
+        <!-- Strap lugs -->
+        <circle class="detail" cx="55" cy="88" r="5"/>
+        <circle class="detail" cx="285" cy="88" r="5"/>
+        <!-- Glow layer -->
+        <rect class="glow" x="40" y="80" width="260" height="180" rx="12"/>
+        <circle class="glow" cx="170" cy="175" r="65"/>
+      </svg>
+      <div class="cam-label">Captured by Piyush</div>
+    </div>
+  </div>
+
+  <div class="scroll-cue"><span>Scroll</span><div class="ln"></div></div>
+</section>
+
+<!-- Placeholder sections — we'll build these next -->
+<div class="placeholder">Statement section — next</div>
+<div class="placeholder">Metrics section</div>
+<div class="placeholder">Full-bleed video</div>
+<div class="placeholder">Work grid</div>
+<div class="placeholder">Reels</div>
+<div class="placeholder">Toolkit</div>
+<div class="placeholder">Why me</div>
+<div class="placeholder">CTA</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+// ═══ HERO ENTRANCE TIMELINE ═══
+const tl = gsap.timeline({delay:.4});
+
+// Text entrance
+tl.to('.h-pre',{opacity:1,y:0,duration:1,ease:'power3.out'})
+  .to('.h-title .line span',{y:0,duration:1.4,stagger:.15,ease:'power4.out'},'-=.7')
+  .to('.h-sub',{opacity:1,y:0,duration:1,ease:'power3.out'},'-=.8')
+  .to('.h-cta',{opacity:1,y:0,duration:.8,ease:'power3.out'},'-=.6')
+  .to('.scroll-cue',{opacity:1,duration:.8},'-=.4');
+
+// Camera draws itself in parallel
+tl.to('.hero-cam',{opacity:1,scale:1,duration:1.2,ease:'power3.out'},0.6)
+  .to('.hero-cam .draw',{strokeDashoffset:0,duration:2.5,stagger:.15,ease:'power2.inOut'},0.8)
+  .to('.hero-cam .glow',{strokeDashoffset:0,duration:2.5,stagger:.15,ease:'power2.inOut'},1.0)
+  .to('.hero-cam .lens-ring',{strokeDashoffset:0,duration:1.5,stagger:.1,ease:'power2.inOut'},1.3)
+  .to('.hero-cam .fill-glow',{opacity:1,duration:1},2.0)
+  .to('.hero-cam .lens-glass',{opacity:1,duration:1},2.2)
+  .to('.hero-cam .detail',{strokeDashoffset:0,duration:1,stagger:.05,ease:'power2.out'},1.8)
+  .to('.hero-cam .cam-label',{opacity:1,duration:.8},3.0);
+
+// Mouse parallax on camera
+document.addEventListener('mousemove',e=>{
+  const x=(e.clientX/window.innerWidth-.5)*15;
+  const y=(e.clientY/window.innerHeight-.5)*10;
+  gsap.to('.hero-cam',{x:x,y:y,duration:1.2,ease:'power2.out'});
+});
+</script>
+</body>
+</html>

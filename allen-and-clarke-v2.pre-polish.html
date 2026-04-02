@@ -6,7 +6,7 @@
 <title>Piyush Diwte | Campaign + Content Manager for Allen and Clarke</title>
 <meta name="description" content="Custom application landing page for Allen and Clarke by Piyush Diwte.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Three.js import map -->
 <script type="importmap">
@@ -24,8 +24,6 @@
 html{scroll-behavior:smooth;scroll-snap-type:y proximity}
 body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:clamp(16px,1.1vw,18px)}
 ::selection{background:rgba(232,148,58,.3);color:#f0a848}
-:focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:4px}
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
 /* ══ PROGRESS BAR ══ */
 #progressBar{position:fixed;top:0;left:0;height:2px;width:0%;z-index:9999;background:linear-gradient(90deg,var(--a2),var(--a),var(--a2));pointer-events:none}
@@ -48,21 +46,15 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;overflow
 
 /* Nav */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,48px);display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(10,10,15,.8) 0%,rgba(10,10,15,.4) 60%,transparent 100%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.nl{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nl-gif{height:clamp(24px,2.5vw,32px);width:auto;opacity:.9;border-radius:50%;overflow:hidden}
-.nl-text{font-family:'Playfair Display',serif;font-size:clamp(10px,1.2vw,13px);font-weight:700;letter-spacing:clamp(3px,.4vw,5px);text-transform:uppercase;color:#fff}
-.nav-links{display:flex;gap:clamp(6px,1vw,12px);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.nav-links::-webkit-scrollbar{display:none}
+.nl{font-family:'Playfair Display',serif;font-size:clamp(10px,1.2vw,13px);font-weight:700;letter-spacing:clamp(3px,.4vw,5px);text-transform:uppercase;color:#fff}
 .nav-link{font-family:'DM Sans',Inter,sans-serif;font-size:clamp(9px,1vw,11px);letter-spacing:clamp(1px,.3vw,3px);text-transform:uppercase;color:rgba(245,239,232,.5);text-decoration:none;padding:clamp(6px,.8vh,8px) clamp(12px,1.5vw,18px);border:1px solid rgba(245,239,232,.12);border-radius:50px;transition:all .3s ease;white-space:nowrap}
 .nav-link:hover{color:var(--a);border-color:rgba(232,148,58,.3)}
-.nav-link.active{color:var(--w);border-color:rgba(245,239,232,.2);background:rgba(245,239,232,.08)}
 .nr{display:flex;gap:28px}
 .nr a{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);text-decoration:none;transition:color .3s}
 .nr a:hover{color:#fff}
 
 /* Hero/WhyMe: free scroll (no snap), other sections snap */
-#hero{scroll-snap-align:none}
-#whyMe{scroll-snap-align:start;scroll-snap-stop:always}
+#hero,#whyMe{scroll-snap-align:none}
 
 /* ══ HERO VIDEO BACKDROP ══ */
 #heroBgVideo{position:fixed;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;pointer-events:none;opacity:1;filter:brightness(.35) saturate(.6)}
@@ -116,7 +108,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 #content{position:relative;z-index:2}
 
 /* ══ HERO ══ */
-#hero{height:1800vh;position:relative;overflow:visible;scroll-snap-align:start}
+#hero{height:1400vh;position:relative;overflow:visible;scroll-snap-align:start}
 .hero-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .hero-text{position:relative;z-index:3;text-align:center;max-width:900px;padding:0 48px}
 .hero-text{opacity:0}
@@ -154,6 +146,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .hero-vid .vid-play svg{width:20px;height:20px;fill:var(--a);margin-left:3px}
 .hero-vid.entering .vid-play{opacity:1}
 .hero-vid.playing .vid-play{opacity:0;transform:translate(-50%,-50%) scale(1.5)}
+.hero-vid .vid-unmute{position:absolute;bottom:24px;right:24px;z-index:5;padding:8px 14px;border-radius:20px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.15);color:#f5efe8;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .4s;pointer-events:auto;display:flex;align-items:center;gap:6px}
+.hero-vid .vid-unmute svg{width:14px;height:14px;fill:#f5efe8}
+.hero-vid.playing .vid-unmute{opacity:1}
 
 /* ══ HERO STORY TEXT ══ */
 .hs{position:absolute;z-index:3;opacity:0;pointer-events:none;max-width:800px;padding:24px 48px;text-align:center}
@@ -179,9 +174,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 /* Containers */
 .container{max-width:1060px;margin:0 auto;width:100%}
-.label{font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--a);margin-bottom:14px;font-weight:600;display:flex;align-items:center;gap:10px;justify-content:center;text-align:center}
+.label{font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--a);margin-bottom:14px;font-weight:600;display:flex;align-items:center;gap:10px}
 .label::before{content:'';width:24px;height:1px;background:var(--a)}
-.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,5.5vw,64px);font-weight:700;color:var(--w);margin-bottom:48px;line-height:1.08;letter-spacing:-1.5px;text-align:center}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,5.5vw,64px);font-weight:700;color:var(--w);margin-bottom:48px;line-height:1.08;letter-spacing:-1.5px}
 
 /* Section glow */
 .section-glow{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(196,117,43,0.06) 0%,transparent 70%);pointer-events:none;filter:blur(60px);z-index:0}
@@ -200,13 +195,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 /* Why me timeline */
 .why-grid{display:grid;gap:0;position:relative;padding-left:4px}
-.why-grid::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--a),rgba(196,117,43,0.08))}
-.why-item{display:flex;gap:20px;align-items:flex-start;padding:18px 0;position:relative;will-change:opacity,transform}
-.why-num{width:48px;height:48px;border-radius:50%;flex-shrink:0;background:var(--bg);border:2px solid var(--a);color:var(--a);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;position:relative;z-index:1;transition:all .3s ease}
+.why-grid::before{content:'';position:absolute;left:36px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--a),rgba(196,117,43,0.08))}
+.why-item{display:flex;gap:28px;align-items:flex-start;padding:32px 0;position:relative;will-change:opacity,transform}
+.why-num{width:66px;height:66px;border-radius:50%;flex-shrink:0;background:var(--bg);border:2px solid var(--a);color:var(--a);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;position:relative;z-index:1;transition:all .3s ease}
 .why-item:hover .why-num{background:linear-gradient(135deg,var(--a2),var(--a));color:var(--w);box-shadow:0 0 24px rgba(196,117,43,0.35)}
-.why-text{padding-top:4px}
-.why-text h3{font-size:18px;font-weight:700;color:var(--w);margin-bottom:4px}
-.why-text p{font-size:14px;color:rgba(122,122,142,1);line-height:1.6}
+.why-text{padding-top:10px}
+.why-text h3{font-size:20px;font-weight:700;color:var(--w);margin-bottom:8px}
+.why-text p{font-size:clamp(16px,1.2vw,19px);color:rgba(122,122,142,1);line-height:1.7}
 
 /* Metrics */
 .metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-top:44px}
@@ -227,12 +222,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 /* Tool pill animations handled by GSAP ScrollTrigger */
 
 /* About */
-.vert-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
-.vert-pin-inner{position:fixed;top:0;left:0;right:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:70px 36px 40px;overflow:visible;opacity:0;pointer-events:none;background:none}
-.stories-nav-vertical{display:flex;flex-direction:column;gap:12px;margin-right:16px}
-.about-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
-.about-pin-inner{position:fixed;top:0;left:0;right:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible;opacity:0;pointer-events:none;background:none}
-.about-section{overflow:hidden;min-height:auto;display:flex;flex-direction:column;justify-content:center;padding:clamp(80px,12vh,140px) 0 clamp(40px,6vh,60px);position:relative;z-index:5}
+.about-section{overflow:hidden;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center}
 .about-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.15;filter:blur(2px);z-index:0}
 .about-bg-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,13,.85) 0%,rgba(7,7,13,.7) 50%,rgba(7,7,13,.9) 100%);z-index:1}
 .about-content{display:flex;flex-direction:column;align-items:center;max-width:720px;margin:0 auto}
@@ -251,15 +241,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 
 /* ── Scroll-pinned Why Me ── */
 .why-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
-.why-pin-inner{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible}
+.why-pin-inner{min-height:100vh;display:flex;align-items:center;padding:80px 36px}
 .why-progress{position:absolute;left:36px;top:0;bottom:0;width:2px;background:rgba(255,255,255,0.04)}
 .why-progress-fill{width:100%;height:0%;background:linear-gradient(to bottom,var(--a),var(--a2));transition:height 0.3s ease}
 .why-item-pin{will-change:opacity,transform}
 
 /* ── Video Categories (immersive full-height) ── */
 /* Category overview tiles */
-.cat-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
-.cat-pin-inner{position:fixed;top:0;left:0;right:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible;opacity:0;pointer-events:none;background:none}
 .cat-overview{position:relative;z-index:2;padding:80px 24px;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always}
 .cat-tiles{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
 .cat-tile{display:flex;flex-direction:column;align-items:center;text-align:center;width:200px;padding:32px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(10,10,15,.95);backdrop-filter:blur(16px);text-decoration:none;transition:all .4s ease;cursor:pointer}
@@ -291,17 +279,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .vp-cat:hover .vp-allvids{border-color:rgba(255,255,255,.6);color:#fff;background:rgba(255,255,255,.05)}
 .vp-arrow{position:absolute;right:36px;top:50%;transform:translateY(-50%);z-index:3;color:rgba(245,239,232,.25);font-size:52px;font-weight:200;transition:all .4s ease}
 .vp-cat:hover .vp-arrow{color:rgba(245,239,232,.7);transform:translateY(-50%) translateX(6px)}
-/* ── VP Section Title + Scroll Guide ── */
-.vp-section-header{position:fixed;top:0;left:0;right:0;z-index:10;padding:28px 40px 18px;display:flex;align-items:center;justify-content:space-between;pointer-events:none;opacity:0;transition:opacity .5s ease}
-.vp-section-header.visible{opacity:1}
-.vp-section-label{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(245,239,232,.5)}
-.vp-scroll-guide{display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,239,232,.35)}
-.vp-scroll-guide svg{width:14px;height:14px;fill:none;stroke:rgba(245,239,232,.35);stroke-width:2;animation:vpBounce 1.8s ease-in-out infinite}
-@keyframes vpBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
 
 /* ── Vertical Stories Viewer ── */
-.stories-layout{display:flex;align-items:center;gap:52px;margin-top:44px;pointer-events:auto!important}
-.stories-left{display:flex;align-items:center;gap:16px;flex-shrink:0;pointer-events:auto!important}
+.stories-layout{display:flex;align-items:center;gap:52px;margin-top:44px}
+.stories-left{display:flex;align-items:center;gap:16px;flex-shrink:0}
 .stories-phone{position:relative;width:300px;height:560px;border-radius:32px;overflow:hidden;background:#000;border:4px solid rgba(255,255,255,0.08);box-shadow:0 20px 80px rgba(0,0,0,0.6),0 0 40px rgba(196,117,43,0.06),inset 0 0 0 1px rgba(255,255,255,0.05)}
 .stories-phone::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:12;width:100px;height:22px;background:#000;border-radius:0 0 16px 16px}
 .stories-progress{position:absolute;top:28px;left:12px;right:12px;z-index:10;display:flex;gap:4px}
@@ -310,35 +291,32 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .stories-progress-bar.done .fill{width:100%}
 .stories-progress-bar.active .fill{width:100%;transition:none;animation:storyFill var(--story-dur,15s) linear forwards}
 @keyframes storyFill{from{width:0%}to{width:100%}}
-.stories-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s ease;overflow:hidden}
+.stories-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s ease;display:flex;flex-direction:column}
 .stories-slide.active{opacity:1;pointer-events:auto}
-.stories-slide iframe,.stories-slide>div:first-child{width:100%;height:100%;border:0;display:block;background:#000}
-.stories-slide iframe[src*="instagram"]{transform:scale(1.6);transform-origin:center top}
-.stories-slide>div:first-child[id^="ytPlayer"]{height:100%}
+.stories-slide iframe,.stories-slide>div:first-child{width:100%;flex:1;border:0;display:block;background:#000}
 .stories-info-inner{position:absolute;bottom:0;left:0;right:0;z-index:5;padding:40px 14px 14px;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%)}
 .stories-tag{display:inline-block;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--w);background:rgba(196,117,43,0.85);padding:3px 10px;border-radius:50px;margin-bottom:6px}
 .stories-title-sm{font-size:12px;font-weight:600;color:var(--w)}
-.stories-right{flex:1;min-width:0;position:relative;display:flex;flex-direction:row;align-items:center;gap:32px}
-.stories-right-content{opacity:0;transform:translateX(20px);transition:all .5s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;flex:1;min-width:0}
+.stories-right{flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:center;padding-bottom:120px}
+.stories-right-content{opacity:0;transform:translateX(20px);transition:all .5s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column}
 .stories-right-content.active{opacity:1;transform:translateX(0)}
+.sr-nav{/* positioned absolutely — see below */}
 .sr-counter{font-size:11px;color:rgba(122,122,142,1);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
-.sr-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--a);background:rgba(196,117,43,0.1);padding:5px 14px;border-radius:50px;margin-bottom:20px;border:1px solid rgba(196,117,43,0.2);align-self:flex-start}
+.sr-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--a);background:rgba(196,117,43,0.1);padding:5px 14px;border-radius:50px;margin-bottom:16px;border:1px solid rgba(196,117,43,0.2)}
 .sr-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:var(--w);margin-bottom:10px}
-.sr-desc{font-size:17px;color:rgba(122,122,142,1);line-height:1.7;margin-bottom:16px}
-.sr-nav-inline{display:flex;flex-direction:column;gap:16px;flex-shrink:0;pointer-events:auto!important;position:relative;z-index:10}
+.sr-desc{font-size:17px;color:rgba(122,122,142,1);line-height:1.7;margin-bottom:28px}
+.sr-nav{display:flex;gap:12px;position:absolute;bottom:40px;left:0;z-index:10}
 .stories-nav{width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:rgba(7,7,13,0.8);backdrop-filter:blur(8px);color:rgba(122,122,142,1);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;flex-shrink:0}
-.stories-nav-lg{width:80px;height:80px}
-.stories-nav-lg svg{width:36px;height:36px}
 .stories-nav:hover{color:var(--w);border-color:var(--a);background:rgba(196,117,43,0.15);box-shadow:0 0 20px rgba(196,117,43,0.35)}
 .stories-nav svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2.5}
 .stories-nav.disabled{opacity:0.2;pointer-events:none}
 .stories-tap{position:absolute;top:30px;bottom:60px;z-index:8;width:35%}
 .stories-tap-left{left:0}.stories-tap-right{right:0}
-.stories-fs-prompt{display:none;margin-top:24px;text-align:center;position:relative;z-index:50;pointer-events:auto}
+.stories-fs-prompt{display:none;margin-top:24px;text-align:center}
 .stories-fs-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-size:13px;font-weight:600;background:linear-gradient(135deg,var(--a2),var(--a));color:var(--w);border:none;cursor:pointer;transition:all .3s cubic-bezier(.16,1,.3,1);letter-spacing:.3px;animation:btnPulse 3s ease-in-out infinite}
 .stories-fs-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
 .stories-fs-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(196,117,43,0.35)}
-.stories-fullscreen{display:none;position:fixed;inset:0;z-index:600;background:#000;flex-direction:column;overflow:hidden;width:100vw;height:100vh;height:100dvh}
+.stories-fullscreen{display:none;position:fixed;inset:0;z-index:500;background:#000;flex-direction:column;overflow:hidden;width:100vw;height:100vh;height:100dvh}
 .stories-fullscreen.open{display:flex}
 .stories-fs-close{position:absolute;top:14px;right:14px;z-index:20;width:36px;height:36px;border-radius:50%;border:none;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);color:var(--w);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .stories-fs-close:hover{background:rgba(255,255,255,0.2)}
@@ -349,8 +327,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .stories-fs-progress .fs-bar.active .fs-fill{width:100%;transition:none;animation:storyFill var(--story-dur,15s) linear forwards}
 .stories-fs-slide{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;pointer-events:none;transition:opacity .4s ease;display:flex;flex-direction:column;background:#000;overflow:hidden}
 .stories-fs-slide.active{opacity:1;pointer-events:auto}
-.stories-fs-slide iframe{width:100%;height:100%;border:0;background:#000}
-.stories-fs-slide iframe[src*="instagram"]{transform:scale(1.6);transform-origin:center top}
+.stories-fs-slide iframe{width:100%;flex:1;border:0;background:#000;min-height:0}
 .stories-fs-info{position:absolute;bottom:0;left:0;right:0;z-index:5;padding:60px 20px calc(env(safe-area-inset-bottom,0px) + 24px);background:linear-gradient(to top,#000 0%,#000 40%,transparent 100%);text-align:center}
 .stories-fs-title{font-size:16px;font-weight:700;color:var(--w);margin-bottom:4px}
 .stories-fs-sub{font-size:12px;color:rgba(255,255,255,0.5)}
@@ -449,59 +426,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 .cta-inner h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,6vw,66px);font-weight:700;color:var(--w);margin-bottom:20px;letter-spacing:-1.5px}
 .cta-inner p{color:rgba(122,122,142,1);font-size:clamp(17px,1.3vw,20px);margin-bottom:44px}
 .cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.cta-footer{width:100%;padding:16px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to top,rgba(10,10,15,.8) 0%,rgba(10,10,15,.4) 60%,transparent 100%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);position:fixed;bottom:0;left:0;right:0;z-index:100;opacity:0;pointer-events:none;transform:translateY(100%);transition:opacity .4s ease,transform .4s ease}
-.cta-footer.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+.cta-footer{margin-top:auto;width:100%;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to top,rgba(10,10,15,.8) 0%,rgba(10,10,15,.4) 60%,transparent 100%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);position:relative}
 .cta-footer .footer-socials{display:flex;gap:14px;margin-bottom:0}
 .cta-footer .footer-social{width:36px;height:36px}
 .cta-footer .footer-social svg{width:15px;height:15px}
-.cta-footer-text{font-size:13px;color:rgba(245,239,232,.45);letter-spacing:.5px;white-space:normal;word-wrap:break-word;min-width:0;flex-shrink:1}
+.cta-footer-text{font-size:11px;color:rgba(122,122,142,1);letter-spacing:.5px}
 .cta-footer-text a{color:var(--a);text-decoration:none;transition:color .2s}
 .cta-footer-text a:hover{color:var(--w)}
-
-/* Custom cursor */
-/* custom cursor removed */
-
-/* Magnetic button effect */
-.magnetic{transition:transform .3s cubic-bezier(.16,1,.3,1)}
-
-/* Splitting.js text reveal */
-[data-splitting] .char{opacity:0;transform:translateY(20px);transition:opacity .4s ease,transform .4s ease}
-[data-splitting].split-visible .char{opacity:1;transform:translateY(0)}
-
-/* Gradient mesh bg */
-.section-mesh{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;opacity:.35}
-.mesh-orb{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform}
-.mesh-orb-1{width:400px;height:400px;background:radial-gradient(circle,rgba(196,117,43,.25),transparent 70%);top:-10%;left:-5%;animation:orbFloat1 18s ease-in-out infinite}
-.mesh-orb-2{width:300px;height:300px;background:radial-gradient(circle,rgba(232,148,58,.15),transparent 70%);bottom:-5%;right:-8%;animation:orbFloat2 22s ease-in-out infinite}
-.mesh-orb-3{width:250px;height:250px;background:radial-gradient(circle,rgba(160,90,30,.2),transparent 70%);top:40%;right:20%;animation:orbFloat3 15s ease-in-out infinite}
-@keyframes orbFloat1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,40px) scale(1.15)}}
-@keyframes orbFloat2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-50px,-30px) scale(1.1)}}
-@keyframes orbFloat3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-50px) scale(1.2)}}
-
-/* Merged Metrics+Tools section */
-/* ── Scroll-pinned Proof Points ── */
-.proof-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
-.proof-pin-inner{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible}
-.metrics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,3vw,32px);margin-top:44px;max-width:900px;margin-left:auto;margin-right:auto}
-.metrics-grid .metric{background:rgba(14,14,22,0.85);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:clamp(32px,5vw,64px) clamp(24px,4vw,48px);text-align:center;position:relative;overflow:hidden;will-change:opacity,transform}
-.metrics-grid .metric-val{font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,7vw,84px);font-weight:700;background:linear-gradient(135deg,var(--a),#f0b060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
-.metrics-grid .metric-lbl{font-size:clamp(12px,1.3vw,16px);letter-spacing:2.5px;text-transform:uppercase;color:rgba(245,239,232,.5)}
-/* ── Scroll-pinned Tools ── */
-.tools-pin-wrap{position:relative;z-index:2;scroll-snap-align:start}
-.tools-pin-inner{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow:visible}
-.tools-grid{display:flex;flex-wrap:wrap;gap:16px;margin-top:36px;justify-content:center}
-.tools-grid .tool-pill{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-size:clamp(14px,1.1vw,17px);font-weight:500;color:var(--w);background:rgba(14,14,22,0.85);border:1px solid rgba(255,255,255,0.06);transition:border-color .3s,background .3s;letter-spacing:.3px;will-change:opacity,transform}
-.tools-grid .tool-pill:hover{border-color:rgba(196,117,43,0.3);background:rgba(196,117,43,0.06)}
-.tools-grid .tp-icon{width:20px;height:20px;display:flex;align-items:center;color:var(--a);flex-shrink:0}
-.tools-grid .tp-icon svg,.tools-grid .tp-icon img{width:100%;height:100%;object-fit:contain}
-.tools-grid .tp-icon img{filter:invert(62%) sepia(85%) saturate(450%) hue-rotate(350deg) brightness(95%) contrast(90%)}
-
-/* Bigger cat tiles with thumbnail */
-.cat-tile{width:220px;flex-shrink:0}
-.cat-tile-thumb{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;margin-bottom:10px;background:rgba(245,239,232,.05);border:1px solid rgba(245,239,232,.08);position:relative}
-.cat-tile-thumb img{width:100%;height:100%;object-fit:cover;opacity:.7;transition:opacity .4s}
-.cat-tile:hover .cat-tile-thumb img{opacity:1}
-.cat-tile-thumb .thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:28px;color:rgba(245,239,232,.15)}
 
 /* Scroll to top */
 .scroll-top{position:fixed;bottom:28px;right:28px;z-index:100;width:44px;height:44px;border-radius:50%;border:1px solid rgba(196,117,43,0.3);background:rgba(7,7,13,0.9);backdrop-filter:blur(12px);color:var(--a);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(20px);pointer-events:none;transition:all .3s cubic-bezier(.16,1,.3,1)}
@@ -519,18 +450,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .about-stat-num{font-size:32px}
   .label{font-size:10px;margin-bottom:10px}
   .section-title{font-size:clamp(26px,7vw,34px);margin-bottom:28px}
-  .metrics-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .metrics-grid .metric{padding:20px 12px}
-  .metrics-grid .metric-val{font-size:28px}
+  .metrics{grid-template-columns:1fr 1fr;gap:10px}
+  .metric{padding:20px 12px}.metric-val{font-size:24px}
+  .metric-lbl{font-size:10px}
   .why-grid::before{left:23px}
   .why-num{width:40px;height:40px;font-size:14px}
   .why-item{gap:16px;padding:20px 0}
   .why-text h3{font-size:14px}.why-text p{font-size:12px}
   .about-text{font-size:14px}
-  .tools-grid{gap:8px;margin-top:20px}
-  .tools-grid .tool-pill{font-size:11px;padding:7px 14px}
-  .tools-grid .tp-icon{width:14px;height:14px}
-  .proof-pin-inner,.tools-pin-inner{padding:40px 16px}
+  .tools-wrap{gap:8px;margin-top:20px}
+  .tool-pill{font-size:11px;padding:7px 14px}
+  .tool-pill .tp-icon{font-size:13px}
   .cta-inner h2{font-size:clamp(26px,7vw,36px)}
   .cta-inner p{font-size:14px;margin-bottom:28px}
   .cta-buttons{flex-direction:column;align-items:center}
@@ -539,7 +469,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 }
 @media(min-width:900px){
   .container{max-width:1140px}
-  .metrics-grid{gap:28px}.metrics-grid .metric{padding:42px 28px}.metrics-grid .metric-val{font-size:56px}
+  .metrics{gap:28px}.metric{padding:42px 28px}.metric-val{font-size:48px}
   .why-text h3{font-size:22px}.why-text p{font-size:18px}
   .about-text{font-size:20px}
 }
@@ -565,6 +495,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .hero-vid .vid-info{padding:14px 16px}
   .hero-vid .vid-play{width:48px;height:48px}
   .hero-vid .vid-play svg{width:16px;height:16px}
+  .hero-vid .vid-unmute{bottom:14px;right:14px;padding:6px 10px;font-size:9px}
   /* Thumbnails: smaller on mobile */
   .hero-thumb{transform:scale(.7)!important}
   .hero-thumb.visible{transform:scale(.8)!important}
@@ -576,38 +507,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .hero-vid .vid-info{padding:10px 12px}
   .hero-vid .vid-play{width:40px;height:40px}
   .hero-vid .vid-play svg{width:14px;height:14px}
+  .hero-vid .vid-unmute{bottom:10px;right:10px;padding:5px 8px;font-size:8px;gap:4px}
   .hero-thumb{display:none}
-}
-
-/* ── Touch device performance (keep all features, optimize rendering) ── */
-@media(pointer:coarse){
-  /* Swap backdrop-filter for solid bg (invisible difference, big perf gain) */
-  nav{-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
-  .cta-footer{-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
-  .stories-nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(7,7,13,.9)}
-  .scroll-top{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(10,10,15,.9)}
-  .cat-tile{backdrop-filter:none;-webkit-backdrop-filter:none}
-  /* Reduce will-change to free GPU memory */
-  .hero-thumb,.hero-vid,.reveal,.why-item-pin,.metric,.mesh-orb,.tool-pill,.hi-line{will-change:auto}
-  /* Fewer light motes on touch */
-  .mote:nth-child(n+11){display:none}
-  /* Simpler grain */
-  .grain{opacity:.02}
 }
 
 /* ── Mobile responsive for new sections ── */
 @media(max-width:767px){
-  .vert-pin-inner{padding:20px 16px}
-  .about-pin-inner{padding:20px 16px}
-  .cat-pin-inner{padding:20px 16px}
-  .about-pin-inner .section-title{font-size:clamp(28px,7vw,42px)}
-  .cat-pin-inner .section-title{font-size:clamp(28px,7vw,42px)}
+  #vertical{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 24px}
+  #vertical .container{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
   #vertical .label{text-align:center}
   #vertical .section-title{text-align:center;font-size:clamp(28px,7vw,42px);margin-bottom:8px}
-  .stories-layout{justify-content:center;flex-direction:column;align-items:center}
+  .stories-layout{justify-content:center}
   .stories-left{display:none}
   .stories-right{display:none}
-  .sr-nav-inline{display:none}
   .stories-fs-prompt{display:block}
   .stories-fs-prompt p{font-size:14px;line-height:1.6;max-width:280px;margin:0 auto 20px}
   .stories-fs-btn{padding:16px 36px;font-size:14px}
@@ -639,7 +551,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .cta-footer .footer-socials{gap:10px}
   .cta-footer .footer-social{width:32px;height:32px}
   .cta-footer .footer-social svg{width:13px;height:13px}
-  .cta-footer-text{text-align:center;font-size:12px}
+  .cta-footer-text{text-align:center;font-size:10px}
   /* Category tiles mobile */
   .cat-overview{padding:60px 16px 48px}
   .cat-tiles{gap:12px}
@@ -660,7 +572,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .cat-nav{width:28px;height:28px;font-size:14px}
 }
 @media(min-width:641px) and (max-width:1024px){
-  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .metrics{grid-template-columns:repeat(3,1fr)}
   .cat-tiles{gap:20px}
   .cat-tile{width:170px;padding:24px 14px}
   .cat-feat-player{max-width:75vw}
@@ -672,37 +584,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
   .cat-feat-player{max-width:85vw}
 }
 </style>
-<!-- Lenis smooth scroll -->
-<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-<!-- Splitting.js for text reveals -->
-<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
-<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css">
-<script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
 <script defer src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
-
-<!-- Mobile block overlay -->
-<div id="mobileBlock" style="display:none;position:fixed;inset:0;z-index:99999;background:#050505;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 28px;gap:24px">
-  <img src="Capturedbypiyush.gif" alt="Captured by Piyush" style="width:60px;height:60px;border-radius:50%;margin-bottom:8px">
-  <h2 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:#f5efe8;margin:0;line-height:1.3">Desktop Only</h2>
-  <p style="font-family:'Inter',sans-serif;font-size:15px;color:rgba(245,239,232,0.5);line-height:1.7;max-width:320px;margin:0">This portfolio experience has been optimised for desktop browsers. A mobile version is coming soon.</p>
-  <div style="width:48px;height:2px;background:linear-gradient(90deg,#c4752b,#e8943a);border-radius:2px;margin:8px 0"></div>
-  <div style="display:flex;gap:16px;margin-top:4px">
-    <a href="https://www.linkedin.com/in/piyushdiwte/?skipRedirect=true" target="_blank" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(245,239,232,0.4);text-decoration:none"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a>
-    <a href="https://www.instagram.com/capturedbypiyush/" target="_blank" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(245,239,232,0.4);text-decoration:none"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
-    <a href="https://www.tiktok.com/@capturedbypiyush" target="_blank" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(245,239,232,0.4);text-decoration:none"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1 0-5.78 2.92 2.92 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.57 6.33 6.33 0 0 0 9.37 22a6.33 6.33 0 0 0 6.38-6.22V9.4a8.16 8.16 0 0 0 4.84 1.58V7.55a4.83 4.83 0 0 1-1-.86z"/></svg></a>
-    <a href="https://www.youtube.com/@CapturedByPiyush-u5j" target="_blank" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(245,239,232,0.4);text-decoration:none"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.81zM9.54 15.57V8.43L15.82 12l-6.28 3.57z"/></svg></a>
-  </div>
-  <p style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(245,239,232,0.3);margin:0;letter-spacing:1px;text-transform:uppercase">Captured by Piyush</p>
-</div>
-<style>
-@media(max-width:767px){#mobileBlock{display:flex!important}}
-@media(pointer:coarse) and (max-width:1024px){#mobileBlock{display:flex!important}}
-</style>
-
-<!-- Custom cursor -->
-<!-- custom cursor removed -->
 
 <!-- ══ PROGRESS BAR ══ -->
 <div id="progressBar"></div>
@@ -740,16 +624,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 <div class="grain"></div>
 
 <nav>
-  <a href="#hero" class="nl">
-    <img src="Capturedbypiyush.gif" alt="Captured by Piyush" class="nl-gif">
-    <span class="nl-text">Captured by Piyush</span>
-  </a>
-  <div class="nav-links" id="navLinks">
-    <a href="#catOverview" class="nav-link active" data-section="catOverview">Portfolio</a>
-    <a href="#vertical" class="nav-link" data-section="vertical">Verticals</a>
-    <a href="#videoPortfolio" class="nav-link" data-section="videoPortfolio">Gallery</a>
-    <a href="#about" class="nav-link" data-section="about">About Me</a>
-  </div>
+  <div class="nl">Piyush Diwte</div>
+  <a href="gallery.html" class="nav-link">Gallery</a>
 </nav>
 
 <!-- ══ FLOATING LIGHT MOTES ══ -->
@@ -845,34 +721,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
       <div class="hero-thumb" style="width:282px;height:176px;top:38%;left:calc(100% - 5% - 282px)" data-speed="0.46"><img src="https://vumbnail.com/1028089074.jpg" alt=""></div>
     </div>
     <!-- Video Showcase (stages 12-25) -->
-    <div class="hero-vids-title" id="heroVidsTitle" style="position:fixed;top:28px;left:50%;transform:translateX(-50%);z-index:6;opacity:0;pointer-events:none;display:flex;align-items:center;gap:10px;transition:opacity .5s ease">
-      <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(245,239,232,.5)">Featured Work</span>
-      <svg style="width:14px;height:14px;fill:none;stroke:rgba(245,239,232,.35);stroke-width:2;animation:vpBounce 1.8s ease-in-out infinite" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
-    </div>
     <div class="hero-vids" id="heroVids">
       <div class="hero-vid" id="hv1">
         <div class="vid-cover" style="background-image:url('https://vumbnail.com/1016747108.jpg')"></div>
-        <iframe data-src="https://player.vimeo.com/video/1016747108?autoplay=1&muted=1&controls=0&quality=1080p" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <iframe data-src="https://player.vimeo.com/video/1016747108?autoplay=1&muted=0&controls=0&quality=1080p" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Hamilton Island</div><div class="vid-title">Code of Conduct</div></div>
+        <button class="vid-unmute" data-idx="0"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5zm2 3.17v7.66A6.5 6.5 0 0016.5 12 6.5 6.5 0 0013 8.17z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#f5efe8" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#f5efe8" stroke-width="2"/></svg> Unmute</button>
       </div>
       <div class="hero-vid" id="hv2">
         <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/KWhS3k3HOZU/maxresdefault.jpg')"></div>
-        <iframe data-src="https://www.youtube.com/embed/KWhS3k3HOZU?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <iframe data-src="https://www.youtube.com/embed/KWhS3k3HOZU?enablejsapi=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Motorsport</div><div class="vid-title">Arise GT Racing</div></div>
+        <button class="vid-unmute" data-idx="1"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5zm2 3.17v7.66A6.5 6.5 0 0016.5 12 6.5 6.5 0 0013 8.17z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#f5efe8" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#f5efe8" stroke-width="2"/></svg> Unmute</button>
       </div>
       <div class="hero-vid" id="hv3">
         <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/wt0Du5e2r_4/hqdefault.jpg')"></div>
-        <iframe data-src="https://www.youtube.com/embed/wt0Du5e2r_4?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <iframe data-src="https://www.youtube.com/embed/wt0Du5e2r_4?enablejsapi=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Conference</div><div class="vid-title">Soul Con</div></div>
+        <button class="vid-unmute" data-idx="2"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5zm2 3.17v7.66A6.5 6.5 0 0016.5 12 6.5 6.5 0 0013 8.17z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#f5efe8" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#f5efe8" stroke-width="2"/></svg> Unmute</button>
       </div>
       <div class="hero-vid" id="hv4">
         <div class="vid-cover" style="background-image:url('https://i.ytimg.com/vi/zFR0Vs3o2fs/maxresdefault.jpg')"></div>
-        <iframe data-src="https://www.youtube.com/embed/zFR0Vs3o2fs?enablejsapi=1&autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
+        <iframe data-src="https://www.youtube.com/embed/zFR0Vs3o2fs?enablejsapi=1&autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&playsinline=1" allow="autoplay;fullscreen" loading="lazy"></iframe>
         <div class="vid-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="vid-info"><div class="vid-sub">Patrolapart</div><div class="vid-title">Melbourne 4x4 Show</div></div>
+        <button class="vid-unmute" data-idx="3"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5zm2 3.17v7.66A6.5 6.5 0 0016.5 12 6.5 6.5 0 0013 8.17z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#f5efe8" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="#f5efe8" stroke-width="2"/></svg> Unmute</button>
       </div>
     </div>
     <!-- Story text removed -->
@@ -898,14 +774,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 </section>
 
 <!-- ═══ WHAT I BRING TO THE TABLE (scroll-pinned) ═══ -->
-<section class="why-pin-wrap" id="whyMe" style="position:relative">
-  <div class="section-mesh"><div class="mesh-orb mesh-orb-2"></div><div class="mesh-orb mesh-orb-3"></div></div>
-  <div style="height:400vh;position:relative;pointer-events:none">
-    <div class="why-pin-inner">
+<section class="why-pin-wrap" id="whyMe">
+  <div style="height:120vh;position:relative">
+    <div class="why-pin-inner" style="position:sticky;top:0">
       <div class="container">
         <div class="reveal">
           <p class="label">What I Bring to the Table</p>
-          <h2 class="section-title" data-splitting>Why me? Let me show you.</h2>
+          <h2 class="section-title">Why me? Let me show you.</h2>
         </div>
         <div class="why-grid" id="whyGrid">
           <div class="why-item why-item-pin" data-why="0">
@@ -929,90 +804,104 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
               <p>I build repeatable content workflows, not one-offs. At Scape I managed a national content calendar across properties, platforms, and stakeholders simultaneously. The system scales.</p>
             </div>
           </div>
-          <div class="why-item why-item-pin" data-why="3">
-            <div class="why-num">4</div>
-            <div class="why-text">
-              <h3>Government & Public Sector Ready</h3>
-              <p>I've delivered campaigns for government bodies and public institutions. Compliance-aware messaging, accessible content standards, stakeholder sign-off workflows — I understand the unique requirements of public sector communications.</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PROOF POINTS (scroll-pinned) ═══ -->
-<section class="proof-pin-wrap" id="proofSection" style="position:relative">
-  <div style="height:500vh;position:relative;pointer-events:none">
-    <div class="proof-pin-inner">
-      <div class="container">
-        <div class="reveal">
-          <p class="label">Proof Points</p>
-          <h2 class="section-title" data-splitting>Numbers that matter.</h2>
-        </div>
-        <div class="metrics-grid" id="metricsGrid">
-          <div class="metric metric-pin"><div class="metric-val" data-count="157" data-suffix="%">0%</div><div class="metric-lbl">CTR Lift in 3 Months</div></div>
-          <div class="metric metric-pin"><div class="metric-val" data-count="15" data-suffix="%+">0%+</div><div class="metric-lbl">Monthly Sales Increase</div></div>
-          <div class="metric metric-pin"><div class="metric-val" data-count="50" data-suffix="M+">0M+</div><div class="metric-lbl">Channel Views</div></div>
-          <div class="metric metric-pin"><div class="metric-val" data-count="1500" data-suffix="+" data-separator=",">0+</div><div class="metric-lbl">Videos Produced</div></div>
-        </div>
-      </div>
+<!-- ═══ METRICS ═══ -->
+<section class="snap-section" id="metrics2">
+  <div class="container">
+    <div class="reveal">
+      <p class="label">Proof Points</p>
+      <h2 class="section-title">Numbers that matter.</h2>
+    </div>
+    <div class="metrics stagger-reveal">
+      <div class="metric"><div class="metric-val" data-count="157" data-suffix="%">0%</div><div class="metric-lbl">CTR Lift in 3 Months</div></div>
+      <div class="metric"><div class="metric-val" data-count="15" data-suffix="%+">0%+</div><div class="metric-lbl">Monthly Sales Increase</div></div>
+      <div class="metric"><div class="metric-val" data-count="50" data-suffix="M+">0M+</div><div class="metric-lbl">Channel Views</div></div>
+      <div class="metric"><div class="metric-val" data-count="1500" data-suffix="+" data-separator=",">0+</div><div class="metric-lbl">Videos Produced</div></div>
+      <div class="metric"><div class="metric-val" data-count="50" data-suffix="%">0%</div><div class="metric-lbl">Faster Turnaround</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ TOOLS & SKILLS (scroll-pinned) ═══ -->
-<section class="tools-pin-wrap" id="toolsSection" style="position:relative">
-  <div style="height:600vh;position:relative;pointer-events:none">
-    <div class="tools-pin-inner">
-      <div class="container">
-        <div class="reveal">
-          <p class="label">Tools &amp; Skills</p>
-          <h2 class="section-title" data-splitting>What I work with daily.</h2>
-        </div>
-        <div class="tools-grid" id="toolsGrid">
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/adobepremierepro.svg" alt="Pr"></span> Premiere Pro</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/adobephotoshop.svg" alt="Ps"></span> Photoshop</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/canva.svg" alt="Canva"></span> Canva</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/meta.svg" alt="Meta"></span> Meta Business Suite</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/notion.svg" alt="Notion"></span> Content Planning</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/sony.svg" alt="Sony"></span> Camera Equipment</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/adobelightroom.svg" alt="Lr"></span> Lightroom</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--a)" stroke-width="1.5"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></span> Copywriting</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/buffer.svg" alt="Social"></span> Social Media Strategy</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/davinciresolve.svg" alt="Resolve"></span> DaVinci Resolve</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/anthropic.svg" alt="Claude"></span> Claude AI</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/adobeaftereffects.svg" alt="Ae"></span> After Effects</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><svg viewBox="0 0 24 24" fill="var(--a)"><circle cx="12" cy="12" r="10"/><rect x="10" y="6" width="4" height="12" rx="2" fill="var(--bg)"/></svg></span> Rode Mics</span>
-          <span class="tool-pill tool-fly"><span class="tp-icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googleanalytics.svg" alt="GA"></span> Google Analytics</span>
-        </div>
-      </div>
+<!-- ═══ TOOLS ═══ -->
+<section class="snap-section" id="tools">
+  <div class="container">
+    <div class="reveal">
+      <p class="label">Tools &amp; Skills</p>
+      <h2 class="section-title">What I work with daily.</h2>
+    </div>
+    <div class="tools-wrap stagger-reveal">
+      <span class="tool-pill"><span class="tp-icon">🎬</span> Adobe Premiere Pro</span>
+      <span class="tool-pill"><span class="tp-icon">🖼</span> Photoshop</span>
+      <span class="tool-pill"><span class="tp-icon">🎨</span> Canva</span>
+      <span class="tool-pill"><span class="tp-icon">📊</span> Meta Business Suite</span>
+      <span class="tool-pill"><span class="tp-icon">📋</span> Content Planning</span>
+      <span class="tool-pill"><span class="tp-icon">📹</span> Camera Equipment</span>
+      <span class="tool-pill"><span class="tp-icon">📸</span> Lightroom</span>
+      <span class="tool-pill"><span class="tp-icon">✍️</span> Copywriting</span>
+      <span class="tool-pill"><span class="tp-icon">📱</span> Social Media Strategy</span>
+      <span class="tool-pill"><span class="tp-icon">🎥</span> DaVinci Resolve</span>
+      <span class="tool-pill"><span class="tp-icon">🤖</span> Claude AI</span>
+      <span class="tool-pill"><span class="tp-icon">📐</span> After Effects</span>
+      <span class="tool-pill"><span class="tp-icon">🎙</span> Rode Mics</span>
+      <span class="tool-pill"><span class="tp-icon">📈</span> Google Analytics</span>
     </div>
   </div>
 </section>
 
 <!-- ═══ CATEGORY OVERVIEW (intro tiles) ═══ -->
-<!-- ═══ CATEGORY OVERVIEW (scroll-pinned title shrink, no tiles) ═══ -->
-<section class="cat-pin-wrap" id="catOverview" style="position:relative">
-  <div style="height:300vh;position:relative;pointer-events:none">
-    <div class="cat-pin-inner">
-      <div class="container" style="max-width:900px">
-        <div class="reveal">
-          <p class="label" style="text-align:center">Video Portfolio</p>
-          <h2 class="section-title" data-splitting style="text-align:center">Projects I have worked on.</h2>
+<section class="cat-overview reveal" id="catOverview">
+  <div class="container" style="max-width:1200px">
+    <p class="label" style="text-align:center">Video Portfolio</p>
+    <h2 class="section-title" style="text-align:center;margin-bottom:48px">My Work</h2>
+    <div class="cat-tiles stagger-reveal">
+      <a class="cat-tile" href="#videoPortfolio" data-target="corporate_brand">
+        <div class="cat-tile-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="16" width="48" height="32" rx="3"/><path d="M24 16V12a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v4"/><line x1="32" y1="28" x2="32" y2="36"/><line x1="28" y1="32" x2="36" y2="32"/></svg>
         </div>
-        <p class="cat-brief" style="text-align:center;max-width:640px;margin:0 auto;opacity:0;font-size:clamp(15px,1.2vw,18px);color:rgba(245,239,232,.5);line-height:1.7;letter-spacing:.3px">End-to-end production — scripting, filming, direction, post-production, and content scheduling across brands, government, and lifestyle. Every project built around a clear brief, delivered on time, and optimised for the platform it lives on.</p>
-      </div>
+        <h3 class="cat-tile-title">Corporate & Brand</h3>
+        <p class="cat-tile-desc">Brand films, stakeholder content, cinematic storytelling, and corporate communications.</p>
+      </a>
+      <a class="cat-tile" href="#videoPortfolio" data-target="events">
+        <div class="cat-tile-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8L36 20H48L38 28l4 12-10-8-10 8 4-12L16 20h12z"/><rect x="12" y="44" width="40" height="12" rx="2"/><line x1="20" y1="44" x2="20" y2="56"/><line x1="44" y1="44" x2="44" y2="56"/></svg>
+        </div>
+        <h3 class="cat-tile-title">Events</h3>
+        <p class="cat-tile-desc">Conferences, motorsport, trade shows, and live event coverage captured in real time.</p>
+      </a>
+      <a class="cat-tile" href="#videoPortfolio" data-target="people_culture">
+        <div class="cat-tile-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="20" r="8"/><path d="M16 52c0-8.837 7.163-16 16-16s16 7.163 16 16"/><circle cx="50" cy="22" r="5"/><path d="M56 46c0-5.523-2.686-10-6-10"/><circle cx="14" cy="22" r="5"/><path d="M8 46c0-5.523 2.686-10 6-10"/></svg>
+        </div>
+        <h3 class="cat-tile-title">People & Culture</h3>
+        <p class="cat-tile-desc">WHS compliance, F&B training modules, onboarding, and hospitality training systems.</p>
+      </a>
+      <a class="cat-tile" href="#videoPortfolio" data-target="lifestyle">
+        <div class="cat-tile-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 52V32l-8 8"/><path d="M20 32l8 8"/><rect x="28" y="20" width="24" height="32" rx="2"/><circle cx="40" cy="36" r="6"/><path d="M36 46h8"/><path d="M12 16l4-8 4 8"/></svg>
+        </div>
+        <h3 class="cat-tile-title">Builds & Adventure</h3>
+        <p class="cat-tile-desc">4x4 installs, product deep dives, how-to guides, and hands-on workshop content.</p>
+      </a>
+      <a class="cat-tile" href="#videoPortfolio" data-target="my_films">
+        <div class="cat-tile-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="16" width="48" height="32" rx="3"/><polygon points="28,24 28,40 42,32"/><path d="M16 8l4 8"/><path d="M48 8l-4 8"/><circle cx="32" cy="8" r="3"/></svg>
+        </div>
+        <h3 class="cat-tile-title">My Films</h3>
+        <p class="cat-tile-desc">Solo cinematic camping, drone aerials, nature ASMR, and personal filmmaking projects.</p>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ═══ VIDEO CATEGORIES (immersive) ═══ -->
 <section class="vp-section" id="videoPortfolio">
-  <div class="vp-section-header" id="vpHeader"><span class="vp-section-label">Video Portfolio</span><span class="vp-scroll-guide">Keep scrolling <svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></div>
   <div class="vp-cat" data-cat="corporate_brand">
-    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1041460991.jpg')"><iframe data-src="https://player.vimeo.com/video/1027500811?background=1&loop=1" allow="autoplay"></iframe></div>
+    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1041460991.jpg')"><iframe data-src="https://player.vimeo.com/video/1027500811?background=1" allow="autoplay"></iframe></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
       <div class="vp-count">8 Videos</div>
@@ -1029,6 +918,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
     <div class="vp-content">
       <div class="vp-count">6 Videos</div>
       <div class="vp-title">Events</div>
+
       <div class="vp-subtitle">Conferences, motorsport, and trade shows captured in real time</div>
       <div class="vp-playwrap"><div class="vp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><span class="vp-playtext">Play Video</span></div>
     </div>
@@ -1036,7 +926,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
     <div class="vp-arrow">&#8250;</div>
   </div>
   <div class="vp-cat" data-cat="people_culture">
-    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1016747108.jpg')"><iframe data-src="https://player.vimeo.com/video/1034519753?background=1&loop=1" allow="autoplay"></iframe></div>
+    <div class="vp-bg" style="background-image:url('https://vumbnail.com/1016747108.jpg')"><iframe data-src="https://player.vimeo.com/video/1034519753?background=1" allow="autoplay"></iframe></div>
     <div class="vp-overlay"></div>
     <div class="vp-content">
       <div class="vp-count">26 Videos</div>
@@ -1074,15 +964,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 </section>
 
 <!-- ═══ VERTICAL SHOWCASE ═══ -->
-<section class="vert-pin-wrap" id="vertical" style="position:relative">
-  <div style="height:400vh;position:relative;pointer-events:none">
-    <div class="vert-pin-inner">
-      <div class="container" style="max-width:1260px">
-        <div class="reveal">
-          <p class="label">Vertical Content</p>
-          <h2 class="section-title" data-splitting>Made to stop you scrolling.</h2>
-        </div>
-        <div class="stories-layout">
+<section class="snap-section" id="vertical">
+  <div class="container" style="max-width:1260px">
+    <div class="reveal">
+      <p class="label">Vertical Content</p>
+      <h2 class="section-title">Made to stop you scrolling.</h2>
+    </div>
+    <div class="stories-layout reveal reveal-d1">
       <div class="stories-left">
         <div class="stories-phone" id="storiesPhone">
           <div class="stories-progress" id="storiesProgress"></div>
@@ -1101,86 +989,88 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
             <div class="stories-info-inner"><span class="stories-tag">Paid Ad</span><div class="stories-title-sm">Quad Lock, IG Style</div></div>
           </div>
           <div class="stories-slide" data-idx="3" data-dur="30" data-tag="Sales" data-title="GQ Bonnet Gas Strut Kits" data-desc="Product reel for the updated GQ Patrol bonnet gas strut kits. 1,108 likes, 17 comments. Generated 2,000+ clicks across platforms and $165K in sales over a single long weekend." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DMThlAvTx6o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DMThlAvTx6o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Sales</span><div class="stories-title-sm">GQ Bonnet Gas Strut Kits</div></div>
           </div>
           <div class="stories-slide" data-idx="4" data-dur="30" data-tag="Product" data-title="TD42T Long Engines GU Patrol" data-desc="Product reel for the TD42T long engine GU Patrol build. 1,546 likes, 77 comments — highest engagement reel on the account." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DNXiYOygJ83/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DNXiYOygJ83/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">TD42T Long Engines GU Patrol</div></div>
           </div>
           <div class="stories-slide" data-idx="5" data-dur="30" data-tag="Lifestyle" data-title="Lifestyle Reel" data-desc="Lifestyle vertical content. Hooks, pacing, and native editing built to stop the scroll." data-client="Piyush Diwte">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Lifestyle</span><div class="stories-title-sm">Lifestyle Reel</div></div>
           </div>
           <div class="stories-slide" data-idx="6" data-dur="30" data-tag="Reel" data-title="Brand Reel" data-desc="Brand-focused vertical content that balances product storytelling with platform-native editing." data-client="Piyush Diwte">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DGGvLdeJlNL/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DGGvLdeJlNL/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Reel</span><div class="stories-title-sm">Brand Reel</div></div>
           </div>
           <div class="stories-slide" data-idx="7" data-dur="30" data-tag="Product" data-title="GU Shifter Surround" data-desc="Non-gen Y61 product showcase. 622 likes, 6 comments — highest engagement product reel on the account." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DM3ZUYVSqM4/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DM3ZUYVSqM4/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">GU Shifter Surround</div></div>
           </div>
           <div class="stories-slide" data-idx="8" data-dur="30" data-tag="Event" data-title="4x4 Show, Coolest Cars 2025" data-desc="Event coverage highlight reel from the Melbourne 4x4 Outdoors Show. Same-day fast-cut content for social reach." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DNz41YiXH9o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DNz41YiXH9o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Event</span><div class="stories-title-sm">4x4 Show, Coolest Cars</div></div>
           </div>
           <div class="stories-slide" data-idx="9" data-dur="30" data-tag="Freelance" data-title="Every Gap = Money Lost" data-desc="Freelance client work for Affordable Insulation. Problem-awareness reel showing why gaps in insulation cost homeowners money. Built account from scratch." data-client="Affordable Insulation">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DOp-AOiguQQ/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DOp-AOiguQQ/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Every Gap = Money Lost</div></div>
           </div>
           <div class="stories-slide" data-idx="10" data-dur="30" data-tag="Product" data-title="GU Patrol Rear Step" data-desc="Problem-solution product format. 380 likes. Shows the before/after of a bolt-on rear step upgrade for GU Patrols." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DNtdY0Rg1tf/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DNtdY0Rg1tf/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">GU Patrol Rear Step</div></div>
           </div>
           <div class="stories-slide" data-idx="11" data-dur="30" data-tag="Freelance" data-title="Trade Insulation" data-desc="Freelance client work for Budget Insulation. Trade-focused content targeting contractors. Built social presence from zero." data-client="Budget Insulation">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DN4LcNRkSo7/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DN4LcNRkSo7/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Trade Insulation</div></div>
           </div>
           <div class="stories-slide" data-idx="12" data-dur="30" data-tag="Brand" data-title="Merch Launch" data-desc="Brand lifestyle reel for Patrolapart merch launch. Campfire setting, community vibe. 117 likes." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DMuUeWkSHDp/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DMuUeWkSHDp/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Brand</span><div class="stories-title-sm">Merch Launch</div></div>
           </div>
           <div class="stories-slide" data-idx="13" data-dur="30" data-tag="Product" data-title="Y62 K-Frame Lift Kit" data-desc="Technical product explainer for Y62 K-Frame lift kit. 172 likes. Shows engineering detail and install process." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DNJXb7Pyi5W/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DNJXb7Pyi5W/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">Y62 K-Frame Lift Kit</div></div>
           </div>
           <div class="stories-slide" data-idx="14" data-dur="30" data-tag="Freelance" data-title="Cut Your Bills in Half" data-desc="Freelance client work for Affordable Insulation. Hook-driven CTA reel with value proposition. Built account and content from scratch." data-client="Affordable Insulation">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DOvIQZXDh1K/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DOvIQZXDh1K/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Freelance</span><div class="stories-title-sm">Cut Your Bills in Half</div></div>
           </div>
           <div class="stories-slide" data-idx="15" data-dur="30" data-tag="Product" data-title="NP300 Wheel Arch Flares" data-desc="Side-by-side product comparison reel for NP300 Navara flares. Music-driven edit showing before/after fitment." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DNfSav7B91Z/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DNfSav7B91Z/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Product</span><div class="stories-title-sm">NP300 Wheel Arch Flares</div></div>
           </div>
           <div class="stories-slide" data-idx="16" data-dur="30" data-tag="Event" data-title="4x4 Show, First Look" data-desc="Same-day event teaser from the Melbourne 4x4 Outdoors Show. Fast turnaround social content to build buzz while the event was still running." data-client="Patrolapart">
-            <iframe loading="lazy" src="https://www.instagram.com/reel/DNxSRKb5O61/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DNxSRKb5O61/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Event</span><div class="stories-title-sm">4x4 Show, First Look</div></div>
           </div>
         </div>
       </div>
       <div class="stories-right" id="storiesRight">
-        <div class="sr-nav-inline">
-          <button class="stories-nav stories-nav-lg" id="storiesPrev2"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
-          <button class="stories-nav stories-nav-lg" id="storiesNext2"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
-        </div>
         <div class="stories-right-content active" id="srContent">
           <div class="sr-counter" id="srCounter">1 of 17</div>
+          <div class="sr-tag" id="srTag">UGC</div>
           <h3 class="sr-title" id="srTitle">Product UGC</h3>
           <p class="sr-desc" id="srDesc">Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced.</p>
-          <div class="sr-tag" id="srTag">UGC</div>
+          <div class="sr-nav">
+            <button class="stories-nav" id="storiesPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="stories-nav" id="storiesNext"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+          <a href="https://linktr.ee/Piyush_Diwte" target="_blank" class="btn btn-outline" style="font-size:12px;padding:10px 22px">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            View All Vertical Work
+          </a>
         </div>
       </div>
     </div>
     <div class="stories-fs-prompt reveal reveal-d1" id="fsMobilePrompt">
-      <p style="color:rgba(122,122,142,1);font-size:13px;margin-bottom:16px">Vertical videos. Swipe through them like Stories.</p>
+      <p style="color:rgba(122,122,142,1);font-size:13px;margin-bottom:16px">17 vertical videos. Swipe through them like Stories.</p>
       <button class="stories-fs-btn" id="fsOpenBtn">
         <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
         Open Fullscreen Viewer
       </button>
       <div style="margin-top:12px">
         <a href="https://linktr.ee/Piyush_Diwte" target="_blank" style="font-size:12px;color:var(--a);text-decoration:none">or view all on Linktree &rarr;</a>
-      </div>
-    </div>
       </div>
     </div>
   </div>
@@ -1221,109 +1111,64 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
     <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Product</div><div class="stories-fs-title">TD42T Long Engines GU Patrol</div><div class="stories-fs-sub">Patrolapart</div></div>
   </div>
   <div class="stories-fs-slide" data-fs="5" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Lifestyle</div><div class="stories-fs-title">Lifestyle Reel</div><div class="stories-fs-sub">Piyush Diwte</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="6" data-dur="30">
     <iframe data-src="https://www.instagram.com/reel/DGGvLdeJlNL/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Reel</div><div class="stories-fs-title">Brand Reel</div><div class="stories-fs-sub">Piyush Diwte</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="7" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DM3ZUYVSqM4/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Product</div><div class="stories-fs-title">GU Shifter Surround</div><div class="stories-fs-sub">Patrolapart</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="8" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DNz41YiXH9o/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Event</div><div class="stories-fs-title">4x4 Show, Coolest Cars</div><div class="stories-fs-sub">Patrolapart</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="9" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DOp-AOiguQQ/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Freelance</div><div class="stories-fs-title">Every Gap = Money Lost</div><div class="stories-fs-sub">Affordable Insulation</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="10" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DNtdY0Rg1tf/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Product</div><div class="stories-fs-title">GU Patrol Rear Step</div><div class="stories-fs-sub">Patrolapart</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="11" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DN4LcNRkSo7/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Freelance</div><div class="stories-fs-title">Trade Insulation</div><div class="stories-fs-sub">Budget Insulation</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="12" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DMuUeWkSHDp/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Brand</div><div class="stories-fs-title">Merch Launch</div><div class="stories-fs-sub">Patrolapart</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="13" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DNJXb7Pyi5W/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Product</div><div class="stories-fs-title">Y62 K-Frame Lift Kit</div><div class="stories-fs-sub">Patrolapart</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="14" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DOvIQZXDh1K/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Freelance</div><div class="stories-fs-title">Cut Your Bills in Half</div><div class="stories-fs-sub">Affordable Insulation</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="15" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DNfSav7B91Z/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Product</div><div class="stories-fs-title">NP300 Wheel Arch Flares</div><div class="stories-fs-sub">Patrolapart</div></div>
-  </div>
-  <div class="stories-fs-slide" data-fs="16" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DNxSRKb5O61/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Event</div><div class="stories-fs-title">4x4 Show, First Look</div><div class="stories-fs-sub">Patrolapart</div></div>
+    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Reel</div><div class="stories-fs-title">Latest Reel</div><div class="stories-fs-sub">Piyush Diwte</div></div>
   </div>
   <div class="stories-fs-done" id="fsDoneScreen">
-    <p>That's all 17</p>
+    <p>That's all 6 ✨</p>
     <button class="stories-fs-done-btn" id="fsDoneBtn">Close Viewer</button>
   </div>
 </div>
 
-<!-- ═══ ABOUT + CTA (scroll-pinned) ═══ -->
-<section class="about-pin-wrap" id="about" style="position:relative">
-  <div style="height:400vh;position:relative;pointer-events:none">
-    <div class="about-pin-inner">
-      <div class="container" style="position:relative;z-index:2;max-width:900px">
-        <p class="label" style="text-align:center">About Me</p>
-        <h2 class="section-title" data-splitting style="text-align:center;margin-bottom:24px">Built for brands<br>that move fast.</h2>
-        <p class="about-text about-item" style="text-align:center">
+<!-- ═══ ABOUT + CTA ═══ -->
+<section class="snap-section about-section" id="about">
+  <div class="container" style="position:relative;z-index:2">
+    <div class="about-content reveal">
+      <div class="about-text-col">
+        <p class="label">About Me</p>
+        <h2 class="section-title" style="margin-bottom:24px">Built for brands<br>that move fast.</h2>
+        <p class="about-text">
           I'm a digital content creator and social media manager based in Melbourne. Right now I run content across two automotive lifestyle brands, <strong>Patrolapart</strong> and <strong>Navarapart</strong>. Before that I shot cinematic and social content for <strong>Hamilton Island</strong> and coordinated digital content across <strong>43 Scape Australia properties</strong> nationally.
         </p>
-        <p class="about-text about-item" style="margin-top:16px;text-align:center">
+        <p class="about-text" style="margin-top:16px">
           I create strategic content that communicates complex work clearly and compellingly. Campaign videos that engage stakeholders. Internal communications that people actually watch.
         </p>
-        <div class="cta-buttons about-item" style="margin-top:32px;justify-content:center">
-          <a href="mailto:piyushdiwte22@gmail.com" class="btn btn-primary magnetic">
+        <div class="cta-buttons reveal reveal-d1" style="margin-top:32px">
+          <a href="mailto:piyushdiwte22@gmail.com" class="btn btn-primary">
             <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             Email Me
           </a>
-          <a href="tel:+61415122028" class="btn btn-outline magnetic">
+          <a href="tel:+61415122028" class="btn btn-outline">
             <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             Call Me
           </a>
-          <a href="#" class="btn btn-outline magnetic" id="resumeBtn" onclick="event.preventDefault();var t=this;if(!t.querySelector('.resume-toast')){var s=document.createElement('span');s.className='resume-toast';s.textContent='Coming soon';s.style.cssText='position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(232,148,58,.15);border:1px solid rgba(232,148,58,.3);color:var(--a);padding:6px 14px;border-radius:20px;font-size:11px;letter-spacing:1px;white-space:nowrap;pointer-events:none;animation:toastIn .3s ease forwards';t.style.position='relative';t.appendChild(s);setTimeout(function(){s.style.opacity='0';s.style.transition='opacity .3s';setTimeout(function(){s.remove()},300)},2000)}" title="Resume coming soon">
-            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Resume
+          <a href="https://www.capturedbypiyush.com" target="_blank" class="btn btn-outline">
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Full Website
           </a>
         </div>
       </div>
     </div>
+    <!-- Footer -->
+    <div class="cta-footer reveal reveal-d2">
+      <div class="footer-socials">
+        <a href="https://www.linkedin.com/in/piyushdiwte/?skipRedirect=true" target="_blank" class="footer-social" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/capturedbypiyush/" target="_blank" class="footer-social" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@capturedbypiyush" target="_blank" class="footer-social" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+        <a href="#" class="footer-social" aria-label="YouTube" id="ytSocialBtn" onclick="event.preventDefault();document.getElementById('ytPopup').classList.add('open')">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+      <p class="cta-footer-text">Piyush Diwte &middot; Melbourne, VIC &middot; <a href="mailto:piyushdiwte22@gmail.com">piyushdiwte22@gmail.com</a> &middot; <a href="https://www.capturedbypiyush.com" target="_blank">CapturedByPiyush.com</a></p>
+    </div>
   </div>
 </section>
-
-<!-- ═══ FOOTER ═══ -->
-<footer class="cta-footer">
-  <div class="footer-socials">
-    <a href="https://www.linkedin.com/in/piyushdiwte/?skipRedirect=true" target="_blank" class="footer-social" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-    </a>
-    <a href="https://www.instagram.com/capturedbypiyush/" target="_blank" class="footer-social" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-    </a>
-    <a href="https://www.tiktok.com/@capturedbypiyush" target="_blank" class="footer-social" aria-label="TikTok">
-      <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-    </a>
-    <a href="#" class="footer-social" aria-label="YouTube" id="ytSocialBtn" onclick="event.preventDefault();document.getElementById('ytPopup').classList.add('open')">
-      <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-    </a>
-  </div>
-  <p class="cta-footer-text">Piyush Diwte &middot; Melbourne, VIC &middot; <a href="mailto:piyushdiwte22@gmail.com">piyushdiwte22@gmail.com</a></p>
-</footer>
 
 <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
@@ -1354,7 +1199,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 </div>
 <!-- ═══ CATEGORY VIDEO MODAL (Portfolio-style) ═══ -->
 <div class="cat-modal-overlay" id="catModal">
-  <a href="#" class="cat-back-btn" onclick="event.preventDefault();closeCatModal();var t=document.getElementById('catOverview');if(window._lenis){window._lenis.scrollTo(t)}else{t.scrollIntoView({behavior:'smooth'})}">
+  <a class="cat-back-btn" onclick="closeCatModal();document.getElementById('catOverview').scrollIntoView({behavior:'smooth'})">
     <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     Back to Categories
   </a>
@@ -1415,7 +1260,7 @@ window._initScrollReveal = function() {
 
   // Smooth reveal for .reveal elements — tied to scroll position
   document.querySelectorAll('.reveal').forEach(el => {
-    if (el.closest('#hero') || el.closest('#whyMe') || el.closest('#proofSection') || el.closest('#toolsSection') || el.closest('#catOverview') || el.closest('#vertical') || el.closest('#about')) return;
+    if (el.closest('#hero')) return;
     const delay = el.classList.contains('reveal-d1') ? 0.1 : el.classList.contains('reveal-d2') ? 0.2 : el.classList.contains('reveal-d3') ? 0.3 : 0;
     gsap.fromTo(el,
       { opacity: 0, y: 40 },
@@ -1436,9 +1281,37 @@ window._initScrollReveal = function() {
     );
   });
 
-  // Why-me items — handled by dedicated ScrollTrigger in main GSAP block
+  // Why-me items — scroll-linked
+  document.querySelectorAll('[data-why]').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, x: -20 },
+      { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 60%', scrub: 0.3 }
+      }
+    );
+  });
 
-  // Tool pills + metrics — handled by dedicated ScrollTrigger in main GSAP block
+  // Tool pills — scroll-linked stagger
+  const toolsWrap = document.querySelector('.tools-wrap');
+  if (toolsWrap) {
+    gsap.fromTo(toolsWrap.querySelectorAll('.tool-pill'),
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, stagger: 0.03, ease: 'power2.out',
+        scrollTrigger: { trigger: toolsWrap, start: 'top 85%', end: 'top 50%', scrub: 0.4 }
+      }
+    );
+  }
+
+  // Metric cards — scroll-linked stagger
+  const metricsWrap = document.querySelector('.metrics');
+  if (metricsWrap) {
+    gsap.fromTo(metricsWrap.querySelectorAll('.metric'),
+      { opacity: 0, y: 30, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, stagger: 0.08, ease: 'power3.out',
+        scrollTrigger: { trigger: metricsWrap, start: 'top 85%', end: 'top 45%', scrub: 0.5 }
+      }
+    );
+  }
 
   // Bridge text — cinematic fade
   const bridgeText = document.querySelector('.bridge-text');
@@ -1451,93 +1324,61 @@ window._initScrollReveal = function() {
     );
   }
 
-  // Category tiles — now handled by dedicated ScrollTrigger in cat-pin section
+  // Category tiles — scroll-linked stagger
+  const catTiles = document.querySelector('.cat-tiles');
+  if (catTiles) {
+    gsap.fromTo(catTiles.querySelectorAll('.cat-tile'),
+      { opacity: 0, y: 40, scale: 0.9 },
+      { opacity: 1, y: 0, scale: 1, stagger: 0.1, ease: 'power3.out',
+        scrollTrigger: { trigger: catTiles, start: 'top 85%', end: 'top 45%', scrub: 0.5 }
+      }
+    );
+  }
 };
 
-/* Counter animation — now handled by Proof Points ScrollTrigger */
-
-/* Preload VP iframes when Tools section is reached + mute/pause/loop controls */
-let vpPreloaded = false;
-function preloadVPIframes() {
-  if (vpPreloaded) return;
-  vpPreloaded = true;
-  document.querySelectorAll('.vp-bg iframe[data-src]').forEach(iframe => {
-    const src = iframe.dataset.src;
-    iframe.src = src;
-    iframe.removeAttribute('data-src');
-    iframe.addEventListener('load', () => {
-      iframe.closest('.vp-cat').classList.add('vp-loaded');
-      if (src.includes('vimeo.com')) {
-        iframe.contentWindow.postMessage(JSON.stringify({method:'setPlaybackRate',value:0.75}), '*');
-        iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*');
-        iframe.contentWindow.postMessage(JSON.stringify({method:'setLoop',value:true}), '*');
-      } else if (src.includes('youtube.com')) {
-        setTimeout(() => {
-          iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'setPlaybackRate',args:[0.75]}), '*');
-        }, 1000);
-      }
-    });
-  });
-  // Also preload thumbnail images that might fail
-  document.querySelectorAll('.vp-bg').forEach(bg => {
-    const url = bg.style.backgroundImage.replace(/url\(['"]?|['"]?\)/g, '');
-    if (url) {
-      const img = new Image();
-      img.src = url;
+/* Counter animation */
+const counters=document.querySelectorAll('[data-count]');
+const counted=new Set();
+const cObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting&&!counted.has(e.target)){
+      counted.add(e.target);
+      const el=e.target,target=parseInt(el.dataset.count),suffix=el.dataset.suffix||'',useSep=el.dataset.separator;
+      const dur=1800,start=performance.now();
+      const step=now=>{
+        const p=Math.min((now-start)/dur,1),eased=1-Math.pow(1-p,3);
+        let v=Math.floor(eased*target);if(useSep)v=v.toLocaleString();
+        el.textContent=v+suffix;if(p<1)requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
     }
   });
-}
-// Trigger preload when Tools section enters viewport
-const toolsPreloadObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      preloadVPIframes();
-      toolsPreloadObs.unobserve(e.target);
+},{threshold:0.3});
+counters.forEach(el=>cObs.observe(el));
+
+/* Lazy-load backgrounds in categories + slow to 0.75x */
+const vpIframes=document.querySelectorAll('.vp-bg iframe[data-src]');
+const vpObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const iframe=e.target;
+      const src=iframe.dataset.src;
+      iframe.src=src;
+      iframe.removeAttribute('data-src');
+      iframe.addEventListener('load',()=>{
+        if(src.includes('vimeo.com')){
+          iframe.contentWindow.postMessage(JSON.stringify({method:'setPlaybackRate',value:0.75}),'*');
+        } else if(src.includes('youtube.com')){
+          setTimeout(()=>{
+            iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'setPlaybackRate',args:[0.75]}),'*');
+          },1000);
+        }
+      });
+      vpObs.unobserve(iframe);
     }
   });
-}, {threshold: 0, rootMargin: '0px 0px 400px 0px'});
-const toolsSec = document.getElementById('toolsSection');
-if (toolsSec) toolsPreloadObs.observe(toolsSec);
-
-/* VP Section header — show/hide when inside video portfolio */
-const vpHeader = document.getElementById('vpHeader');
-const vpSection = document.getElementById('videoPortfolio');
-if (vpHeader && vpSection) {
-  const vpHeaderObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      vpHeader.classList.toggle('visible', e.isIntersecting);
-    });
-  }, {threshold: 0.05});
-  vpHeaderObs.observe(vpSection);
-}
-
-/* VP Pause when scrolled away, resume when scrolled into view */
-const vpCatObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    const cat = e.target;
-    const iframe = cat.querySelector('.vp-bg iframe');
-    if (!iframe || !iframe.src) return;
-    const src = iframe.src;
-    if (e.isIntersecting) {
-      if (src.includes('vimeo.com')) {
-        try { iframe.contentWindow.postMessage(JSON.stringify({method:'play'}), '*'); } catch(ex){}
-      } else if (src.includes('youtube.com')) {
-        try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:''}), '*'); } catch(ex){}
-      }
-    } else {
-      // Pause AND mute when scrolled away (both sent — mute as fallback if pause fails silently)
-      if (src.includes('vimeo.com')) {
-        try { iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*'); } catch(ex){}
-        try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*'); } catch(ex){}
-      } else if (src.includes('youtube.com')) {
-        try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:''}), '*'); } catch(ex){}
-        try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'mute',args:''}), '*'); } catch(ex){}
-      }
-    }
-  });
-}, {threshold: 0.05});
-document.querySelectorAll('.vp-cat').forEach(cat => vpCatObs.observe(cat));
-
+},{threshold:0,rootMargin:'200px 0px 200px 0px'});
+vpIframes.forEach(f=>vpObs.observe(f));
 
 /* ═══ Category Video Modal (Portfolio-style) ═══ */
 const catVideos = {
@@ -1633,7 +1474,7 @@ function catSelectVid(idx){
   if(oldIframe) oldIframe.remove();
   // Update info
   document.getElementById('catInfoTitle').textContent=v.title;
-  document.getElementById('catInfoMeta').textContent='Piyush Diwte';
+  document.getElementById('catInfoMeta').textContent='Diwte Piyush';
   document.getElementById('catInfoDesc').textContent=v.desc||'';
   document.getElementById('catInfoClient').textContent=v.client;
   // Update thumb highlights
@@ -1701,7 +1542,7 @@ document.querySelectorAll('.cat-tile').forEach(tile=>{
     e.preventDefault();
     const target=tile.dataset.target;
     const card=document.querySelector('.vp-cat[data-cat="'+target+'"]');
-    if(card){if(window._lenis){window._lenis.scrollTo(card);setTimeout(()=>openCatModal(target),800);}else{card.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>openCatModal(target),400);}}
+    if(card){card.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>openCatModal(target),400);}
   });
 });
 // Escape key & keyboard nav
@@ -1724,6 +1565,26 @@ document.querySelectorAll('.metric').forEach(card=>{
   card.addEventListener('mouseleave',()=>{card.style.transform=''});
 });
 
+/* Scroll-pinned Why Me reveal */
+(function(){
+  const items = document.querySelectorAll('.why-item-pin');
+  if (!items.length) return;
+  const wrap = document.getElementById('whyMe');
+  if (!wrap) return;
+  window.addEventListener('scroll', function() {
+    const rect = wrap.getBoundingClientRect();
+    const wrapH = wrap.offsetHeight;
+    const scrolled = -rect.top;
+    const progress = Math.max(0, Math.min(1, scrolled / (wrapH - window.innerHeight)));
+    items.forEach((item, i) => {
+      const threshold = i / items.length;
+      if (progress >= threshold) {
+        item.classList.add('active');
+      }
+    });
+  }, { passive: true });
+})();
+
 /* Stories vertical viewer */
 var storyPlayers=[];
 var storyGoTo;
@@ -1731,8 +1592,8 @@ var storyGoTo;
   const slides=document.querySelectorAll('.stories-slide');
   if(!slides.length) return;
   const progressWrap=document.getElementById('storiesProgress');
-  const prevBtn=document.getElementById('storiesPrev2');
-  const nextBtn=document.getElementById('storiesNext2');
+  const prevBtn=document.getElementById('storiesPrev');
+  const nextBtn=document.getElementById('storiesNext');
   const tapL=document.getElementById('storyTapL');
   const tapR=document.getElementById('storyTapR');
   const srContent=document.getElementById('srContent');
@@ -1820,7 +1681,6 @@ var storyGoTo;
 (function(){
   const fsEl=document.getElementById('storiesFS');
   if(!fsEl) return;
-  document.body.appendChild(fsEl); // Move out of #content stacking context
   const openBtn=document.getElementById('fsOpenBtn');
   const closeBtn=document.getElementById('fsCloseBtn');
   const doneScreen=document.getElementById('fsDoneScreen');
@@ -1887,7 +1747,6 @@ var storyGoTo;
 
   tutDismiss.addEventListener('click',()=>{tutSeen=true;tutorial.classList.remove('show');fsGoTo(0)});
   openBtn.addEventListener('click',openFS);
-  openBtn.addEventListener('touchend',function(e){e.preventDefault();openFS();});
   closeBtn.addEventListener('click',closeFS);
   doneBtn.addEventListener('click',closeFS);
   navUp.addEventListener('click',()=>fsGoTo(current-1));
@@ -1914,20 +1773,6 @@ if(scrollTopBtn){
   },{passive:true});
   scrollTopBtn.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});
 }
-
-// ── Touch device: safety net — never block loading more than 8s ──
-if (window.matchMedia('(pointer:coarse)').matches) {
-  setTimeout(() => {
-    const _ls = document.getElementById('loadScreen');
-    const _bgv = document.getElementById('heroBgVideo');
-    if (_ls && !_ls.classList.contains('done')) {
-      const _pct = document.getElementById('loadPct');
-      if (_pct) _pct.textContent = '100';
-      _ls.classList.add('done');
-      if (_bgv) _bgv.play().catch(() => {});
-    }
-  }, 8000);
-}
 </script>
 
 <!-- GSAP -->
@@ -1940,14 +1785,11 @@ if (window.matchMedia('(pointer:coarse)').matches) {
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-// On touch devices, use lower pixel ratio for better performance
-const _isTouch = window.matchMedia('(pointer:coarse)').matches;
-
 const canvas = document.getElementById('cam3d');
 
 // ── Renderer ──
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: !_isTouch, alpha: true, preserveDrawingBuffer: true });
-renderer.setPixelRatio(_isTouch ? 1 : Math.min(window.devicePixelRatio, 2));
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(0x050505, 0);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.4;
@@ -1965,9 +1807,6 @@ rimLight.position.set(-3, 3, -5);
 scene.add(rimLight);
 scene.add(new THREE.DirectionalLight(0xf0ebe4, 1.0).translateX(0).translateY(-2).translateZ(5)); // front fill
 scene.add(new THREE.AmbientLight(0x1a1a1a, 1.5));
-// Hemisphere light for consistent fill — prevents dark patches on PBR materials
-const hemiLight = new THREE.HemisphereLight(0xf5efe8, 0x1a1a2e, 0.8);
-scene.add(hemiLight);
 // Spotlight — starts from far right, sweeps in on scroll
 const spotlight = new THREE.SpotLight(0xffffff, 0, 100, Math.PI * 0.3, 0.3, 0.3);
 spotlight.position.set(40, 8, 28); // starts off to the right
@@ -2004,7 +1843,6 @@ const pivotGroup = new THREE.Group();
 scene.add(pivotGroup);
 
 let solidGroup = null;
-let modelReady = false; // true after shaders compiled + pre-render warmup
 let bgParticles = null, bgMat = null; // lp-test style background
 
 // ═══ BACKGROUND PARTICLES — created from camera model vertices after GLTF loads ═══
@@ -2203,8 +2041,6 @@ function checkAllLoaded() {
 heroBgVideo.addEventListener('canplaythrough', () => { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); }, { once: true });
 heroBgVideo.addEventListener('error', () => { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); }, { once: true });
 if (heroBgVideo.readyState >= 4) { loadTasks.video = true; updateLoadPct(); }
-// Desktop video timeout — don't block loading if CDN is slow
-setTimeout(() => { if (!loadTasks.video) { loadTasks.video = true; updateLoadPct(); checkAllLoaded(); } }, 6000);
 
 // 2. Thumbnail preload (hero thumbs + vid covers)
 (function preloadThumbs() {
@@ -2250,13 +2086,6 @@ loadManager.onLoad = () => {
   updateLoadPct();
   checkAllLoaded();
 };
-loadManager.onError = () => {
-  loadTasks.model = true;
-  updateLoadPct();
-  checkAllLoaded();
-};
-// Fallback timeout for model load
-setTimeout(() => { if (!loadTasks.model) { loadTasks.model = true; updateLoadPct(); checkAllLoaded(); } }, 10000);
 
 const gltfLoader = new GLTFLoader(loadManager);
 gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
@@ -2285,31 +2114,6 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
           m.envMapIntensity = 0.5;
           m.roughness = Math.max(m.roughness, 0.3);
         }
-        // Hide teal/cyan anchor dot and any tiny marker meshes
-        if (child.geometry) {
-          child.geometry.computeBoundingBox();
-          const bs = child.geometry.boundingBox.getSize(new THREE.Vector3());
-          const vol = bs.x * bs.y * bs.z;
-          // Hide tiny meshes (marker points, anchor dots)
-          if (vol < 0.005) { child.visible = false; }
-          // Darken thin flat discs that are bright (aperture blades, lens glass)
-          const minDim = Math.min(bs.x, bs.y, bs.z);
-          const maxDim = Math.max(bs.x, bs.y, bs.z);
-          if (minDim < maxDim * 0.1 && minDim > 0.001 && m.color) {
-            const brightness = (m.color.r + m.color.g + m.color.b) / 3;
-            if (brightness > 0.6 && !m.map) {
-              // Untextured bright flat disc = lens glass/aperture
-              m.color.setHex(0x0a0a12);
-              m.roughness = 0.08;
-              m.metalness = 0.9;
-              m.needsUpdate = true;
-            }
-          }
-        }
-        // Also hide by color if teal/cyan (in case geometry check misses it)
-        if (m.color && m.color.g > 0.35 && m.color.g > m.color.r * 1.3 && m.color.b > m.color.r) {
-          child.visible = false;
-        }
       }
     }
   });
@@ -2323,71 +2127,8 @@ gltfLoader.load('canon_dslr/scene.gltf', (gltf) => {
   pivotGroup.rotation.y = -0.3;
   pivotGroup.rotation.x = 0.1;
 
-  // ── Pre-render warmup: wait for ALL textures, compile shaders, warm GPU ──
-  canvas.style.opacity = '0';
-  canvas.style.visibility = 'hidden';
-  solidGroup.visible = true;
-
-  // Collect all textures from the model materials
-  const pendingTextures = [];
-  model.traverse(child => {
-    if (child.isMesh && child.material) {
-      const mat = child.material;
-      const texProps = ['map','normalMap','roughnessMap','metalnessMap','aoMap','emissiveMap','bumpMap','displacementMap','alphaMap','envMap'];
-      texProps.forEach(prop => {
-        if (mat[prop] && mat[prop].isTexture) {
-          pendingTextures.push(mat[prop]);
-        }
-      });
-    }
-  });
-
-  // Wait for all textures to have their image data loaded
-  function allTexturesReady() {
-    return pendingTextures.every(tex => tex.image && (tex.image.complete !== false));
-  }
-
-  function doWarmup() {
-    // Force material compilation with all textures present
-    renderer.compile(scene, cam);
-    // Do 6 warmup renders to fully prime GPU pipeline
-    let warmupFrames = 0;
-    function warmupRender() {
-      renderer.render(scene, cam);
-      warmupFrames++;
-      if (warmupFrames < 6) {
-        requestAnimationFrame(warmupRender);
-      } else {
-        modelReady = true;
-      }
-    }
-    requestAnimationFrame(warmupRender);
-  }
-
-  // Poll for texture readiness (max 5s timeout)
-  let texCheckCount = 0;
-  function waitForTextures() {
-    texCheckCount++;
-    if (allTexturesReady() || texCheckCount > 100) {
-      doWarmup();
-    } else {
-      setTimeout(waitForTextures, 50);
-    }
-  }
-
-  if (pendingTextures.length === 0) {
-    doWarmup();
-  } else {
-    waitForTextures();
-  }
-
   // Create particles from the camera model vertices
   createParticlesFromModel(model);
-}, undefined, (err) => {
-  console.warn('GLTF load error:', err);
-  loadTasks.model = true;
-  updateLoadPct();
-  checkAllLoaded();
 });
 
 // ═══ HERO SCROLL HANDLER — 28 STAGES ═══
@@ -2413,7 +2154,8 @@ const thumbEls = document.querySelectorAll('.hero-thumb');
 const heroVidsEl = document.getElementById('heroVids');
 const heroVidEls = document.querySelectorAll('.hero-vid');
 window.heroVidEls = heroVidEls;
-const S = 1/38; // stage size — 2 empty scrolls + 2 text-hold scrolls before camera
+window.heroVidEls = heroVidEls;
+const S = 1/34; // stage size = 2.94% (each stage = 100vh)
 
 // Video showcase state
 let activeVideoIdx = -1;
@@ -2423,10 +2165,10 @@ const videoStates = [0, 0, 0, 0]; // 0=idle, 1=entering, 2=playing, 3=paused, 4=
 // Video timings: [enterStart, playStart, pauseStart, exitStart, exitEnd]
 // 5 scrolls: 1 enter+lock, 2 playing, 1 pause, 1 transition
 const videoTimings = [
+  [S*12, S*13, S*15, S*16, S*17],
   [S*16, S*17, S*19, S*20, S*21],
   [S*20, S*21, S*23, S*24, S*25],
   [S*24, S*25, S*27, S*28, S*29],
-  [S*28, S*29, S*31, S*32, S*33],
 ];
 // Enter/exit directions [enterX(vw), enterY(vh), exitX(vw), exitY(vh)]
 // Responsive: smaller offsets on mobile since video is wider relative to screen
@@ -2475,11 +2217,9 @@ function pauseVid(idx) {
   const iframe = heroVidEls[idx].querySelector('iframe');
   if (!iframe || !iframe.src) return;
   if (idx === 0) {
-    try { iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*'); } catch(ex){}
-    try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*'); } catch(ex){}
+    iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*');
   } else {
     postYTCommand(iframe, 'pauseVideo');
-    postYTCommand(iframe, 'mute');
   }
 }
 
@@ -2487,6 +2227,7 @@ function pauseVid(idx) {
 const videoPendingPlay = [false, false, false, false];
 window._heroSnapping = false;
 
+window.setVideoState = setVideoState;
 window.setVideoState = setVideoState;
 function setVideoState(idx, newState) {
   const old = videoStates[idx];
@@ -2520,6 +2261,22 @@ function setVideoState(idx, newState) {
   }
 }
 
+// Unmute buttons
+document.querySelectorAll('.vid-unmute').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const idx = parseInt(btn.dataset.idx);
+    const iframe = heroVidEls[idx].querySelector('iframe');
+    if (!iframe) return;
+    if (idx === 0) {
+      // Vimeo — use postMessage
+      iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:1}), '*');
+    } else {
+      postYTCommand(iframe, 'unMute');
+    }
+    btn.style.opacity = 0;
+    btn.style.pointerEvents = 'none';
+  });
+});
 
 // Cinematic camera angle keyframes [rotY, rotX, rotZ] per stage (34 entries)
 const NUM_STAGES = 34;
@@ -2546,48 +2303,45 @@ window.updateHeroScroll = function(progress) {
   heroProgress = progress;
   if (!solidGroup) return;
 
-  // ── Canvas fade: in at stages 6-7, out at 15-16 ──
-  // Don't show until model is fully warmed up (shaders compiled, lighting correct)
+  // ── Canvas fade: in at stages 2-3, out at 11-12, back in at 28 for particles ──
   let canvasOp = 0;
-  if (!modelReady) {
+  if (progress < S*1.5) {
     canvasOp = 0;
-  } else if (progress < S*5.5) {
-    canvasOp = 0;
-  } else if (progress < S*6.5) {
-    canvasOp = (progress - S*5.5) / S;
-  } else if (progress < S*15) {
+  } else if (progress < S*2.5) {
+    canvasOp = (progress - S*1.5) / S;
+  } else if (progress < S*11) {
     canvasOp = 1;
-  } else if (progress < S*16) {
-    canvasOp = Math.max(0, 1 - (progress - S*15) / S);
+  } else if (progress < S*12) {
+    canvasOp = Math.max(0, 1 - (progress - S*11) / S);
   } else {
     canvasOp = 0;
   }
   canvas.style.opacity = canvasOp;
   canvas.style.visibility = canvasOp < 0.01 ? 'hidden' : 'visible';
 
-  // ── Thumbnails: appear stage 6.5 (right as camera is fully visible), fade at 33 ──
+  // ── Thumbnails: appear stage 2.5 (right as camera is fully visible), fade at 29 ──
   if (thumbsEl) {
-    if (progress < S*6.5) {
+    if (progress < S*2.5) {
       thumbsEl.style.opacity = 0;
-    } else if (progress < S*7.5) {
-      thumbsEl.style.opacity = (progress - S*6.5) / S;
-    } else if (progress < S*32) {
+    } else if (progress < S*3.5) {
+      thumbsEl.style.opacity = (progress - S*2.5) / S;
+    } else if (progress < S*28) {
       // Stay visible — dimmer during video showcase
-      if (progress < S*16) {
+      if (progress < S*12) {
         thumbsEl.style.opacity = 1;
-      } else if (progress < S*17) {
-        thumbsEl.style.opacity = 1 - (progress - S*16) / S * 0.7;
+      } else if (progress < S*13) {
+        thumbsEl.style.opacity = 1 - (progress - S*12) / S * 0.7;
       } else {
         thumbsEl.style.opacity = 0.3;
       }
-    } else if (progress < S*33) {
-      thumbsEl.style.opacity = 0.3 * (1 - (progress - S*32) / S);
+    } else if (progress < S*29) {
+      thumbsEl.style.opacity = 0.3 * (1 - (progress - S*28) / S);
     } else {
       thumbsEl.style.opacity = 0;
     }
     // Per-thumbnail float + dissolve — 50 thumbnails, ~12 visible at once
     if (!window._thumbData) {
-      const _ts = S*6.5, _tr = S*29.5, _life = 0.20;
+      const _ts = S*2.5, _tr = S*25.5, _life = 0.20;
       window._thumbData = Array.from(thumbEls).map((th, i) => {
         const speed = parseFloat(th.dataset.speed) || 0.4;
         const offset = i / thumbEls.length;
@@ -2634,19 +2388,15 @@ window.updateHeroScroll = function(progress) {
   }
 
   // ── Hero Intro Text: scroll-animated stagger-in stages 4→9, fade out 10→11 ──
-  if (!window._heroIntroCache) {
-    const _hi = document.getElementById('heroIntro');
-    window._heroIntroCache = _hi ? { el: _hi, lines: _hi.querySelectorAll('.hi-line') } : null;
-  }
-  const heroIntro = window._heroIntroCache ? window._heroIntroCache.el : null;
+  const heroIntro = document.getElementById('heroIntro');
   if (heroIntro) {
-    const hiLines = window._heroIntroCache.lines;
+    const hiLines = heroIntro.querySelectorAll('.hi-line');
     const maxOpacities = [0.85, 1, 0.9, 0.25];
-    // Text appears right away on scroll, well before camera (stage 4.5)
-    const lineIn  = [S*2.3, S*2.6, S*3.2, S*3.5];
-    const linePeak = [S*2.8, S*3.1, S*3.6, S*3.9];
-    const fadeOutS = S*6.2;
-    const fadeOutE = S*6.8;
+    // Text appears right away on scroll, well before camera (stage 2.5)
+    const lineIn  = [S*0.3, S*0.6, S*1.2, S*1.5];
+    const linePeak = [S*0.8, S*1.1, S*1.6, S*1.9];
+    const fadeOutS = S*2.2;
+    const fadeOutE = S*2.8;
 
     hiLines.forEach((line, i) => {
       if (progress < lineIn[i]) {
@@ -2672,19 +2422,9 @@ window.updateHeroScroll = function(progress) {
   }
 
     // ── Video Showcase: 4 videos, 5 scrolls each (stages 12-29) ──
-  if (!window._hvtCache) window._hvtCache = document.getElementById('heroVidsTitle');
-  const heroVidsTitleEl = window._hvtCache;
   if (heroVidsEl) {
-    const inVideoZone = progress >= S*15 && progress < S*34;
+    const inVideoZone = progress >= S*11 && progress < S*30;
     heroVidsEl.style.pointerEvents = inVideoZone ? 'auto' : 'none';
-    // Show "Featured Work" title during video showcase
-    if (heroVidsTitleEl) {
-      heroVidsTitleEl.style.opacity = inVideoZone ? '1' : '0';
-    }
-    // Force pause ALL hero videos when outside video zone
-    if (!inVideoZone) {
-      for (let i = 0; i < 4; i++) { pauseVid(i); }
-    }
 
     heroVidEls.forEach((vid, i) => {
       const [enter, play, pause, exitS, exitE] = videoTimings[i];
@@ -2753,36 +2493,36 @@ window.updateHeroScroll = function(progress) {
   pivotGroup.rotation.x = targetRotX + smoothMouseY * (mouseInfluence * 0.5);
   pivotGroup.rotation.z = targetRotZ;
 
-  // ── Spotlight: sweep from right (stage 6), steady until stage 15, fade 15-16 ──
-  if (progress < S*5.5) {
+  // ── Spotlight: sweep from right (stage 2), steady until stage 11, fade 11-12 ──
+  if (progress < S*1.5) {
     spotlight.intensity = 0;
-  } else if (progress < S*6.5) {
-    const t = (progress - S*5.5) / S;
+  } else if (progress < S*2.5) {
+    const t = (progress - S*1.5) / S;
     const eased = smoothstep(t);
     spotlight.position.x = 25 - eased * 20;
     spotlight.position.z = 28 + eased * 4;
     spotlight.intensity = eased * 15;
-  } else if (progress < S*15) {
+  } else if (progress < S*11) {
     spotlight.position.x = 5;
     spotlight.position.z = 32;
     spotlight.intensity = 15;
-  } else if (progress < S*16) {
-    const t = (progress - S*15) / S;
+  } else if (progress < S*12) {
+    const t = (progress - S*11) / S;
     spotlight.intensity = 15 * (1 - Math.min(1, t));
   } else {
     spotlight.intensity = 0;
   }
 
-  // ── Studio backdrop: fade in stage 6, visible until stage 14, fade out 14-15 ──
+  // ── Studio backdrop: fade in stage 2, visible until stage 10, fade out 10-11 ──
   if (studioBg) {
-    if (progress < S*5.5) {
+    if (progress < S*1.5) {
       studioBg.style.opacity = 0;
-    } else if (progress < S*6.5) {
-      studioBg.style.opacity = (progress - S*5.5) / S;
-    } else if (progress < S*14) {
+    } else if (progress < S*2.5) {
+      studioBg.style.opacity = (progress - S*1.5) / S;
+    } else if (progress < S*10) {
       studioBg.style.opacity = 1;
-    } else if (progress < S*15) {
-      studioBg.style.opacity = 1 - (progress - S*14) / S;
+    } else if (progress < S*11) {
+      studioBg.style.opacity = 1 - (progress - S*10) / S;
     } else {
       studioBg.style.opacity = 0;
     }
@@ -2791,62 +2531,57 @@ window.updateHeroScroll = function(progress) {
   // ── Video backdrop: always visible, never changes opacity ──
   if (bgVid && bgVid.paused) bgVid.play().catch(()=>{});
 
-  // ── Camera bloom glow: visible stages 6-14, fade out 14-15 ──
+  // ── Camera bloom glow: visible stages 2-10, fade out 10-11 ──
   if (bloomEl) {
-    if (progress < S*5.5) {
+    if (progress < S*1.5) {
       bloomEl.style.opacity = 0;
-    } else if (progress < S*6.5) {
-      bloomEl.style.opacity = (progress - S*5.5) / S;
-    } else if (progress < S*14) {
+    } else if (progress < S*2.5) {
+      bloomEl.style.opacity = (progress - S*1.5) / S;
+    } else if (progress < S*10) {
       bloomEl.style.opacity = 1;
-    } else if (progress < S*15) {
-      bloomEl.style.opacity = 1 - (progress - S*14) / S;
+    } else if (progress < S*11) {
+      bloomEl.style.opacity = 1 - (progress - S*10) / S;
     } else {
       bloomEl.style.opacity = 0;
     }
   }
 
-  // ── Light motes: fade in stage 5-6, stay until stage 15, fade out 15-16 ──
+  // ── Light motes: fade in stage 1-2, stay until stage 11, fade out 11-12 ──
   if (motesEl) {
-    if (progress < S*5) {
+    if (progress < S*1) {
       motesEl.style.opacity = 0;
-    } else if (progress < S*6) {
-      motesEl.style.opacity = (progress - S*5) / S;
-    } else if (progress < S*15) {
+    } else if (progress < S*2) {
+      motesEl.style.opacity = (progress - S*1) / S;
+    } else if (progress < S*11) {
       motesEl.style.opacity = 1;
-    } else if (progress < S*16) {
-      motesEl.style.opacity = 1 - (progress - S*15) / S;
+    } else if (progress < S*12) {
+      motesEl.style.opacity = 1 - (progress - S*11) / S;
     } else {
       motesEl.style.opacity = 0;
     }
   }
 
-  // ── Scale: 1.0 → 8.0 during stages 6-10 ──
-  if (progress < S*5.5) {
+  // ── Scale: 1.0 → 8.0 during stages 2-6 ──
+  if (progress < S*1.5) {
     pivotGroup.scale.setScalar(1.0);
-  } else if (progress < S*10) {
-    const t = (progress - S*5.5) / (S*4.5);
+  } else if (progress < S*6) {
+    const t = (progress - S*1.5) / (S*4.5);
     const s = 1.0 + smoothstep(t) * 7.0;
     pivotGroup.scale.setScalar(s);
   } else {
     pivotGroup.scale.setScalar(8.0);
   }
 
-  // ── Camera model stages (solid → fade out at stage 15-16) ──
-  if (progress < S*15) {
-    if (!solidGroup.visible || window._camState !== 'solid') {
-      solidGroup.visible = true;
-      solidGroup.traverse(c => { if (c.isMesh && c.material) { c.material.opacity = 1; c.material.transparent = false; } });
-      window._camState = 'solid';
-    }
-  } else if (progress < S*16) {
-    const t = (progress - S*15) / S;
+  // ── Camera model stages (solid → fade out at stage 11-12) ──
+  if (progress < S*11) {
+    solidGroup.visible = true;
+    solidGroup.traverse(c => { if (c.isMesh && c.material) { c.material.opacity = 1; c.material.transparent = false; } });
+  } else if (progress < S*12) {
+    const t = (progress - S*11) / S;
     solidGroup.visible = true;
     solidGroup.traverse(c => { if (c.isMesh && c.material) { c.material.transparent = true; c.material.opacity = 1 - smoothstep(t); } });
-    window._camState = 'fading';
   } else {
     solidGroup.visible = false;
-    window._camState = 'hidden';
   }
 };
 
@@ -2862,8 +2597,8 @@ gsap.ticker.add((t, dt) => {
   smoothMouseX += (mouseX - smoothMouseX) * 0.04;
   smoothMouseY += (mouseY - smoothMouseY) * 0.04;
 
-  // Before scroll — subtle mouse parallax (only after model fully ready)
-  if (solidGroup && modelReady && heroProgress === 0) {
+  // Before scroll — subtle mouse parallax
+  if (solidGroup && heroProgress === 0) {
     pivotGroup.rotation.y = -0.3 + smoothMouseX * 0.04;
     pivotGroup.rotation.x = 0.1 + smoothMouseY * 0.02;
   }
@@ -2871,9 +2606,9 @@ gsap.ticker.add((t, dt) => {
   // ── Background particles (camera dissolves into these) ──
   if (bgMat && bgGeo) {
     // Skip all particle work when fully invisible (before stage 23)
-    const particleStart = S * 32; // particles appear as 4th video exits
-    const explodeStart = S * 32;  // explosion and fade-in happen together
-    if (heroProgress < S * 31.5 && explode < 0.001 && bgMat.uniforms.uFade.value < 0.01) {
+    const particleStart = S * 28; // particles appear as 4th video exits
+    const explodeStart = S * 28;  // explosion and fade-in happen together
+    if (heroProgress < S * 27.5 && explode < 0.001 && bgMat.uniforms.uFade.value < 0.01) {
       bgMat.uniforms.uFade.value = 0;
       renderer.render(scene, cam);
       return;
@@ -2966,565 +2701,6 @@ window.startHeroAnim = function() {
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-// ══ PINNED SECTION OVERLAY COORDINATION ══
-// Each pinned section registers its overlay; when a new one enters, the previous one hides
-window._pinnedOverlays = [];
-function registerPinnedOverlay(pinInner, zIndex) {
-  pinInner.style.zIndex = String(zIndex);
-  const idx = window._pinnedOverlays.length;
-  window._pinnedOverlays.push(pinInner);
-  return {
-    show: function() {
-      // Hide all overlays with lower z-index
-      window._pinnedOverlays.forEach((el, i) => {
-        if (i < idx) el.style.opacity = '0';
-      });
-      pinInner.style.opacity = '1';
-    },
-    hide: function() {
-      pinInner.style.opacity = '0';
-      // Re-show previous overlay if it was in range
-      if (idx > 0) window._pinnedOverlays[idx - 1].style.opacity = '1';
-    }
-  };
-}
-
-// ══ WHY ME: fixed overlay (no slide-up) + title 1.8x→1x + items one by one ══
-(function(){
-  const items = document.querySelectorAll('.why-item-pin');
-  if (!items.length) return;
-  const wrap = document.getElementById('whyMe');
-  if (!wrap) return;
-  const pinInner = wrap.querySelector('.why-pin-inner');
-  const scrollBox = pinInner.parentElement; // the 400vh container
-  const titleEl = wrap.querySelector('.section-title');
-  const labelEl = wrap.querySelector('.label');
-  const grid = wrap.querySelector('.why-grid');
-  const itemCount = items.length;
-
-  // ── Fixed overlay: prevents the slide-up transition ──
-  pinInner.style.position = 'fixed';
-  pinInner.style.top = '0';
-  pinInner.style.left = '0';
-  pinInner.style.right = '0';
-  pinInner.style.opacity = '0';
-  pinInner.style.pointerEvents = 'none';
-  pinInner.style.background = 'none';
-  const whyCoord = registerPinnedOverlay(pinInner, 10);
-
-  // Title starts big — scale computed to fit viewport width
-  let startScale = 1.6;
-  if (titleEl) {
-    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'center center';
-    const titleNatW = titleEl.offsetWidth;
-    const maxScale = (window.innerWidth - 36) / titleNatW;
-    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
-    titleEl.style.transform = 'scale(' + startScale + ')';
-    titleEl.style.opacity = '1';
-    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
-    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
-  }
-  const scaleRange = startScale - 1;
-  if (labelEl) labelEl.style.opacity = '0';
-  if (grid) grid.style.opacity = '0';
-  items.forEach(it => { it.style.opacity = '0'; it.style.transform = 'translateY(30px)'; });
-
-  // ── Pre-enter: smooth transition from hero ──
-  ScrollTrigger.create({
-    trigger: wrap,
-    start: 'top bottom-=50',
-    end: 'top top',
-    onEnter: () => { whyCoord.show(); },
-    onLeaveBack: () => { whyCoord.hide(); }
-  });
-
-  // ── Main: title shrink + items reveal ──
-  ScrollTrigger.create({
-    trigger: wrap,
-    start: 'top top',
-    end: 'bottom bottom',
-    scrub: 0.1,
-    onLeave: () => {
-      pinInner.style.position = 'absolute';
-      pinInner.style.top = 'auto';
-      pinInner.style.bottom = '0';
-      pinInner.style.pointerEvents = 'auto';
-    },
-    onEnterBack: () => {
-      pinInner.style.position = 'fixed';
-      pinInner.style.top = '0';
-      pinInner.style.bottom = '';
-      pinInner.style.pointerEvents = 'none';
-      whyCoord.show();
-    },
-    onUpdate: (self) => {
-      const p = self.progress;
-      pinInner.style.opacity = '1';
-      if (p > 0.3) pinInner.style.pointerEvents = 'auto';
-      const TITLE_END = 0.25;
-      if (titleEl) {
-        const tp = Math.min(1, p / TITLE_END);
-        const e = tp * tp * (3 - 2 * tp);
-        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
-        titleEl.style.opacity = 1;
-        const sh = 1 - e;
-        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
-      }
-      if (labelEl) {
-        const lp = Math.max(0, Math.min(1, (p - 0.20) / 0.05));
-        labelEl.style.opacity = lp;
-      }
-      if (grid) {
-        grid.style.opacity = p >= 0.25 ? '1' : '0';
-      }
-      const ITEMS_START = 0.25;
-      const ITEMS_END = 0.85;
-      items.forEach((item, i) => {
-        const itemStart = ITEMS_START + (i / itemCount) * (ITEMS_END - ITEMS_START);
-        const itemEnd = itemStart + 0.08;
-        if (p < itemStart) {
-          item.style.opacity = '0';
-          item.style.transform = 'translateY(30px)';
-        } else if (p < itemEnd) {
-          const ip = (p - itemStart) / (itemEnd - itemStart);
-          const ie = ip * ip * (3 - 2 * ip);
-          item.style.opacity = ie;
-          item.style.transform = 'translateY(' + (30 * (1 - ie)) + 'px)';
-        } else {
-          item.style.opacity = '1';
-          item.style.transform = 'translateY(0)';
-        }
-      });
-    }
-  });
-})();
-
-// ══ PROOF POINTS: fixed overlay + title shrink + metrics one by one ══
-(function(){
-  const metrics = document.querySelectorAll('.metric-pin');
-  if (!metrics.length) return;
-  const wrap = document.getElementById('proofSection');
-  if (!wrap) return;
-  const pinInner = wrap.querySelector('.proof-pin-inner');
-  const titleEl = wrap.querySelector('.section-title');
-  const labelEl = wrap.querySelector('.label');
-  const grid = wrap.querySelector('.metrics-grid');
-  const metricCount = metrics.length;
-
-  pinInner.style.position = 'fixed';
-  pinInner.style.top = '0';
-  pinInner.style.left = '0';
-  pinInner.style.right = '0';
-  pinInner.style.opacity = '0';
-  pinInner.style.pointerEvents = 'none';
-  pinInner.style.background = 'none';
-  const proofCoord = registerPinnedOverlay(pinInner, 11);
-
-  let startScale = 1.6;
-  if (titleEl) {
-    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'center center';
-    const titleNatW = titleEl.offsetWidth;
-    const maxScale = (window.innerWidth - 36) / titleNatW;
-    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
-    titleEl.style.transform = 'scale(' + startScale + ')';
-    titleEl.style.opacity = '1';
-    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
-    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
-  }
-  const scaleRange = startScale - 1;
-  if (labelEl) labelEl.style.opacity = '0';
-  if (grid) grid.style.opacity = '0';
-  metrics.forEach(m => { m.style.opacity = '0'; m.style.transform = 'translateY(40px) scale(0.9)'; });
-
-  const counted = new Set();
-  function countUp(el) {
-    if (counted.has(el)) return;
-    counted.add(el);
-    const valEl = el.querySelector('.metric-val');
-    if (!valEl) return;
-    const target = parseInt(valEl.dataset.count), suffix = valEl.dataset.suffix || '', useSep = valEl.dataset.separator;
-    const dur = 1400, start = performance.now();
-    const step = now => {
-      const p = Math.min((now - start) / dur, 1), eased = 1 - Math.pow(1 - p, 3);
-      let v = Math.floor(eased * target); if (useSep) v = v.toLocaleString();
-      valEl.textContent = v + suffix; if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }
-
-  // ── Pre-enter: smooth transition from Why Me ──
-  ScrollTrigger.create({
-    trigger: wrap, start: 'top bottom-=50', end: 'top top',
-    onEnter: () => { proofCoord.show(); },
-    onLeaveBack: () => { proofCoord.hide(); }
-  });
-
-  ScrollTrigger.create({
-    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
-    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.pointerEvents = 'none'; proofCoord.show(); },
-    onUpdate: (self) => {
-      const p = self.progress;
-      if (p > 0.25) pinInner.style.pointerEvents = 'auto';
-
-      const TITLE_END = 0.2;
-      if (titleEl) {
-        const tp = Math.min(1, p / TITLE_END);
-        const e = tp * tp * (3 - 2 * tp);
-        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
-        const sh = 1 - e;
-        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
-      }
-      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.15) / 0.05)); labelEl.style.opacity = lp; }
-      if (grid) { grid.style.opacity = p >= 0.2 ? '1' : '0'; }
-
-      const ITEMS_START = 0.2;
-      const ITEMS_END = 0.7;
-      metrics.forEach((m, i) => {
-        const itemStart = ITEMS_START + (i / metricCount) * (ITEMS_END - ITEMS_START);
-        const itemEnd = itemStart + 0.1;
-        if (p < itemStart) {
-          m.style.opacity = '0'; m.style.transform = 'translateY(40px) scale(0.9)';
-        } else if (p < itemEnd) {
-          const ip = (p - itemStart) / (itemEnd - itemStart);
-          const ie = ip * ip * (3 - 2 * ip);
-          m.style.opacity = ie; m.style.transform = 'translateY(' + (40*(1-ie)) + 'px) scale(' + (0.9+0.1*ie) + ')';
-          if (ie > 0.5) countUp(m);
-        } else {
-          m.style.opacity = '1'; m.style.transform = 'translateY(0) scale(1)';
-          countUp(m);
-        }
-      });
-    }
-  });
-})();
-
-// ══ TOOLS: fixed overlay + title shrink + pills fly in from all directions ══
-(function(){
-  const pills = document.querySelectorAll('.tool-fly');
-  if (!pills.length) return;
-  const wrap = document.getElementById('toolsSection');
-  if (!wrap) return;
-  const pinInner = wrap.querySelector('.tools-pin-inner');
-  const titleEl = wrap.querySelector('.section-title');
-  const labelEl = wrap.querySelector('.label');
-  const grid = wrap.querySelector('.tools-grid');
-  const pillCount = pills.length;
-
-  pinInner.style.position = 'fixed';
-  pinInner.style.top = '0';
-  pinInner.style.left = '0';
-  pinInner.style.right = '0';
-  pinInner.style.opacity = '0';
-  pinInner.style.pointerEvents = 'none';
-  pinInner.style.background = 'none';
-
-  // Register with overlay coordination system (z-index 12, after Proof at 11)
-  const toolsCoord = registerPinnedOverlay(pinInner, 12);
-
-  let startScale = 1.6;
-  if (titleEl) {
-    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'center center';
-    const titleNatW = titleEl.offsetWidth;
-    const maxScale = (window.innerWidth - 36) / titleNatW;
-    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
-    titleEl.style.transform = 'scale(' + startScale + ')';
-    titleEl.style.opacity = '1';
-    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
-    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
-  }
-  const scaleRange = startScale - 1;
-  if (labelEl) labelEl.style.opacity = '0';
-  if (grid) grid.style.opacity = '0';
-
-  // Assign random fly-in directions for each pill
-  const flyData = Array.from(pills).map(() => {
-    const angle = Math.random() * Math.PI * 2;
-    const dist = 300 + Math.random() * 400;
-    return { x: Math.cos(angle) * dist, y: Math.sin(angle) * dist, r: (Math.random() - 0.5) * 60 };
-  });
-  pills.forEach((pill, i) => {
-    pill.style.opacity = '0';
-    pill.style.transform = 'translate(' + flyData[i].x + 'px,' + flyData[i].y + 'px) rotate(' + flyData[i].r + 'deg)';
-  });
-
-  // Pre-enter trigger: show tools overlay early for smooth transition from Proof section
-  ScrollTrigger.create({
-    trigger: wrap, start: 'top bottom-=50', end: 'top top',
-    onEnter: () => { toolsCoord.show(); },
-    onLeaveBack: () => { toolsCoord.hide(); }
-  });
-
-  ScrollTrigger.create({
-    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
-    onEnter: () => { toolsCoord.show(); },
-    onLeaveBack: () => { toolsCoord.show(); },
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
-    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; toolsCoord.show(); pinInner.style.pointerEvents = 'none'; },
-    onUpdate: (self) => {
-      const p = self.progress;
-      if (p > 0.25) pinInner.style.pointerEvents = 'auto';
-
-      const TITLE_END = 0.15;
-      if (titleEl) {
-        const tp = Math.min(1, p / TITLE_END);
-        const e = tp * tp * (3 - 2 * tp);
-        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
-        const sh = 1 - e;
-        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
-      }
-      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.12) / 0.05)); labelEl.style.opacity = lp; }
-      if (grid) { grid.style.opacity = p >= 0.15 ? '1' : '0'; }
-
-      // Pills fly in from all directions and settle
-      const PILLS_START = 0.15;
-      const PILLS_END = 0.75;
-      pills.forEach((pill, i) => {
-        const pillStart = PILLS_START + (i / pillCount) * (PILLS_END - PILLS_START);
-        const pillEnd = pillStart + 0.08;
-        if (p < pillStart) {
-          pill.style.opacity = '0';
-          pill.style.transform = 'translate(' + flyData[i].x + 'px,' + flyData[i].y + 'px) rotate(' + flyData[i].r + 'deg)';
-        } else if (p < pillEnd) {
-          const ip = (p - pillStart) / (pillEnd - pillStart);
-          const ie = ip * ip * (3 - 2 * ip);
-          const x = flyData[i].x * (1 - ie);
-          const y = flyData[i].y * (1 - ie);
-          const r = flyData[i].r * (1 - ie);
-          pill.style.opacity = ie;
-          pill.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + r + 'deg)';
-        } else {
-          pill.style.opacity = '1';
-          pill.style.transform = 'translate(0,0) rotate(0)';
-        }
-      });
-    }
-  });
-})();
-
-// ══ CATEGORY OVERVIEW: fixed overlay + title shrink + brief + tiles fly in ══
-(function(){
-  const wrap = document.getElementById('catOverview');
-  if (!wrap) return;
-  const pinInner = wrap.querySelector('.cat-pin-inner');
-  const titleEl = pinInner.querySelector('.section-title');
-  const labelEl = pinInner.querySelector('.label');
-  const briefEl = pinInner.querySelector('.cat-brief');
-
-  pinInner.style.position = 'fixed';
-  pinInner.style.top = '0';
-  pinInner.style.left = '0';
-  pinInner.style.right = '0';
-  pinInner.style.opacity = '0';
-  pinInner.style.pointerEvents = 'none';
-  pinInner.style.background = 'none';
-  pinInner.style.zIndex = '8';
-
-  let startScale = 1.6;
-  if (titleEl) {
-    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'center center';
-    const titleNatW = titleEl.offsetWidth;
-    const maxScale = (window.innerWidth - 72) / titleNatW;
-    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
-    titleEl.style.transform = 'scale(' + startScale + ')';
-    titleEl.style.opacity = '1';
-    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
-    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
-  }
-  const scaleRange = startScale - 1;
-  if (labelEl) labelEl.style.opacity = '0';
-  if (briefEl) briefEl.style.opacity = '0';
-
-  ScrollTrigger.create({
-    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
-    onEnter: () => { pinInner.style.opacity = '1'; },
-    onLeaveBack: () => { pinInner.style.opacity = '0'; },
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
-    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; },
-    onUpdate: (self) => {
-      const p = self.progress;
-      if (p > 0) pinInner.style.opacity = '1';
-      if (p > 0.1) pinInner.style.pointerEvents = 'auto';
-
-      // Title shrink: 0-20%
-      const TITLE_END = 0.2;
-      if (titleEl) {
-        const tp = Math.min(1, p / TITLE_END);
-        const e = tp * tp * (3 - 2 * tp);
-        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
-        const sh = 1 - e;
-        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
-      }
-      // Label fade in: 15-20%
-      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.15) / 0.05)); labelEl.style.opacity = lp; }
-      // Brief paragraph: 25-40%
-      if (briefEl) { const bp = Math.max(0, Math.min(1, (p - 0.25) / 0.15)); briefEl.style.opacity = bp; briefEl.style.transform = 'translateY(' + (20*(1-bp)) + 'px)'; }
-    }
-  });
-})();
-
-// ══ VERTICAL: fixed overlay + title shrink + phone appears ══
-(function(){
-  const wrap = document.getElementById('vertical');
-  if (!wrap) return;
-  const pinInner = wrap.querySelector('.vert-pin-inner');
-  if (!pinInner) return;
-  const titleEl = pinInner.querySelector('.section-title');
-  const labelEl = pinInner.querySelector('.label');
-  const layout = pinInner.querySelector('.stories-layout');
-  const phone = pinInner.querySelector('.stories-phone');
-  const navVert = pinInner.querySelector('.stories-nav-vertical');
-  const right = pinInner.querySelector('.stories-right');
-
-  pinInner.style.position = 'fixed';
-  pinInner.style.top = '0';
-  pinInner.style.left = '0';
-  pinInner.style.right = '0';
-  pinInner.style.opacity = '0';
-  pinInner.style.pointerEvents = 'none';
-  pinInner.style.background = 'none';
-  pinInner.style.zIndex = '6';
-
-  let startScale = 1.6;
-  if (titleEl) {
-    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'center center';
-    const titleNatW = titleEl.offsetWidth;
-    const maxScale = (window.innerWidth - 72) / titleNatW;
-    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
-    titleEl.style.transform = 'scale(' + startScale + ')';
-    titleEl.style.opacity = '1';
-    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
-    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
-  }
-  const scaleRange = startScale - 1;
-  if (labelEl) labelEl.style.opacity = '0';
-  if (layout) layout.style.opacity = '0';
-
-  ScrollTrigger.create({
-    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
-    onEnter: () => { pinInner.style.opacity = '1'; },
-    onLeaveBack: () => { pinInner.style.opacity = '0'; },
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; },
-    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'auto'; },
-    onUpdate: (self) => {
-      const p = self.progress;
-      if (p > 0) { pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'auto'; }
-
-      // Title shrink: 0-10%
-      if (titleEl) {
-        const tp = Math.min(1, p / 0.1);
-        const e = tp * tp * (3 - 2 * tp);
-        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
-        const sh = 1 - e;
-        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
-      }
-      // Label: 8-12%
-      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.08) / 0.04)); labelEl.style.opacity = lp; }
-      // Layout + phone + right all appear together: 12-20%
-      if (layout) {
-        const lp = Math.max(0, Math.min(1, (p - 0.12) / 0.08));
-        const le = lp * lp * (3 - 2 * lp);
-        layout.style.opacity = le;
-      }
-      if (phone) {
-        const pp = Math.max(0, Math.min(1, (p - 0.12) / 0.1));
-        const pe = pp * pp * (3 - 2 * pp);
-        phone.style.transform = 'translateX(' + (-80*(1-pe)) + 'px)';
-        phone.style.opacity = pe;
-      }
-      if (right) {
-        const rp = Math.max(0, Math.min(1, (p - 0.14) / 0.08));
-        const re = rp * rp * (3 - 2 * rp);
-        right.style.opacity = re;
-        right.style.transform = 'translateX(' + (20*(1-re)) + 'px)';
-      }
-    }
-  });
-})();
-
-// ══ ABOUT ME: fixed overlay + title shrink + items one by one ══
-(function(){
-  const wrap = document.getElementById('about');
-  if (!wrap) return;
-  const pinInner = wrap.querySelector('.about-pin-inner');
-  if (!pinInner) return;
-  const titleEl = pinInner.querySelector('.section-title');
-  const labelEl = pinInner.querySelector('.label');
-  const items = pinInner.querySelectorAll('.about-item');
-  const itemCount = items.length;
-
-  pinInner.style.position = 'fixed';
-  pinInner.style.top = '0';
-  pinInner.style.left = '0';
-  pinInner.style.right = '0';
-  pinInner.style.opacity = '0';
-  pinInner.style.pointerEvents = 'none';
-  pinInner.style.background = 'none';
-  pinInner.style.zIndex = '7';
-
-  let startScale = 1.6;
-  if (titleEl) {
-    titleEl.style.transform = 'scale(1)'; titleEl.style.transformOrigin = 'center center';
-    const titleNatW = titleEl.offsetWidth;
-    const maxScale = (window.innerWidth - 72) / titleNatW;
-    startScale = Math.min(1.6, Math.max(1.05, maxScale * 0.95));
-    titleEl.style.transform = 'scale(' + startScale + ')';
-    titleEl.style.opacity = '1';
-    titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.5)';
-    titleEl.querySelectorAll('.char').forEach(c => { c.style.opacity = '1'; c.style.transform = 'none'; });
-  }
-  const scaleRange = startScale - 1;
-  if (labelEl) labelEl.style.opacity = '0';
-  items.forEach(item => { item.style.opacity = '0'; item.style.transform = 'translateY(30px)'; });
-
-  const footerEl = document.querySelector('.cta-footer');
-  ScrollTrigger.create({
-    trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.1,
-    onEnter: () => { pinInner.style.opacity = '1'; },
-    onLeaveBack: () => { pinInner.style.opacity = '0'; if (footerEl) footerEl.classList.remove('visible'); },
-    onLeave: () => { pinInner.style.position = 'absolute'; pinInner.style.top = 'auto'; pinInner.style.bottom = '0'; pinInner.style.pointerEvents = 'auto'; if (footerEl) footerEl.classList.add('visible'); },
-    onEnterBack: () => { pinInner.style.position = 'fixed'; pinInner.style.top = '0'; pinInner.style.bottom = ''; pinInner.style.opacity = '1'; pinInner.style.pointerEvents = 'none'; if (footerEl) footerEl.classList.remove('visible'); },
-    onUpdate: (self) => {
-      const p = self.progress;
-      if (p > 0) pinInner.style.opacity = '1';
-      if (p > 0.1) pinInner.style.pointerEvents = 'auto';
-      // Show footer as soon as about section content is visible
-      if (footerEl) {
-        if (p > 0.15) footerEl.classList.add('visible');
-        else footerEl.classList.remove('visible');
-      }
-
-      // Title shrink: 0-20%
-      if (titleEl) {
-        const tp = Math.min(1, p / 0.2);
-        const e = tp * tp * (3 - 2 * tp);
-        titleEl.style.transform = 'scale(' + (startScale - scaleRange * e) + ')';
-        const sh = 1 - e;
-        titleEl.style.textShadow = '0 4px 30px rgba(0,0,0,' + (0.7*sh) + '), 0 1px 3px rgba(0,0,0,' + (0.5*sh) + ')';
-      }
-      // Label: 15-20%
-      if (labelEl) { const lp = Math.max(0, Math.min(1, (p - 0.15) / 0.05)); labelEl.style.opacity = lp; }
-      // Items one by one: 25-75%
-      items.forEach((item, i) => {
-        const iStart = 0.25 + (i / itemCount) * 0.5;
-        const iEnd = iStart + 0.12;
-        if (p < iStart) {
-          item.style.opacity = '0';
-          item.style.transform = 'translateY(30px)';
-        } else if (p < iEnd) {
-          const ip = (p - iStart) / (iEnd - iStart);
-          const ie = ip * ip * (3 - 2 * ip);
-          item.style.opacity = ie;
-          item.style.transform = 'translateY(' + (30*(1-ie)) + 'px)';
-        } else {
-          item.style.opacity = '1';
-          item.style.transform = 'translateY(0)';
-        }
-      });
-    }
-  });
-})();
-
 // ══ WHEEL VELOCITY BOOST FOR STANDARD MICE ══
 // Standard notched mice send small deltaY (~100px). The hero is 3400vh with snap.
 // Multiply small deltas so one notch advances one stage.
@@ -3570,181 +2746,68 @@ ScrollTrigger.create({
     onComplete: () => { window._heroSnapping = false; }
   },
   onLeave: () => {
-    // Pause + mute ALL hero videos when leaving hero section
-    if (window.heroVidEls) {
-      window.heroVidEls.forEach((v,i) => {
-        if (window.setVideoState) window.setVideoState(i, 0);
-        // Also directly mute each iframe as nuclear fallback
-        const iframe = v.querySelector('iframe');
-        if (iframe && iframe.src) {
-          if (iframe.src.includes('vimeo')) {
-            try { iframe.contentWindow.postMessage(JSON.stringify({method:'pause'}), '*'); } catch(e){}
-            try { iframe.contentWindow.postMessage(JSON.stringify({method:'setVolume',value:0}), '*'); } catch(e){}
-          } else {
-            try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:''}), '*'); } catch(e){}
-            try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'mute',args:''}), '*'); } catch(e){}
-          }
-        }
-      });
-    }
+    // Force-pause all hero videos when scrolling past the hero
+    if (window.heroVidEls) window.heroVidEls.forEach((v,i) => { if (window.setVideoState) window.setVideoState(i, 0); });
+    const bgv = document.getElementById('heroBgVideo');
+    if (bgv) bgv.pause();
+  },
+  onLeaveBack: () => {
+    const bgv = document.getElementById('heroBgVideo');
+    if (bgv) bgv.pause();
+  },
+  onLeave: () => {
+    // Force-pause all hero videos when scrolling past the hero
+    if (window.heroVidEls) window.heroVidEls.forEach((v,i) => { if (window.setVideoState) window.setVideoState(i, 0); });
+    const bgv = document.getElementById('heroBgVideo');
+    if (bgv) bgv.pause();
+  },
+  onLeaveBack: () => {
+    const bgv = document.getElementById('heroBgVideo');
+    if (bgv) bgv.pause();
   },
   onUpdate: (self) => {
     const p = self.progress;
-    const S = 1/38;
+    const S = 1/34;
     // Drive the Three.js camera transitions
     if (window.updateHeroScroll) window.updateHeroScroll(p);
 
-    // ── CTA text (stage 33-37: appears right as 4th video exits) ──
+    // ── CTA text (stage 29-33: appears right as 4th video exits) ──
     if (heroTextEl) {
-      if (p < S*33) {
+      if (p < S*29) {
         heroTextEl.style.opacity = 0;
         heroTextEl.style.transform = 'translateY(30px)';
-      } else if (p < S*34) {
-        const t = (p - S*33) / S;
+      } else if (p < S*30) {
+        const t = (p - S*29) / S;
         const e = t * t * (3 - 2 * t);
         heroTextEl.style.opacity = e;
         heroTextEl.style.transform = `translateY(${30 * (1 - e)}px)`;
-      } else if (p < S*37) {
+      } else if (p < S*33) {
         heroTextEl.style.opacity = 1;
         heroTextEl.style.transform = 'translateY(0)';
       } else {
-        const t = (p - S*37) / S;
+        const t = (p - S*33) / S;
         heroTextEl.style.opacity = 1 - Math.min(1, t);
         heroTextEl.style.transform = `translateY(${-30 * Math.min(1, t)}px)`;
       }
     }
 
     // Scroll indicator
-    if (heroScrollEl) heroScrollEl.style.opacity = p < S*2.5 ? 1 : p < S*3.5 ? Math.max(0, 1 - (p - S*2.5) / S) : 0;
+    if (heroScrollEl) heroScrollEl.style.opacity = p < S*0.5 ? 1 : p < S*1.5 ? Math.max(0, 1 - (p - S*0.5) / S) : 0;
   }
 });
 
 // ══ PROGRESS BAR + PARTICLE CANVAS PERSISTENCE ══
-// Throttled progress bar update via rAF
-let _progTick = false;
 window.addEventListener('scroll', () => {
-  if (_progTick) return;
-  _progTick = true;
-  requestAnimationFrame(() => {
-    const h = document.documentElement.scrollHeight - window.innerHeight;
-    const p = (window.scrollY / h) * 100;
-    document.getElementById('progressBar').style.width = p + '%';
-    _progTick = false;
-  });
-}, { passive: true });
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = (window.scrollY / h) * 100;
+  document.getElementById('progressBar').style.width = p + '%';
+  // Canvas visibility handled by updateHeroScroll — no override needed here
+});
 
 // cursor glow removed
 
 // Video bg stays visible throughout the page — no fade out needed
 
 </script>
-
-<!-- ══ PREMIUM POLISH: Lenis, Splitting, Cursor, Magnetic ══ -->
-<script>
-(function(){
-  // ── Lenis smooth scroll (desktop only — causes lag on touch devices) ──
-  const isTouch = window.matchMedia('(pointer:coarse)').matches;
-  if (typeof Lenis !== 'undefined' && !isTouch) {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
-    // Connect Lenis to GSAP ScrollTrigger
-    if (typeof ScrollTrigger !== 'undefined') {
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-      gsap.ticker.lagSmoothing(0);
-    } else {
-      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-      requestAnimationFrame(raf);
-    }
-    window._lenis = lenis;
-  }
-
-  // ── Splitting.js init ──
-  if (typeof Splitting !== 'undefined') {
-    Splitting();
-    // Animate split titles on scroll
-    const splitTitles = document.querySelectorAll('[data-splitting]');
-    if (typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
-      splitTitles.forEach(el => {
-        const chars = el.querySelectorAll('.char');
-        if (!chars.length) return;
-        gsap.fromTo(chars,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1, y: 0,
-            duration: 0.6,
-            stagger: 0.03,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 88%',
-              toggleActions: 'play none none none',
-              once: true
-            }
-          }
-        );
-      });
-    } else {
-      // Fallback: just show them
-      splitTitles.forEach(el => el.classList.add('split-visible'));
-    }
-  }
-
-  // custom cursor removed
-
-  // ── Magnetic buttons ──
-  document.querySelectorAll('.magnetic').forEach(btn => {
-    btn.addEventListener('mousemove', e => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-    });
-    btn.addEventListener('mouseleave', () => {
-      btn.style.transform = 'translate(0, 0)';
-    });
-  });
-
-  // ── Nav scroll spy ──
-  const navLinksAll = document.querySelectorAll('#navLinks .nav-link');
-  const spySections = ['catOverview','vertical','videoPortfolio','about'];
-  function updateActiveNav() {
-    let currentId = 'catOverview';
-    const scrollY = window.scrollY + window.innerHeight * 0.35;
-    spySections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollY) currentId = id;
-    });
-    navLinksAll.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('data-section') === currentId);
-    });
-  }
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
-  updateActiveNav();
-
-  // Smooth scroll for nav links
-  navLinksAll.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.getElementById(link.getAttribute('data-section'));
-      if (target) {
-        if (window._lenis) {
-          window._lenis.scrollTo(target);
-        } else {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    });
-  });
-
-})();
-</script>
-<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "0ab648e49d214e6d975d22b7069f4535"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
