@@ -1517,7 +1517,8 @@ function preloadVPIframes() {
     }
   });
 }
-// Trigger preload when Tools section enters viewport
+// Preload VP iframes early — start loading after page load so videos autoplay
+// before the viewer reaches them (triggered after load screen dismisses)
 const toolsPreloadObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -1528,6 +1529,8 @@ const toolsPreloadObs = new IntersectionObserver(entries => {
 }, {threshold: 0, rootMargin: '0px 0px 400px 0px'});
 const toolsSec = document.getElementById('toolsSection');
 if (toolsSec) toolsPreloadObs.observe(toolsSec);
+// Also preload after 3s regardless — ensures videos are playing before user arrives
+setTimeout(preloadVPIframes, 3000);
 
 /* VP Section header -show/hide when inside video portfolio */
 const vpHeader = document.getElementById('vpHeader');
