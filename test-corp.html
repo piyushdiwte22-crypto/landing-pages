@@ -82,7 +82,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 #whyMe{scroll-snap-align:start;scroll-snap-stop:always}
 
 /* ══ HERO VIDEO BACKDROP ══ */
-#heroBgVideo{/* iframe hero — sizing handled by inline styles */}
+#heroBgVideo{position:fixed;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;pointer-events:none;opacity:1;filter:brightness(.35) saturate(.6)}
 
 /* ══ STUDIO BACKDROP ══ */
 #studioBg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(ellipse 120% 100% at 60% 50%,rgba(30,22,12,.9) 0%,rgba(15,10,5,.95) 40%,rgba(5,5,5,1) 80%)}
@@ -748,7 +748,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px clamp(16px,4vw,
 </div>
 
 <!-- ══ HERO VIDEO BACKDROP (preloaded during load screen) ══ -->
-<iframe id="heroBgVideo" src="https://player.vimeo.com/video/1028245298?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0&dnt=1&quality=auto" allow="autoplay;fullscreen" frameborder="0" style="position:fixed;top:50%;left:50%;width:177.78vh;height:100vh;min-width:100vw;min-height:56.25vw;transform:translate(-50%,-50%);border:0;z-index:0;pointer-events:none;filter:brightness(.35) saturate(.6)"></iframe>
+<video id="heroBgVideo" muted loop playsinline preload="auto"
+  src="https://video.wixstatic.com/video/070729_a317e8cef6f749c5b9ff460efdbd9b7e/1080p/mp4/file.mp4"></video>
 
 <!-- ══ STUDIO BACKDROP ══ -->
 <div id="studioBg"></div>
@@ -2223,7 +2224,7 @@ function checkAllLoaded() {
     if (pctEl) pctEl.textContent = '100';
     setTimeout(() => {
       if (loadScreen) { loadScreen.classList.add('done'); }
-      if(heroBgVideo.play) heroBgVideo.play().catch(() => {});
+      heroBgVideo.play().catch(() => {});
       if (window.startHeroAnim) window.startHeroAnim();
     }, 600);
   }
